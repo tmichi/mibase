@@ -17,7 +17,7 @@ namespace mi
                 Impl ( const Impl& that ) ;
                 void operator = ( const Impl& that ) ;
         public:
-                Impl ( const int maxValue , const int width ) : _maxValue ( maxValue ), _width ( width ), _current ( 0 ), _isReturned ( false )
+                Impl ( const int maxValue, const int width ) : _maxValue ( maxValue ), _width ( width ), _current ( 0 ), _isReturned ( false )
                 {
                         return;
                 }
@@ -58,8 +58,8 @@ namespace mi
                 }
         private:
                 int _maxValue; ///< Max value.
-                int _current;  ///< Current value.
                 int _width;    ///< Display width
+                int _current;  ///< Current value.
                 bool _isReturned; ///< Flag for adding end line.
         };
 
