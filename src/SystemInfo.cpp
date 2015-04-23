@@ -22,11 +22,9 @@
 #include <sys/resource.h>
 #endif//
 
-namespace mi
-{
+namespace mi {
         std::string
-        SystemInfo::getCpuName ( void )
-        {
+        SystemInfo::getCpuName ( void ) {
 #ifdef OS_WINDOWS
                 char CPUString[0x20];
                 char CPUBrandString[0x40];
@@ -65,8 +63,7 @@ namespace mi
          * @return Memory size [gb];
          */
         double
-        SystemInfo::getMemorySize ( void )
-        {
+        SystemInfo::getMemorySize ( void ) {
 #ifdef OS_WINDOWS
                 MEMORYSTATUSEX stat;
                 stat.dwLength = sizeof ( MEMORYSTATUSEX );
@@ -83,8 +80,7 @@ namespace mi
 
 
         int
-        SystemInfo::getNumCores ( void )
-        {
+        SystemInfo::getNumCores ( void ) {
 #ifdef OS_WINDOWS
                 SYSTEM_INFO sysinfo;
                 GetSystemInfo ( &sysinfo );
@@ -95,8 +91,7 @@ namespace mi
         }
 
         std::string
-        SystemInfo::getDate ( void )
-        {
+        SystemInfo::getDate ( void ) {
 #ifdef OS_WINDOWS
                 SYSTEMTIME systime;
                 GetLocalTime ( &systime );
@@ -118,40 +113,34 @@ namespace mi
         }
 #ifdef OS_WINDOWS
         std::string
-        SystemInfo::get_sysctl ( const std::string&  key )
-        {
+        SystemInfo::get_sysctl ( const std::string&  key ) {
                 return std::string ( );
         }
         double
-        SystemInfo::get_sysctl_double ( const std::string&  key )
-        {
+        SystemInfo::get_sysctl_double ( const std::string&  key ) {
                 return 0;
         }
         int
-        SystemInfo::get_sysctl_int ( const std::string&  key )
-        {
+        SystemInfo::get_sysctl_int ( const std::string&  key ) {
                 return 0;
         }
 #else
         std::string
-        SystemInfo::get_sysctl ( const std::string&  key )
-        {
+        SystemInfo::get_sysctl ( const std::string&  key ) {
                 char result[256];
                 size_t size = 256;
                 sysctlbyname ( key.c_str(), &result[0], &size, NULL, 0 );
                 return std::string ( result );
         }
         double
-        SystemInfo::get_sysctl_double ( const std::string&  key )
-        {
+        SystemInfo::get_sysctl_double ( const std::string&  key ) {
                 uint64_t result;
                 size_t size = sizeof ( result );
                 sysctlbyname ( key.c_str(), &result, &size, NULL, 0 );
                 return static_cast<double> ( result );
         }
         int
-        SystemInfo::get_sysctl_int ( const std::string&  key )
-        {
+        SystemInfo::get_sysctl_int ( const std::string&  key ) {
                 int result;
                 size_t size = sizeof ( result );
                 sysctlbyname ( key.c_str(), &result, &size, NULL, 0 );
@@ -159,16 +148,14 @@ namespace mi
         }
 #endif
         void
-        SystemInfo::print ( std::ostream&  out )
-        {
+        SystemInfo::print ( std::ostream&  out ) {
                 out << "date: " << mi::SystemInfo::getDate() << std::endl;
                 out << "cpu: " << mi::SystemInfo::getCpuName() << "(" << mi::SystemInfo::getNumCores() << "cores)" << std::endl;
                 out << "memory:" << mi::SystemInfo::getMemorySize() << "[gb]" << std::endl;
         }
 
         double
-        SystemInfo::getPeakMemorySize ( const SIZE_TYPE type )
-        {
+        SystemInfo::getPeakMemorySize ( const SIZE_TYPE type ) {
                 double peakMemory = 0;
 #ifndef PEAK_MEMORY_COUNTER_DISABLED
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)// Win32 API
