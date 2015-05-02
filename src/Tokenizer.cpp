@@ -4,34 +4,27 @@
  */
 #include <mi/Tokenizer.hpp>
 #include <vector>
-namespace mi
-{
-        class Tokenizer::Impl
-        {
+namespace mi {
+        class Tokenizer::Impl {
         private:
                 Impl ( const Impl& that );
                 void operator = ( const Impl& that );
         public:
-                Impl ( void )
-                {
+                Impl ( void ) {
                         return;
                 };
-                ~Impl ( void )
-                {
+                ~Impl ( void ) {
                         return;
                 }
-                void add ( const std::string&  str )
-                {
+                void add ( const std::string&  str ) {
                         this->_token.push_back ( str );
                 }
 
-                int size ( void ) const
-                {
+                int size ( void ) const {
                         return static_cast<int> ( this->_token.size() );
                 }
 
-                std::string get ( const int i ) const
-                {
+                std::string get ( const int i ) const {
                         if ( 0 <= i && i < this->size() ) return this->_token.at ( i );
                         else return std::string();
                 }
@@ -39,8 +32,7 @@ namespace mi
                 std::vector<std::string> _token; ///<Tokens
         };
 
-        Tokenizer::Tokenizer ( const std::string& str, const std::string delimiter ) : _impl ( new Tokenizer::Impl() )
-        {
+        Tokenizer::Tokenizer ( const std::string& str, const std::string delimiter ) : _impl ( new Tokenizer::Impl() ) {
                 std::string::size_type end;
                 std::string line = str;
                 for ( ; ; ) {
@@ -53,8 +45,7 @@ namespace mi
                 }
                 return;
         };
-        Tokenizer::~Tokenizer ( void )
-        {
+        Tokenizer::~Tokenizer ( void ) {
                 if ( this->_impl != NULL ) {
                         delete this->_impl;
                         this->_impl = NULL;
@@ -63,20 +54,17 @@ namespace mi
         }
 
         int
-        Tokenizer::size ( void ) const
-        {
+        Tokenizer::size ( void ) const {
                 return this->_impl->size();
         }
 
         std::string
-        Tokenizer::get ( const int i ) const
-        {
+        Tokenizer::get ( const int i ) const {
                 return this->_impl->get ( i );
         }
 
         void
-        Tokenizer::printAll ( std::ostream& out )
-        {
+        Tokenizer::printAll ( std::ostream& out ) {
                 out << "Num. of tokens : " << this->size() << std::endl;
                 for ( int i = 0 ; i < this->size() ; ++i ) {
                         out << "token[" << i << "] : " << this->_impl->get ( i ) << std::endl;

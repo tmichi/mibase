@@ -4,15 +4,12 @@
  * @author Takashi Michikawa <michikawa@acm.org>
  */
 #include <mi/CommandTemplate.hpp>
-namespace mi
-{
-        CommandTemplate::CommandTemplate ( const std::string& cmdStr ) : _cmdStr ( cmdStr ),  _isTimingModeOn ( false ), _isDebugModeOn ( false )
-        {
+namespace mi {
+        CommandTemplate::CommandTemplate ( const std::string& cmdStr ) : _cmdStr ( cmdStr ),  _isTimingModeOn ( false ), _isDebugModeOn ( false ) {
                 return;
         }
 
-        CommandTemplate::~CommandTemplate ( void )
-        {
+        CommandTemplate::~CommandTemplate ( void ) {
                 std::ostream& out = std::cerr;
                 if ( this->isTimingModeOn() ) {
                         this->getTimer().end ( "total" );
@@ -22,32 +19,27 @@ namespace mi
                 return;
         }
         AttributeSet&
-        CommandTemplate::getAttributeSet ( void )
-        {
+        CommandTemplate::getAttributeSet ( void ) {
                 return this->_attr;
         }
 
         Timer&
-        CommandTemplate::getTimer ( void )
-        {
+        CommandTemplate::getTimer ( void ) {
                 return this->_timer;
         }
 
         bool
-        CommandTemplate::isTimingModeOn ( void ) const
-        {
+        CommandTemplate::isTimingModeOn ( void ) const {
                 return this->_isTimingModeOn;
         }
 
         bool
-        CommandTemplate::isDebugModeOn ( void ) const
-        {
+        CommandTemplate::isDebugModeOn ( void ) const {
                 return this->_isDebugModeOn;
         }
 
         CommandTemplate&
-        CommandTemplate::setTimingModeOn ( void )
-        {
+        CommandTemplate::setTimingModeOn ( void ) {
                 this->_isTimingModeOn = true;
                 if ( this->isTimingModeOn() ) {
                         this->getTimer().init();
@@ -57,22 +49,19 @@ namespace mi
         }
 
         CommandTemplate&
-        CommandTemplate::setDebugModeOn ( void )
-        {
+        CommandTemplate::setDebugModeOn ( void ) {
                 this->_isDebugModeOn = true;
                 return *this;
         }
 
         void
-        CommandTemplate::usage ( void )
-        {
+        CommandTemplate::usage ( void ) {
                 this->getAttributeSet().printUsage ( this->_cmdStr );
                 return;
         }
 
         int
-        CommandTemplate::execute ( CommandTemplate& cmd, Argument& arg )
-        {
+        CommandTemplate::execute ( CommandTemplate& cmd, Argument& arg ) {
                 // Message mode
                 if ( arg.exist ( "--debug" ) ) {
                         cmd.setDebugModeOn();
