@@ -16,7 +16,8 @@
 #define ThreadResult void*  ///<Thread result.
 #endif
 
-namespace mi {
+namespace mi
+{
 #ifdef OS_WINDOWS
         typedef HANDLE Handle; ///< Thread handle.
         typedef CRITICAL_SECTION CriticalSectionHandle; ///< Critical section handle.
@@ -25,51 +26,62 @@ namespace mi {
         typedef pthread_mutex_t CriticalSectionHandle;///< Critical section handle.
 #endif
 
-        class Thread::Impl {
+        class Thread::Impl
+        {
         public:
-                Impl ( void ) {
+                Impl ( void )
+                {
                         this->resetSequence();
                         return;
                 }
 
-                ~Impl ( void ) {
+                ~Impl ( void )
+                {
                         return;
                 }
 
-                CriticalSectionHandle& getCSHandle ( void ) {
+                CriticalSectionHandle& getCSHandle ( void )
+                {
                         return this->_cs;
                 }
 
-                void resetSequence ( void ) {
+                void resetSequence ( void )
+                {
                         this->_sequence = 0;
                 }
 
-                int getSequence ( void ) const {
+                int getSequence ( void ) const
+                {
                         const int result = this->_sequence;
                         const_cast<Thread::Impl*> ( this )->add_sequence();
                         return result;
                 }
 
-                void addHandle ( Handle handle ) {
+                void addHandle ( Handle handle )
+                {
                         this->_handle.push_back ( handle );
                         return;
                 }
 
-                Handle& getHandle ( const int id ) {
+                Handle& getHandle ( const int id )
+                {
                         return this->_handle[id];
                 }
 
-                void reset ( void ) {
+                void reset ( void )
+                {
                         this->_handle.clear();
                         this->resetSequence();
                         return;
                 }
 
-                int size ( void ) const {
+                int size ( void ) const
+                {
                         return this->_handle.size();
                 }
         private:
-                void add_sequence ( void ) {
+                void add_sequence ( void )
+                {
                         this->_sequence += 1;
                 }
         private:
@@ -78,7 +90,8 @@ namespace mi {
                 CriticalSectionHandle	_cs;
         };
 
-        Thread::Thread ( void ) : _impl ( new Thread::Impl() ) {
+        Thread::Thread ( void ) : _impl ( new Thread::Impl() )
+        {
                 CriticalSectionHandle& cs = this->_impl->getCSHandle();
 #ifdef OS_WINDOWS
                 InitializeCriticalSection ( &cs );
@@ -88,7 +101,8 @@ namespace mi {
                 return;
         }
 
-        Thread::~Thread ( void ) {
+        Thread::~Thread ( void )
+        {
                 CriticalSectionHandle& cs = this->_impl->getCSHandle();
 #ifdef OS_WINDOWS
                 DeleteCriticalSection ( &cs );
@@ -100,7 +114,8 @@ namespace mi {
         }
 
         void
-        Thread::startCriticalSection ( void ) {
+        Thread::startCriticalSection ( void )
+        {
                 CriticalSectionHandle& cs = this->_impl->getCSHandle();
 #ifdef OS_WINDOWS
                 EnterCriticalSection ( &cs );
@@ -111,7 +126,8 @@ namespace mi {
         }
 
         void
-        Thread::endCriticalSection ( void ) {
+        Thread::endCriticalSection ( void )
+        {
                 CriticalSectionHandle& cs = this->_impl->getCSHandle();
 #ifdef OS_WINDOWS
                 LeaveCriticalSection ( &cs );
@@ -123,7 +139,8 @@ namespace mi {
 
 #ifdef OS_WINDOWS
         int
-        Thread::createThread ( unsigned int ( __stdcall* func ) ( void* ), void* arglist ) {
+        Thread::createThread ( unsigned int ( __stdcall* func ) ( void* ), void* arglist )
+        {
                 this->startCriticalSection();
                 Handle handle = ( Handle ) _beginthreadex ( NULL, 0, func, arglist, 0, NULL );
                 this->_impl->addHandle ( handle );
@@ -133,7 +150,8 @@ namespace mi {
         }
 #else
         int
-        Thread::createThread ( void* ( * func ) ( void* ), void* arglist ) {
+        Thread::createThread ( void* ( * func ) ( void* ), void* arglist )
+        {
                 this->startCriticalSection();
                 Handle handle;
                 pthread_create ( &handle, NULL, ( void* ( * ) ( void* ) ) func, arglist );
@@ -144,13 +162,15 @@ namespace mi {
         }
 #endif
         void
-        Thread::waitAll ( void ) {
+        Thread::waitAll ( void )
+        {
                 for ( int i = 0 ; i  < this->getNumThread() ; i++ ) this->wait ( i );
                 return;
         }
 
         void
-        Thread::wait ( const int id ) {
+        Thread::wait ( const int id )
+        {
                 if ( id >= static_cast<int> ( this->getNumThread() ) ) return;
 #ifdef OS_WINDOWS
                 WaitForSingleObject ( this->_impl->getHandle ( id ), INFINITE );
@@ -162,13 +182,15 @@ namespace mi {
 
 
         void
-        Thread::closeAll ( void ) {
+        Thread::closeAll ( void )
+        {
                 for ( int i = 0 ; i  < this->getNumThread() ; i++ ) this->close ( i );
                 return;
         }
 
         bool
-        Thread::close ( const int id ) const {
+        Thread::close ( const int id ) const
+        {
                 if ( id >=  this->getNumThread( ) ) return false;
 #ifdef OS_WINDOWS
                 return ( CloseHandle ( this->getHandle ( id ) ) != 0 );
@@ -178,7 +200,8 @@ namespace mi {
         }
 
         void
-        Thread::reset ( void ) {
+        Thread::reset ( void )
+        {
                 this->waitAll();
                 this->closeAll();
                 this->_impl->reset();
@@ -186,17 +209,20 @@ namespace mi {
         }
 
         int
-        Thread::size ( void ) const {
+        Thread::size ( void ) const
+        {
                 return this->_impl->size();
         }
 
         int
-        Thread::getNumThread ( void ) const {
+        Thread::getNumThread ( void ) const
+        {
                 return this->size();
         }
 
         int
-        Thread::getSequence ( void ) {
+        Thread::getSequence ( void )
+        {
                 this->startCriticalSection();
                 const int result = this->_impl->getSequence();
                 this->endCriticalSection();
@@ -207,7 +233,8 @@ namespace mi {
          */
 
         void
-        Thread::resetSequence ( void ) {
+        Thread::resetSequence ( void )
+        {
                 this->startCriticalSection();
                 this->_impl->resetSequence();
                 this->endCriticalSection();

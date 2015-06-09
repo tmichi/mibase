@@ -2,27 +2,33 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-namespace mi {
-        Exporter::Exporter ( const bool isBinary ) : _isBinary ( isBinary ) {
+namespace mi
+{
+        Exporter::Exporter ( const bool isBinary ) : _isBinary ( isBinary )
+        {
                 return;
         }
 
-        Exporter::~Exporter ( void ) {
+        Exporter::~Exporter ( void )
+        {
                 return;
         }
 
         bool
-        Exporter::writeHeader ( std::ofstream& fout ) {
+        Exporter::writeHeader ( std::ofstream& fout )
+        {
                 return fout.good();
         }
 
         bool
-        Exporter::isBinary ( void ) const {
+        Exporter::isBinary ( void ) const
+        {
                 return  this->_isBinary;
         }
 
         bool
-        Exporter::write ( const std::string& filename ) {
+        Exporter::write ( const std::string& filename )
+        {
                 std::ios_base::openmode mode = std::ios_base::out;
                 if ( this->_isBinary ) mode |= std::ios::binary;
                 std::ofstream fout ( filename.c_str(), mode );

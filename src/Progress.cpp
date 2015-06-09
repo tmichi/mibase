@@ -9,41 +9,51 @@
 #include <iostream>
 #include <iomanip>
 
-namespace mi {
-        class Progress::Impl {
+namespace mi
+{
+        class Progress::Impl
+        {
         private:
                 Impl ( const Impl& that ) ;
                 void operator = ( const Impl& that ) ;
         public:
-                Impl ( const int maxValue, const int width ) : _maxValue ( maxValue ), _width ( width ), _current ( 0 ), _isReturned ( false ) {
+                Impl ( const int maxValue, const int width ) : _maxValue ( maxValue ), _width ( width ), _current ( 0 ), _isReturned ( false )
+                {
                         return;
                 }
-                bool  add ( void ) {
+                bool  add ( void )
+                {
                         if ( this->end() ) return false;
                         this->_current += 1;
                         return true;
                 }
 
-                bool end ( void ) {
+                bool end ( void )
+                {
                         return this->getMaxSteps() <= this->getCurrentSteps();
                 }
-                int getMaxSteps ( void ) const {
+                int getMaxSteps ( void ) const
+                {
                         return this->_maxValue;
                 }
 
-                int getCurrentSteps ( void ) const {
+                int getCurrentSteps ( void ) const
+                {
                         return this->_current;
                 }
 
-                int getWidth ( void ) const {
+                int getWidth ( void ) const
+                {
                         return this->_width;
                 }
 
-                bool isReturned ( void ) const {
+                bool isReturned ( void ) const
+                {
                         return this->_isReturned;
                 }
 
-                void setReturned ( void ) {
+                void setReturned ( void )
+                {
                         this->_isReturned = true;
                 }
         private:
@@ -55,19 +65,22 @@ namespace mi {
 
 
 
-        Progress::Progress ( const int maxnum, const int width ) : _impl ( new Progress::Impl ( maxnum, width ) ) {
+        Progress::Progress ( const int maxnum, const int width ) : _impl ( new Progress::Impl ( maxnum, width ) )
+        {
                 std::cerr << std::endl;
                 std::cerr << "Progress : " << this->to_string();
                 return;
         }
 
-        Progress::~Progress ( void ) {
+        Progress::~Progress ( void )
+        {
                 delete this->_impl;
                 return ;
         }
 
         void
-        Progress::print ( void ) {
+        Progress::print ( void )
+        {
                 if ( this->_impl->isReturned() ) return;
                 const int keta = this->_impl->getWidth() * 2 + 1;
                 for ( int i = 0 ; i < keta; ++i ) std::cerr << "\b";
@@ -80,14 +93,16 @@ namespace mi {
         }
 
         bool
-        Progress::addCounter ( void ) {
+        Progress::addCounter ( void )
+        {
                 if ( this->_impl->end() ) return false;
                 this->_impl->add();
                 return true;
         }
 
         std::string
-        Progress::to_string ( void ) const {
+        Progress::to_string ( void ) const
+        {
                 std::stringstream ss;
                 if ( this->_impl->getCurrentSteps() <= this->_impl->getMaxSteps() ) {
                         ss << std::setw ( this->_impl->getWidth() ) << std::setfill ( ' ' ) << this->_impl->getCurrentSteps() << "/"

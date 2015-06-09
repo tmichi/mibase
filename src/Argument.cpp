@@ -2,36 +2,44 @@
 #include <mi/Parse.hpp>
 #include <deque>
 
-namespace mi {
-        class Argument::Impl {
+namespace mi
+{
+        class Argument::Impl
+        {
         private:
                 Impl ( const Impl& that );
                 void operator = ( const Impl& that );
         public:
-                Impl ( void ) {
+                Impl ( void )
+                {
                         return;
                 }
 
-                ~Impl ( void ) {
+                ~Impl ( void )
+                {
                         this->_argv.clear();
                         return;
                 }
 
-                void add ( const std::string& str ) {
+                void add ( const std::string& str )
+                {
                         this->_argv.push_back ( str );
                         return;
                 }
 
-                std::string get ( const int i ) const {
+                std::string get ( const int i ) const
+                {
                         if ( this->is_valid ( i ) ) return this->_argv.at ( i );
                         else return std::string();
                 }
 
-                int size ( void ) const {
+                int size ( void ) const
+                {
                         return static_cast<int> ( this->_argv.size() );
                 }
         private:
-                bool is_valid ( const int i ) const {
+                bool is_valid ( const int i ) const
+                {
                         return ( 0 <= i && i < this->size() );
                 }
         private:
@@ -39,14 +47,16 @@ namespace mi {
         };
 
 
-        Argument::Argument ( int argc, char** argv ) : _impl ( new Argument::Impl() ) {
+        Argument::Argument ( int argc, char** argv ) : _impl ( new Argument::Impl() )
+        {
                 for ( int i = 0 ; i < argc ; ++i ) {
                         this->_impl->add ( std::string ( argv[i] ) );
                 }
                 return;
         }
 
-        Argument::~Argument ( void ) {
+        Argument::~Argument ( void )
+        {
                 if ( this->_impl != NULL ) {
                         delete this->_impl;
                         this->_impl = NULL;
@@ -55,30 +65,35 @@ namespace mi {
         }
 
         int
-        Argument::size ( void ) const {
+        Argument::size ( void ) const
+        {
                 return this->_impl->size();
         }
 
         Argument&
-        Argument::add ( const std::string& str ) {
+        Argument::add ( const std::string& str )
+        {
                 this->_impl->add ( str );
                 return *this;
         }
 
         bool
-        Argument::exist ( const std::string& key, const int offset ) const {
+        Argument::exist ( const std::string& key, const int offset ) const
+        {
                 return ( this->find ( key, offset ) > -1 );
         }
 
 
         template <typename T>
         T
-        Argument::get ( const int idx ) const {
+        Argument::get ( const int idx ) const
+        {
                 return mi::parse<T> ( this->_impl->get ( idx ) ) ;
         }
 
         int
-        Argument::find ( const std::string& key, const int offset ) const {
+        Argument::find ( const std::string& key, const int offset ) const
+        {
                 if ( offset < 0 ) return -1;
                 for ( int i = 0 ; i < this->size() - offset ; ++i ) {
                         if ( this->_impl->get ( i ).compare ( key ) == 0 ) return i + offset;
@@ -87,7 +102,8 @@ namespace mi {
         };
 
         void
-        Argument::print ( std::ostream& out ) {
+        Argument::print ( std::ostream& out )
+        {
                 for ( int i = 0  ; i < this->size() ; ++i ) {
                         std::string str = this->_impl->get ( i );
                         if ( str.find ( "-", 0 ) == 0 ) out << std::endl; //

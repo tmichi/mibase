@@ -4,27 +4,33 @@
  */
 #include <mi/Importer.hpp>
 
-namespace mi {
-        Importer::Importer ( const bool isBinary ) : _isBinary ( isBinary ) {
+namespace mi
+{
+        Importer::Importer ( const bool isBinary ) : _isBinary ( isBinary )
+        {
                 return;
         }
 
-        Importer::~Importer ( void ) {
+        Importer::~Importer ( void )
+        {
                 return;
         }
 
         bool
-        Importer::readHeader ( std::ifstream& fin ) {
+        Importer::readHeader ( std::ifstream& fin )
+        {
                 return fin.good();
         }
 
         bool
-        Importer::isBinary ( void ) {
+        Importer::isBinary ( void )
+        {
                 return this->_isBinary;
         }
 
         bool
-        Importer::read ( const std::string& filename  ) {
+        Importer::read ( const std::string& filename  )
+        {
                 std::ios_base::openmode mode = std::ios_base::in;
                 if ( this->_isBinary ) mode |= std::ios::binary;
                 std::ifstream fin ( filename.c_str(), mode );
