@@ -4,6 +4,7 @@
  */
 #ifndef MI_ARGUMENT_HPP
 #define MI_ARGUMENT_HPP 1
+
 #include <string>
 #include <iostream>
 namespace mi
@@ -25,6 +26,7 @@ namespace mi
                  * @param [in] argv Argument strings. This corresponds to argv in main().
                  */
                 explicit Argument ( int argc = 0 , char** argv = NULL );
+
                 /**
                  * @brief Destructor.
                  */
