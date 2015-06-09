@@ -124,4 +124,3 @@ namespace mi
         ARGUMENT__GET ( double );
         ARGUMENT__GET ( std::string );
 }
-
