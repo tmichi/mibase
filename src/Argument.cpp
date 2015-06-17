@@ -70,7 +70,15 @@ namespace mi {
                 return ( this->find ( key, offset ) > -1 );
         }
 
-
+	template <typename T>
+	T
+	Argument::get ( const std::string& key, const int offset ) const
+	{
+		const int index = this->find ( key , offset );
+		return this->get<T> ( index ) ;
+	};
+	
+	
         template <typename T>
         T
         Argument::get ( const int idx ) const {
@@ -97,6 +105,16 @@ namespace mi {
                 return;
         }
 
+#define ARGUMENT__GET2(TYPE) template TYPE Argument::get<TYPE> ( const std::string& key, const int offset ) const
+        ARGUMENT__GET2 ( unsigned char );
+        ARGUMENT__GET2 ( char );
+        ARGUMENT__GET2 ( unsigned short );
+        ARGUMENT__GET2 ( short );
+        ARGUMENT__GET2 ( unsigned int );
+        ARGUMENT__GET2 ( int );
+        ARGUMENT__GET2 ( float );
+        ARGUMENT__GET2 ( double );
+        ARGUMENT__GET2 ( std::string );
 #define ARGUMENT__GET(TYPE) template TYPE Argument::get<TYPE> ( const int idx ) const
         ARGUMENT__GET ( unsigned char );
         ARGUMENT__GET ( char );

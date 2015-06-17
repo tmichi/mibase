@@ -27,8 +27,7 @@ namespace mi {
                 std::string get ( const int i ) const {
                         if ( 0 <= i && i < this->size() ) return this->_token.at ( i );
                         else return std::string();
-                }
-        private:
+                }        private:
                 std::vector<std::string> _token; ///<Tokens
         };
 

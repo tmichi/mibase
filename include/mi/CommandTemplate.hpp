@@ -68,6 +68,7 @@ namespace mi
                 * @retval true Off.
                 */
                 bool isTimingModeOn ( void ) const;
+
                 bool isDebugModeOn ( void ) const;
                 /**
                 * @brief Set timing mode on.
@@ -84,7 +85,6 @@ namespace mi
                 * @brief Print usage.
                 */
                 void usage ( void );
-//	    void version ( void );
         public:
                 /**
                 * @brief Template procedure from initialization to termination.

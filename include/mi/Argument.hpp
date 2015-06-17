@@ -26,18 +26,18 @@ namespace mi
                  * @param [in] argv Argument strings. This corresponds to argv in main().
                  */
                 explicit Argument ( int argc = 0 , char** argv = NULL );
-
+		
                 /**
                  * @brief Destructor.
                  */
                 ~Argument ( void );
-
+		
                 /**
                  * @brief Get size of argument array.
                  * @return The number of arguments.
                  */
                 int size ( void ) const;
-
+		
                 /**
                  * @brief Add argument string.
                  * @param [in] str Arguments ( not parsed.)
@@ -53,7 +53,7 @@ namespace mi
                  * @retval false The key does not exist.
                  */
                 bool exist ( const std::string& key, const int offset = 0 ) const;
-
+		
                 /**
                  * @brief Get value associated with the key.
                  * @param [in] key Key.
@@ -61,11 +61,8 @@ namespace mi
                  * @return Value associated with the key. return 0 if the key does not exist.
                  */
                 template <typename T>
-                inline T get ( const std::string& key, const int offset = 1 ) const
-                {
-                        const int index = this->find ( key , offset );
-                        return this->get<T> ( index ) ;
-                };
+                T get ( const std::string& key, const int offset = 1 ) const;
+
 
                 /**
                  * @brief get value at i-th argument.

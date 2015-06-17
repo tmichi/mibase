@@ -18,6 +18,7 @@ namespace mi
         {
         public:
                 TripleNumericAttribute ( const std::string& key,  NumericAttribute<T>* attr0,  NumericAttribute<T>* attr1,  NumericAttribute<T>* attr2 );
+
                 ~TripleNumericAttribute ( void );
                 /**
                  * @brief Analyze all of childattributes.
@@ -85,3 +86,4 @@ namespace mi
         };
 }
 #endif// MI_TRIPLE_NUMERIC_ATTRIBUTE_HPP
+

@@ -2,16 +2,14 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-
 #include <mi/CommandTemplate.hpp>
-#include <mi/AttributeSet.hpp>
-#include <mi/SystemInfo.hpp>
 
 class ExampleCommand : public mi::CommandTemplate
 {
 private:
         std::string _input_file;
         std::string _output_file;
+	double      _param0;
 public:
         ExampleCommand ( void ) ;
         ~ExampleCommand ( void ) ;
@@ -23,15 +21,15 @@ public:
 ExampleCommand::ExampleCommand ( void ) : mi::CommandTemplate(  )
 {
         mi::AttributeSet &attrSet = this->getAttributeSet();
-        attrSet.createStringAttribute( "-i", this->_input_file ).setMandatory();
-        attrSet.createStringAttribute( "-o", this->_output_file ).setMandatory();
+        attrSet.createStringAttribute( "-i", this->_input_file, "input file" ).setMandatory();
+        attrSet.createStringAttribute( "-o", this->_output_file, "output file" ).setMandatory();
+	attrSet.createNumericAttribute( "-p", this->_param0, "value").setMin(-10).setMax(10).setDefaultValue(0);
         return;
 }
 
 ExampleCommand::~ExampleCommand ( void )
 {
         std::cerr<<"ExampleCommand::~ExampleCommand() was called."<<std::endl;
-        std::cerr<<"peak memory : "<<mi::SystemInfo::getPeakMemorySize( mi::MI_KILO_BYTE )<<"[kb]"<<std::endl;
         return;
 }
 
@@ -41,10 +39,9 @@ ExampleCommand::init ( const  mi::Argument& arg )
 {
         mi::AttributeSet &attrSet = this->getAttributeSet();
         if( !attrSet.parse( arg ) ) {
-                attrSet.printError();
                 return false;
         }
-        attrSet.print();
+	attrSet.print();
         return true;
 }
 
