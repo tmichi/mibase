@@ -1,6 +1,6 @@
 /**
  * @file FileNameConverter.hpp
- * @author Takashi Michikawa
+ * @author Takashi Michikawa <michikawa@acm.org>
  */
 #ifndef MI_FILE_NAME_CONVERTER_HPP
 #define MI_FILE_NAME_CONVERTER_HPP 1
@@ -12,12 +12,13 @@
 namespace mi
 {
         /**
-         * @class FileNameConverter FileNameConverter.hpp "FileNameConverter.hpp"
+         * @class FileNameConverter FileNameConverter.hpp <mi/FileNameConverter.hpp>
          * @brief Converter for changing filename.
          */
         class FileNameConverter
         {
         private:
+                class Impl;
                 FileNameConverter ( const FileNameConverter& that );
                 void operator = ( const FileNameConverter& that );
         public:
@@ -78,7 +79,7 @@ namespace mi
                  */
                 std::string to_upper ( const  std::string str ) const;
         private:
-                std::string _filename; ///> File name.
+                Impl* _impl;
         };
 };
 #endif// MI_FILE_NAME_CONVERTER_HPP

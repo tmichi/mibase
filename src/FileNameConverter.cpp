@@ -9,9 +9,28 @@
 
 namespace mi
 {
+        class FileNameConverter::Impl {
+        private:
+                std::string _filename; ///> File name.
+        private:
+                Impl ( const Impl& that);
+                void operator = ( const Impl& that);
+        public:
+                Impl ( const std::string& filename  ) : _filename( filename) {
+                        return;
+                }     
+                ~Impl ( void ) {
+                        
+                }
+                std::string& filename ( void ) const {
+                        return this->_filename;
+                }
+        };
 
-        FileNameConverter::FileNameConverter ( const std::string& filename ) : _filename ( filename )
+    
+        FileNameConverter::FileNameConverter ( const std::string& filename ) 
         {
+                this->_impl = new Impl (filename);
                 return;
         }
 
@@ -20,6 +39,7 @@ namespace mi
          */
         FileNameConverter::~FileNameConverter ( void )
         {
+                delete this->_impl;
                 return;
         }
 
@@ -75,7 +95,7 @@ namespace mi
         std::string
         FileNameConverter::getOriginal ( void ) const
         {
-                return this->_filename;
+                return this->_impl->filename();
         }
         std::string
         FileNameConverter::to_upper ( const  std::string str ) const

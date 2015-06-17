@@ -66,6 +66,13 @@ namespace mi
                 return;
         }
         
+        /**
+         * @param[in] begin Begin iterator
+         * @param[in] end End iterator
+         * @param[in] fn Function object
+         * @param[in] nthread The number of threads
+         *
+         */
         template <class Iterator, class Function>
         void parallel_for_each_by_nthread ( const Iterator begin, const Iterator end, const Function fn, const int nthread = 4 )
         {

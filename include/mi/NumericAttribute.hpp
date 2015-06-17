@@ -85,23 +85,9 @@ namespace mi
                 NumericAttribute<T>& setMessage ( const std::string& message );
         private:
                 bool clamp_value ( T& value );
-//                void swap_min_max ( T& minValue, T& maxValue );
         private:
                 class Impl;
                 Impl* _impl;
-                /*
-                                T&    _value; ///< Value.
-
-                                int _offset; ///< Offset
-
-                                T    _minValue; ///< Minimum value.
-                                T    _maxValue; ///< Maximum value.
-                                T    _defaultValue;  ///< Default value.
-
-                                bool _isMinSet; ///< Minimum value is set.
-                                bool _isMaxSet; ///< Maximum value is set.
-                                bool _isOutRangeRejected; ///< Out rangevalue is rejected.
-                */
         };
 };
 #endif// MI_NUMERIC_ATTRIBUTE_HPP
