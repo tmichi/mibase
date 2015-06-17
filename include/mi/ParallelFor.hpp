@@ -9,7 +9,7 @@
 namespace mi
 {
         /**
-         * @brief Parallel implementation of std::foreach().
+         * @brief Parallel implementation of std::for_each().
          * @param [in] begin Begin iterator.
          * @param [in] end End iterator.
          * @param [in] fn Functor.
@@ -61,8 +61,24 @@ namespace mi
                                 return 0;
                         }
                 };
+
                 ParallelFor ( begin, end, fn, grainSize );
                 return;
-        };
+        }
+        
+        template <class Iterator, class Function>
+        void parallel_for_each_by_nthread ( const Iterator begin, const Iterator end, const Function fn, const int nthread = 4 )
+        {
+                int grainSize = 0;
+                int amari = 0;
+                Iterator iter  = begin;
+                while ( iter != end ) {
+                        if ( amari == 0 ) ++grainSize;
+                        amari = ( amari + 1 ) % nthread;
+                        ++iter; 
+                }
+                parallel_for_each ( begin, end, fn, grainSize ) ;
+                return
+        }
 };
 #endif //MI_PARALLEL_FOR_HPP
