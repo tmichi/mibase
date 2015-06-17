@@ -7,12 +7,15 @@
 
 #include <mi/AttributeSet.hpp>
 
-namespace mi {
-        AttributeSet::AttributeSet ( void ) : Attribute ( "" ) , _isAnd ( true ) {
+namespace mi
+{
+        AttributeSet::AttributeSet ( void ) : Attribute ( "" ) , _isAnd ( true )
+        {
                 return;
         }
 
-        AttributeSet::~AttributeSet ( void ) {
+        AttributeSet::~AttributeSet ( void )
+        {
                 for ( Iterator iter = this->_attr.begin() ; iter != this->_attr.end() ; ++iter ) {
                         delete ( *iter );
                 }
@@ -20,20 +23,23 @@ namespace mi {
         }
 
         AttributeSet&
-        AttributeSet::setOr ( void ) {
+        AttributeSet::setOr ( void )
+        {
                 this->_isAnd = false;
                 return *this;
         }
 
         AttributeSet&
-        AttributeSet::createAttributeSet ( void ) {
+        AttributeSet::createAttributeSet ( void )
+        {
                 Attribute* sAttr = new AttributeSet();
                 this->_attr.push_back ( sAttr );
                 return dynamic_cast<AttributeSet&> ( *sAttr );
         }
 
         BooleanAttribute&
-        AttributeSet::createBooleanAttribute ( const std::string& key, bool& value , const std::string& message ) {
+        AttributeSet::createBooleanAttribute ( const std::string& key, bool& value , const std::string& message )
+        {
                 Attribute* bAttr = new BooleanAttribute ( key, value ) ;
                 bAttr->setMessage ( message );
                 this->_attr.push_back ( bAttr );
@@ -41,7 +47,8 @@ namespace mi {
         }
 
         StringAttribute&
-        AttributeSet::createStringAttribute ( const std::string& key, std::string& value , const std::string& message ) {
+        AttributeSet::createStringAttribute ( const std::string& key, std::string& value , const std::string& message )
+        {
                 Attribute* sAttr = new StringAttribute ( key, value ) ;
                 sAttr->setMessage ( message );
                 this->_attr.push_back ( sAttr );
@@ -51,7 +58,8 @@ namespace mi {
 
         template<typename T>
         NumericAttribute<T>&
-        AttributeSet::createNumericAttribute ( const std::string& key, T& value,  const std::string& message ) {
+        AttributeSet::createNumericAttribute ( const std::string& key, T& value,  const std::string& message )
+        {
                 Attribute* nAttr = new NumericAttribute<T> ( key, value , 1 ) ;
                 nAttr->setMessage ( message );
                 this->_attr.push_back ( nAttr );
@@ -60,7 +68,8 @@ namespace mi {
 
         template<typename T>
         DoubleNumericAttribute<T>&
-        AttributeSet::createDoubleNumericAttribute ( const std::string& key, T& value0, T& value1, const std::string& message ) {
+        AttributeSet::createDoubleNumericAttribute ( const std::string& key, T& value0, T& value1, const std::string& message )
+        {
                 /// @todo should allocate memory in Double Numeric Attribute.
                 NumericAttribute<T>* nAttr0 = new NumericAttribute<T> ( key, value0 , 1 );
                 NumericAttribute<T>* nAttr1 = new NumericAttribute<T> ( key, value1 , 2 );
@@ -72,7 +81,8 @@ namespace mi {
 
         template<typename T>
         TripleNumericAttribute<T>&
-        AttributeSet::createTripleNumericAttribute ( const std::string& key, T& value0, T& value1, T& value2, const std::string& message ) {
+        AttributeSet::createTripleNumericAttribute ( const std::string& key, T& value0, T& value1, T& value2, const std::string& message )
+        {
                 NumericAttribute<T>* nAttr0 = new NumericAttribute<T> ( key, value0 , 1 );
                 NumericAttribute<T>* nAttr1 = new NumericAttribute<T> ( key, value1 , 2 );
                 NumericAttribute<T>* nAttr2 = new NumericAttribute<T> ( key, value2 , 3 );
@@ -83,7 +93,8 @@ namespace mi {
         }
 
         bool
-        AttributeSet::parse ( const Argument& arg ) {
+        AttributeSet::parse ( const Argument& arg )
+        {
                 bool result;
                 if ( this->_isAnd ) {
                         result = true;
@@ -104,7 +115,8 @@ namespace mi {
         }
 
         void
-        AttributeSet::printError ( void ) {
+        AttributeSet::printError ( void )
+        {
                 for ( Iterator iter = this->_attr.begin() ; iter != this->_attr.end() ; iter++ ) {
                         ( *iter )->printError();
                 }
@@ -112,7 +124,8 @@ namespace mi {
         }
 
         void
-        AttributeSet::print ( std::ostream& out ) {
+        AttributeSet::print ( std::ostream& out )
+        {
                 out << "Arguments: " << std::endl;
                 for ( Iterator iter = this->_attr.begin() ; iter != this->_attr.end() ; iter++ ) {
                         ( *iter )->print ( out );
@@ -121,13 +134,15 @@ namespace mi {
         }
 
         std::string
-        AttributeSet::toString ( void ) const {
+        AttributeSet::toString ( void ) const
+        {
                 return std::string ( "Attribute set" );
         }
 
 
         void
-        AttributeSet::printUsage ( const std::string cmdStr ) {
+        AttributeSet::printUsage ( const std::string cmdStr )
+        {
                 std::cerr << "Usage : " << cmdStr << " [OPTIONS]" << std::endl
                           << std::endl
                           << "OPTIONS:" << std::endl;
@@ -136,7 +151,8 @@ namespace mi {
 
 
         void
-        AttributeSet::print_usage ( void ) {
+        AttributeSet::print_usage ( void )
+        {
                 for ( Iterator iter = this->_attr.begin() ; iter != this->_attr.end() ; iter++ ) {
                         ( *iter )->print_usage();
                 }

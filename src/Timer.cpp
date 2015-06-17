@@ -19,45 +19,56 @@
 
 #include <ctime>
 
-namespace mi {
-        class Timer::Impl {
+namespace mi
+{
+        class Timer::Impl
+        {
         private:
                 Impl ( const Impl& that );
                 void operator = ( const Impl& that );
         public:
-                Impl ( void ) {
+                Impl ( void )
+                {
                 }
 
-                ~Impl ( void ) {
+                ~Impl ( void )
+                {
                 }
-                int size ( void ) const {
+                int size ( void ) const
+                {
                         return static_cast<int> ( this->_keys.size() );
                 }
 
-                bool exist ( const std::string& key ) {
+                bool exist ( const std::string& key )
+                {
                         return this->_startTime.find ( key ) != this->_startTime.end();
                 }
 
-                bool start ( const std::string& key, const double t ) {
+                bool start ( const std::string& key, const double t )
+                {
                         this->_startTime[ key ] = t;
                         return true;
                 }
 
-                bool end ( const std::string& key, const double t ) {
+                bool end ( const std::string& key, const double t )
+                {
                         this->_time[key] =  t - this->_startTime[key];
                         this->_keys.push_back ( key ) ;
                         return true;
                 }
 
-                double get ( const std::string& key ) {
+                double get ( const std::string& key )
+                {
                         return this->_time[key];
                 }
 
-                std::string  getKey ( const int i ) const {
+                std::string  getKey ( const int i ) const
+                {
                         return this->_keys.at ( i );
                 }
 
-                void init ( void ) {
+                void init ( void )
+                {
                         this->_startTime.clear();
                         this->_time.clear();
                         this->_keys.clear();
@@ -69,22 +80,26 @@ namespace mi {
         };
 
 
-        Timer::Timer ( void ) : _impl  ( new Timer::Impl() ) {
+        Timer::Timer ( void ) : _impl  ( new Timer::Impl() )
+        {
                 this->init();
                 return;
         }
-        Timer::~Timer ( void ) {
+        Timer::~Timer ( void )
+        {
                 return;
         }
 
         void
-        Timer::init ( void ) {
+        Timer::init ( void )
+        {
                 this->_impl->init();
                 return;
         }
 
         bool
-        Timer::start ( const std::string& key ) {
+        Timer::start ( const std::string& key )
+        {
                 if ( this->_impl->exist ( key ) ) {
                         std::cerr << "key " << key << " already exists." << std::endl;
                         return false;
@@ -95,7 +110,8 @@ namespace mi {
         }
 
         bool
-        Timer::end ( const std::string& key ) {
+        Timer::end ( const std::string& key )
+        {
                 if ( !this->_impl->exist ( key ) ) {
                         std::cerr << "key " << key << " does not exist." << std::endl;
                         return false;
@@ -106,7 +122,8 @@ namespace mi {
         };
 
         double
-        Timer::get ( const std::string& key , const time_format format ) {
+        Timer::get ( const std::string& key , const time_format format )
+        {
                 if ( !this->_impl->exist ( key ) ) return -1.0;
                 const double t0 =  this->_impl->get ( key );
                 if      ( format == TIME_SECOND ) return t0;
@@ -118,14 +135,16 @@ namespace mi {
 
 
         void
-        Timer::print ( const std::string& key, const int digit, const time_format format, std::ostream& out ) {
+        Timer::print ( const std::string& key, const int digit, const time_format format, std::ostream& out )
+        {
                 if ( !this->_impl->exist ( key ) ) return;
                 out << this->toString ( key, digit, format ) << std::endl;
                 return;
         }
 
         void
-        Timer::printAll ( const int digit, const time_format format, std::ostream& out ) {
+        Timer::printAll ( const int digit, const time_format format, std::ostream& out )
+        {
                 for ( int i = 0 ; i < this->_impl->size() ; ++i ) {
                         const std::string key = this->_impl->getKey ( i );
                         this->print ( key, digit, format, out );
@@ -133,7 +152,8 @@ namespace mi {
         }
 
         std::string
-        Timer::toString ( const std::string& key, const int digit, const time_format format ) {
+        Timer::toString ( const std::string& key, const int digit, const time_format format )
+        {
                 if ( !this->_impl->exist ( key ) ) {
                         return std::string ( "NULL" );
                 }
@@ -161,7 +181,8 @@ namespace mi {
         }
 
         double
-        Timer::get_elapsed_time ( void ) const {
+        Timer::get_elapsed_time ( void ) const
+        {
 #ifdef WIN32
                 LARGE_INTEGER start_pc, freq_pc;
                 QueryPerformanceFrequency ( &freq_pc );

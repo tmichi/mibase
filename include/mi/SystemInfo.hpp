@@ -23,7 +23,7 @@ namespace mi
                 static double      getPeakMemorySize ( const SIZE_TYPE type = MI_MEGA_BYTE );
                 static void print ( std::ostream&  out );
         private:
-		// only for unix-like system
+                // only for unix-like system
                 static std::string get_sysctl        ( const std::string&  key );
                 static double      get_sysctl_double ( const std::string&  key );
                 static int         get_sysctl_int    ( const std::string&  key );
