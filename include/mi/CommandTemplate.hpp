@@ -2,6 +2,7 @@
 * @file  CommandTemplate.hpp
 * @author Takashi Michikawa <michikawa@acm.org>
 */
+#pragma once 
 #ifndef MI_COMMAND_TEMPLATE_HPP
 #define MI_COMMAND_TEMPLATE_HPP 1
 
@@ -11,10 +12,11 @@
 #include "AttributeSet.hpp"
 #include "SystemInfo.hpp"
 #include "Timer.hpp"
+
 namespace mi
 {
         /**
-        * @class CommandTemplate CommandTemplate.hpp "mi/CommandTemplate.hpp"
+        * @class CommandTemplate CommandTemplate.hpp <mi/CommandTemplate.hpp>
         * @brief Template for CUI-based command.
         */
         class CommandTemplate

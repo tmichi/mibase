@@ -3,6 +3,7 @@
  * @author Takashi Michikawa <michikawa@acm.org>
  */
 #include <mi/BooleanAttribute.hpp>
+#include <sstream>
 namespace mi
 {
 

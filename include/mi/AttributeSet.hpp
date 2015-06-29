@@ -15,6 +15,7 @@
 #include "StringAttribute.hpp"
 #include "DoubleNumericAttribute.hpp"
 #include "TripleNumericAttribute.hpp"
+
 namespace mi
 {
         /**
@@ -69,7 +70,6 @@ namespace mi
                 /**
                  * @brief Return instance of NumericAttribute.
                  * @return The isntance.
-                 * @note Created instance is released at AttributeSet::~AttributeSet(), or you do not have to take care it.
                  */
                 template<typename T>
                 NumericAttribute<T>& createNumericAttribute ( const std::string& key, T& value,  const std::string& message = std::string() ) ;

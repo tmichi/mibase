@@ -3,6 +3,7 @@
  * @author Takashi Michikawa <michikawa@acm.org>
  */
 #include <mi/TripleNumericAttribute.hpp>
+#include <sstream>
 namespace mi
 {
         template<typename T>

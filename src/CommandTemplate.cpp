@@ -4,6 +4,7 @@
  * @author Takashi Michikawa <michikawa@acm.org>
  */
 #include <mi/CommandTemplate.hpp>
+#include <iostream>
 namespace mi
 {
         CommandTemplate::CommandTemplate ( const std::string& cmdStr ) : _cmdStr ( cmdStr ),  _isTimingModeOn ( false ), _isDebugModeOn ( false )
@@ -21,6 +22,7 @@ namespace mi
                 out << "peakMemory : " << SystemInfo::getPeakMemorySize() << "[mb]" << std::endl;
                 return;
         }
+
         AttributeSet&
         CommandTemplate::getAttributeSet ( void )
         {

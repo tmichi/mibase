@@ -1,12 +1,15 @@
 /**
  * @file Argument.hpp
+ * @brief manages argument objefct.
  * @author Takashi Michikawa <michikawa@acm.org>
  */
+#pragma once
 #ifndef MI_ARGUMENT_HPP
 #define MI_ARGUMENT_HPP 1
 
 #include <string>
 #include <iostream>
+
 namespace mi
 {
         /**
@@ -17,6 +20,7 @@ namespace mi
         class Argument
         {
         private:
+                // prevent copy constructor and = operator.
                 Argument ( const Argument& that );
                 void operator = ( const Argument& that );
         public:
@@ -26,18 +30,18 @@ namespace mi
                  * @param [in] argv Argument strings. This corresponds to argv in main().
                  */
                 explicit Argument ( int argc = 0 , char** argv = NULL );
-		
+
                 /**
                  * @brief Destructor.
                  */
                 ~Argument ( void );
-		
+
                 /**
                  * @brief Get size of argument array.
                  * @return The number of arguments.
                  */
                 int size ( void ) const;
-		
+
                 /**
                  * @brief Add argument string.
                  * @param [in] str Arguments ( not parsed.)
@@ -53,7 +57,7 @@ namespace mi
                  * @retval false The key does not exist.
                  */
                 bool exist ( const std::string& key, const int offset = 0 ) const;
-		
+
                 /**
                  * @brief Get value associated with the key.
                  * @param [in] key Key.
@@ -65,7 +69,7 @@ namespace mi
 
 
                 /**
-                 * @brief get value at i-th argument.
+                 * @brief Get value at i-th argument.
                  * @param [in] idx Index.
                  * @return i-th argument. return 0 when the index is invalid.
                  */
@@ -82,7 +86,7 @@ namespace mi
 
                 /**
                  * @brief Print arguments.
-                 * @param [in] out
+                 * @param [in] out output stream.
                  */
                 void print ( std::ostream& out );
         private:

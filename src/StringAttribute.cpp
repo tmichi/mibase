@@ -3,7 +3,7 @@
  * @author Takashi Michikawa <michikawa@acm.org>
  */
 #include <mi/StringAttribute.hpp>
-
+#include <sstream>
 namespace mi
 {
         class StringAttribute::Impl

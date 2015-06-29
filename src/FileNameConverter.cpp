@@ -22,7 +22,7 @@ namespace mi
                 ~Impl ( void ) {
                         
                 }
-                std::string& filename ( void ) const {
+                std::string& filename ( void ) {
                         return this->_filename;
                 }
         };
@@ -79,7 +79,7 @@ namespace mi
         std::string
         FileNameConverter::getExtension ( void ) const
         {
-                return this->_filename.substr ( this->_filename.find_last_of ( "." ) + 1 );
+                return this->_impl->filename().substr ( this->_impl->filename().find_last_of ( "." ) + 1 );
         }
 
 

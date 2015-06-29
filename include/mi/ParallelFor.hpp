@@ -85,7 +85,7 @@ namespace mi
                         ++iter; 
                 }
                 parallel_for_each ( begin, end, fn, grainSize ) ;
-                return
+                return;
         }
 };
 #endif //MI_PARALLEL_FOR_HPP

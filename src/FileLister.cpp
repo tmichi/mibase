@@ -25,7 +25,7 @@ namespace mi
         FileLister::list_all ( const std::string& path, std::vector<std::string>& result )
         {
                 std::string path0 = FileLister::modify_path ( path );
-
+		result.clear();
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)// Win32 API
                 HANDLE hSearch;
                 WIN32_FIND_DATA fd;
@@ -39,6 +39,8 @@ namespace mi
                 FindClose ( hSearch );
 #else
                 DIR* dir = opendir ( path0.c_str() );
+
+		if (dir == NULL ) return 0; // dir is somewhat wrong ( wrong path, permission, etc)
                 for ( struct dirent* dp = readdir ( dir ) ; dp != NULL ; dp = readdir ( dir ) ) {
                         const std::string file = std::string ( dp->d_name );
                         result.push_back ( file );
@@ -48,7 +50,7 @@ namespace mi
                 return static_cast<int> ( result.size() );
         }
 
-        int
+	int
         FileLister::list ( const std::string& path, const std::string& filter, std::vector<std::string>& result )
         {
 		// step 1: decomposes extensions of filters 
@@ -62,7 +64,6 @@ namespace mi
                 typedef std::vector<std::string>::iterator string_iterator;
                 std::vector< std::string > files;
                 FileLister::list_all ( path, files );
-
 		// step 3: removes the file without any filters.
                 if ( filters.size() == 0 ) {
                         result.insert ( result.end(), files.begin(), files.end() );

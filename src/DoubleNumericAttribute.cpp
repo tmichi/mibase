@@ -3,6 +3,7 @@
  * @author Takashi Michikawa <michikawa@acm.org>
  */
 #include <mi/DoubleNumericAttribute.hpp>
+#include <sstream>
 namespace mi
 {
 

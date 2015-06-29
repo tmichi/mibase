@@ -1,15 +1,16 @@
 /**
  * @file Attribute.hpp
+ * @brief Base class for attribute classes.
  * @author Takashi Michikawa <michikawa@acm.org>
  */
 #pragma once
 #ifndef MI_ATTRIBUTE_HPP
 #define MI_ATTRIBUTE_HPP 1
-#include <string>
-#include <sstream>
-#include <iostream>
 
+#include <string>
+#include <iostream>
 #include "Argument.hpp"
+
 namespace mi
 {
         /**
@@ -51,6 +52,11 @@ namespace mi
                  * @return Reference to itself.
                  */
                 virtual Attribute& setMandatory ( void );
+
+                /**
+                * @brief Set attribute hidden.
+                * @return Reference to itself
+                 */
                 virtual Attribute& setHidden ( void );
                 /**
                  * @brief Analyze the attribute.
@@ -81,6 +87,10 @@ namespace mi
                  * @return Key.
                  */
                 std::string getKey ( void ) const;
+                /**
+                 * @brief Get value as string.
+                 * @return value associated with the key.
+                 */
                 virtual std::string getValue ( void ) const;
                 /**
                  * @brief Return the attribute is mandatory or not.
@@ -115,7 +125,7 @@ namespace mi
                 virtual void print_usage ( void );
         private:
                 std::string        _key;         ///< Key string.
-                std::string        _message;
+                std::string        _message;    ///< Message for the attribute.
                 bool               _isMandatory; ///< Flag this is mandatory attribute.
                 bool               _isHidden; ///< This is a hidden attribute.
                 AttributeErrorCode _errorCode;   ///< Error code

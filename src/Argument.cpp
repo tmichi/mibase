@@ -29,7 +29,7 @@ namespace mi
 
                 std::string get ( const int i ) const
                 {
-                        if ( this->is_valid ( i ) ) return this->_argv.at ( i );
+                        if ( 0 <= i && i < this->size() ) return this->_argv.at ( i );
                         else return std::string();
                 }
 
@@ -37,11 +37,7 @@ namespace mi
                 {
                         return static_cast<int> ( this->_argv.size() );
                 }
-        private:
-                bool is_valid ( const int i ) const
-                {
-                        return ( 0 <= i && i < this->size() );
-                }
+
         private:
                 std::deque<std::string>  _argv; ///< Arguments.
         };
@@ -50,7 +46,7 @@ namespace mi
         Argument::Argument ( int argc, char** argv ) : _impl ( new Argument::Impl() )
         {
                 for ( int i = 0 ; i < argc ; ++i ) {
-                        this->_impl->add ( std::string ( argv[i] ) );
+                        this->add ( std::string ( argv[i] ) );
                 }
                 return;
         }
@@ -83,15 +79,15 @@ namespace mi
                 return ( this->find ( key, offset ) > -1 );
         }
 
-	template <typename T>
-	T
-	Argument::get ( const std::string& key, const int offset ) const
-	{
-		const int index = this->find ( key , offset );
-		return this->get<T> ( index ) ;
-	};
-	
-	
+        template <typename T>
+        T
+        Argument::get ( const std::string& key, const int offset ) const
+        {
+                const int index = this->find ( key , offset );
+                return this->get<T> ( index ) ;
+        };
+
+
         template <typename T>
         T
         Argument::get ( const int idx ) const
@@ -102,7 +98,7 @@ namespace mi
         int
         Argument::find ( const std::string& key, const int offset ) const
         {
-                if ( offset < 0 ) return -1;
+                if ( offset < 0 ) return -1; // Offset number is negative
                 for ( int i = 0 ; i < this->size() - offset ; ++i ) {
                         if ( this->_impl->get ( i ).compare ( key ) == 0 ) return i + offset;
                 }
@@ -113,7 +109,7 @@ namespace mi
         Argument::print ( std::ostream& out )
         {
                 for ( int i = 0  ; i < this->size() ; ++i ) {
-                        std::string str = this->_impl->get ( i );
+                        const std::string str = this->_impl->get ( i );
                         if ( str.find ( "-", 0 ) == 0 ) out << std::endl; //
                         out << str << " ";
                 }
@@ -121,7 +117,8 @@ namespace mi
                 return;
         }
 
-#define ARGUMENT__GET2(TYPE) template TYPE Argument::get<TYPE> ( const std::string& key, const int offset ) const
+
+        #define ARGUMENT__GET2(TYPE) template TYPE Argument::get<TYPE> ( const std::string& key, const int offset ) const
         ARGUMENT__GET2 ( unsigned char );
         ARGUMENT__GET2 ( char );
         ARGUMENT__GET2 ( unsigned short );
@@ -131,7 +128,7 @@ namespace mi
         ARGUMENT__GET2 ( float );
         ARGUMENT__GET2 ( double );
         ARGUMENT__GET2 ( std::string );
-#define ARGUMENT__GET(TYPE) template TYPE Argument::get<TYPE> ( const int idx ) const
+        #define ARGUMENT__GET(TYPE) template TYPE Argument::get<TYPE> ( const int idx ) const
         ARGUMENT__GET ( unsigned char );
         ARGUMENT__GET ( char );
         ARGUMENT__GET ( unsigned short );

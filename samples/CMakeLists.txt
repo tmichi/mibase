@@ -10,14 +10,15 @@ TARGET_LINK_LIBRARIES(command0 mibase)
 ADD_EXECUTABLE(command1 command1.cpp)
 TARGET_LINK_LIBRARIES(command1 mibase)
 
-#ADD_EXECUTABLE(list0 list0.cpp)
-#TARGET_LINK_LIBRARIES(list0 mibase)
+ADD_EXECUTABLE(list0 list0.cpp)
+TARGET_LINK_LIBRARIES(list0 mibase)
 
 ADD_EXECUTABLE(memory0 memory0.cpp)
 TARGET_LINK_LIBRARIES(memory0 mibase)
 
-TARGET_LINK_LIBRARIES(time0 mibase)
 ADD_EXECUTABLE(time0 time0.cpp)
+TARGET_LINK_LIBRARIES(time0 mibase)
+
 
 ADD_EXECUTABLE(thread0 thread0.cpp)
 TARGET_LINK_LIBRARIES(thread0 mibase)
