@@ -6,16 +6,45 @@
 #include <sstream>
 namespace mi
 {
-
-        BooleanAttribute::BooleanAttribute ( const std::string& key,  bool& value ) : Attribute ( key ) , _value ( value )
+        class BooleanAttribute::Impl
         {
+        public:
+                Impl ( bool & value ) : _value( value )
+                {
+                        return;
+                }
+
+                ~Impl ( void )
+                {
+                        return;
+                }
+
+                bool& value ( void )
+                {
+                        return this->_value;
+                }
+        private:
+                bool&    _value; ///< Value.
+        };
+
+        BooleanAttribute::BooleanAttribute ( const std::string& key,  bool& value ) : Attribute ( key ) , _implb ( new BooleanAttribute::Impl( value ) )
+        {
+                return;
+        }
+
+        BooleanAttribute::~BooleanAttribute ( void )
+        {
+                if ( this->_implb != NULL ) {
+                        delete this->_implb;
+                        this->_implb = NULL;
+                }
                 return;
         }
 
         bool
         BooleanAttribute::parse ( const Argument& arg )
         {
-                this->_value = arg.exist ( this->getKey() );
+                this->_implb->value() = arg.exist ( this->getKey() );
                 return /* always */ true;
         }
 
@@ -23,15 +52,14 @@ namespace mi
         BooleanAttribute::toString ( void ) const
         {
                 std::stringstream ss;
-                ss << this->getKey() << " : ";
-                if ( this->_value ) ss << "on";
-                else ss << "off";
+                ss << this->getKey() << " : " << this->getValue();
                 return ss.str();
         }
+
         std::string
         BooleanAttribute::getValue ( void ) const
         {
-                return ( this->_value ) ? std::string ( "on" ) : std::string ( "off" );
+                return ( this->_implb->value() ) ? std::string ( "on" ) : std::string ( "off" );
         }
 
         BooleanAttribute&
@@ -41,4 +69,3 @@ namespace mi
                 return *this;
         }
 }//namespace mi
-

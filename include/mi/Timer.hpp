@@ -84,15 +84,17 @@ namespace mi
 
                 /**
                  * @brief Print measurement.
-                 * @param [in] key Key. Print nothing when key does not match.
-                 * @param [in] digit Digit.
-                 * @param [in] format Time format.
+                 * @param [in] key Key 
+                 * @param [in] digit Digit
+                 * @param [in] format Time format
+		 * @param [in] out Output stream
                  */
                 void print ( const std::string& key, const int digit = 4, const time_format format = TIME_AUTO, std::ostream& out = std::cout );
                 /**
-                 * @brief Print all measurements.
-                 * @param [in] digit Digit.
-                 * @param [in] format Time format.
+                 * @brief Print all measurements
+                 * @param [in] digit Digit
+                 * @param [in] format Time format
+		 * @param [in] out Output stream
                  */
                 void printAll ( const int digit = 4, const time_format format = TIME_AUTO, std::ostream& out = std::cout );
 
@@ -115,6 +117,9 @@ namespace mi
                  * @return Elapsed time.
                  */
                 double get_elapsed_time ( void ) const;
+
+		time_format estimate_format ( const double t ) const;
+		std::string get_format_string ( const time_format format ) const;
         private:
                 const static int TIMER_MINUTE = 60;//seconds.
                 const static int TIMER_HOUR   = 60;//minutes.

@@ -27,16 +27,6 @@ namespace mi
          */
         class Thread
         {
-        public:
-                /*
-                #ifdef OS_WINDOWS
-                                typedef HANDLE Handle; ///< Thread handle.
-                                typedef CRITICAL_SECTION CriticalSectionHandle; ///< Critical section handle.
-                #else
-                                typedef pthread_t Handle; ///< Thread handle.
-                                typedef pthread_mutex_t CriticalSectionHandle;///< Critical section handle.
-                #endif
-                */
         private:
                 Thread ( const Thread& that ) ;
                 void operator = ( const Thread& that ) ;

@@ -29,6 +29,7 @@ namespace mi
         public:
                 Impl ( void )
                 {
+			this->init();
                 }
 
                 ~Impl ( void )
@@ -82,9 +83,9 @@ namespace mi
 
         Timer::Timer ( void ) : _impl  ( new Timer::Impl() )
         {
-                this->init();
                 return;
         }
+
         Timer::~Timer ( void )
         {
                 return;
@@ -137,7 +138,7 @@ namespace mi
         void
         Timer::print ( const std::string& key, const int digit, const time_format format, std::ostream& out )
         {
-                if ( !this->_impl->exist ( key ) ) return;
+                if ( ! this->_impl->exist ( key ) ) return; // do nothing if the key does not exist.
                 out << this->toString ( key, digit, format ) << std::endl;
                 return;
         }
@@ -157,25 +158,14 @@ namespace mi
                 if ( !this->_impl->exist ( key ) ) {
                         return std::string ( "NULL" );
                 }
+
                 if ( format == TIME_AUTO ) {
                         const double t = this->get ( key, TIME_SECOND );
-                        if ( t < TIMER_MINUTE ) {
-                                return this->toString ( key, digit, TIME_SECOND );
-                        } else if ( t < TIMER_MINUTE * TIMER_HOUR ) {
-                                return this->toString ( key, digit, TIME_MINUTE );
-                        } else if ( t < TIMER_MINUTE * TIMER_HOUR * TIMER_DAY ) {
-                                return this->toString ( key, digit, TIME_HOUR );
-                        } else {
-                                return this->toString ( key, digit, TIME_DAY );
-                        }
+			const time_format f = this->estimate_format ( t );
+			return this->toString( key, digit, f);
                 } else {
                         std::stringstream ss;
-                        ss << key << " : \t" << std::setprecision ( digit ) << this->get ( key , format ) << "\t";
-                        if      ( format == TIME_SECOND ) ss << "[s]";
-                        else if ( format == TIME_MINUTE ) ss << "[m]";
-                        else if ( format == TIME_HOUR )   ss << "[h]";
-                        else if ( format == TIME_DAY )    ss << "[d]";
-                        else return std::string();
+                        ss << key << " : \t" << std::setprecision ( digit ) << this->get ( key , format ) << "\t"<<this->get_format_string(format);
                         return ss.str();
                 }
         }
@@ -194,5 +184,26 @@ namespace mi
                 return tv0.tv_sec + tv0.tv_usec * SUBSECONDS;
 #endif
         }
+
+	time_format 
+	Timer::estimate_format ( const double t ) const {
+		double t0 = t;
+		if ( t0 < TIMER_MINUTE ) return TIME_SECOND;
+		t0 *= 1.0 / TIMER_MINUTE;
+		if ( t0 < TIMER_HOUR   ) return TIME_MINUTE;
+		t0 *= 1.0 / TIMER_HOUR;
+		if ( t0 < TIMER_DAY    ) return TIME_HOUR;
+		t0 *= 1.0 / TIMER_HOUR;
+		return TIME_DAY;
+	}
+
+	std::string 
+	Timer::get_format_string ( const time_format format ) const {
+		if      ( format == TIME_SECOND ) return std::string("[s]");
+		else if ( format == TIME_MINUTE ) return std::string("[m]");
+		else if ( format == TIME_HOUR )   return std::string("[h]");
+		else if ( format == TIME_DAY )    return std::string("[d]");
+		else                              return std::string("[?]");
+	}
 }
 

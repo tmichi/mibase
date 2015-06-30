@@ -1,4 +1,3 @@
-build/
 # Compiled Object files
 *.slo
 *.lo
@@ -30,3 +29,7 @@ build/
 
 *~
 \#*
+
+# folders
+docs/
+build/

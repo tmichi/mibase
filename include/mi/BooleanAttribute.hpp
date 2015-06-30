@@ -28,6 +28,8 @@ namespace mi
                  * @param [in] value Value.
                  */
                 explicit BooleanAttribute ( const std::string& key,  bool& value );
+
+                ~BooleanAttribute( void );
                 /**
                  * @brief Analyze the attribute.
                  * @param [in] arg Argument object.
@@ -42,7 +44,8 @@ namespace mi
                 std::string getValue ( void ) const;
                 BooleanAttribute& setMessage ( const std::string& message );
         private:
-                bool&    _value; ///< Value.
+                class Impl;
+                Impl* _implb;
         }; //class BooleanAttribute
 }//namespace mi
 #endif // MI_BOOLEAN_ATTRIBUTE_HPP

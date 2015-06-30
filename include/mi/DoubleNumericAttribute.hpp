@@ -32,29 +32,34 @@ namespace mi
 
                 /**
                  * @brief Set minimum value.
-                 * @param [in] minValue Minimum value.
+                 * @param [in] min0 First minumum value.
+                 * @param [in] min1 Second minimum value.
                  * @return Itself.
                  */
                 DoubleNumericAttribute<T>&  setMin ( const T min0, const T min1 ) ;
 
                 /**
                  * @brief Set maximum value.
-                 * @param [in] maxValue Maximum value.
+                 * @param [in] max0 First maximum value.
+                 * @param [in] max1 Second maximum value.
                  * @return Itself.
                  */
                 DoubleNumericAttribute<T>& setMax ( const T max0, const T max1 ) ;
 
                 /**
                  * @brief Set minimum / maximum value.
-                 * @param [in] minValue Minimum value.
-                 * @param [in] maxValue Maximum value.
+                 * @param [in] min0 First minumum value.
+                 * @param [in] min1 Second minimum value.
+                 * @param [in] max0 First maximum value.
+                 * @param [in] max1 Second maximum value.
                  * @return Itself.
                  */
                 DoubleNumericAttribute<T>& setMinMax (  const T min0, const T min1, const T max0, const T max1 ) ;
 
                 /**
                  * @brief Set default value.
-                 * @param [in] defaultValue Default value.
+                 * @param [in] default0 First default value.
+                 * @param [in] default1 Second default value.
                  * @return Itself.
                  */
                 DoubleNumericAttribute<T>&  setDefaultValue ( const T default0, const T default1 );

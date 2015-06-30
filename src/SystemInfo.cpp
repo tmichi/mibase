@@ -61,9 +61,7 @@ namespace mi
                 return SystemInfo::get_sysctl ( "machdep.cpu.brand_string" );
 #endif
         }
-        /**
-         * @return Memory size [gb];
-         */
+
         double
         SystemInfo::getMemorySize ( void )
         {

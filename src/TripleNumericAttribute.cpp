@@ -66,11 +66,6 @@ namespace mi
                 return this->setMin ( min0, min1, min2 ).setMax ( max0, max1, max2 );
         }
 
-        /**
-         * @brief Set default value.
-         * @param [in] defaultValue Default value.
-         * @return Itself.
-         */
         template<typename T>
         TripleNumericAttribute<T>&
         TripleNumericAttribute<T>::setDefaultValue ( const T default0, const T default1, const T default2 )
@@ -81,10 +76,6 @@ namespace mi
                 return *this;
         }
 
-        /**
-         * @brief Set this attribute must be within a range.
-         * @return Itself.
-         */
         template<typename T>
         TripleNumericAttribute<T>&
         TripleNumericAttribute<T>::setOutRangeRejected ( void )
@@ -95,10 +86,6 @@ namespace mi
                 return *this;
         }
 
-        /**
-         * @brief Get value.
-         * @return Value.
-         */
         template<typename T>
         std::string
         TripleNumericAttribute<T>::toString ( void ) const

@@ -103,11 +103,6 @@ namespace mi
         private:
                 class Impl;
                 Impl* _impl;
-                std::string  _cmdStr; ///< Command name
-                AttributeSet _attr;   ///< Attribute set.
-                Timer        _timer;///< Timer.
-                bool         _isTimingModeOn; ///< Flag for timing mode.
-                bool         _isDebugModeOn;///< Flag for debug mode.
         };//class CommandTemplate
 }//namespace mi
 #endif // MI_COMMAND_TEMPLATE_HPP

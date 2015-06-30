@@ -1,10 +1,11 @@
+#include <mi/FileLister.hpp>
+#include <mi/Tokenizer.hpp>
+
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)// Win32 API
 #include <windows.h>
 #else //MAC
 #include <dirent.h>
 #endif
-#include <mi/FileLister.hpp>
-#include <mi/Tokenizer.hpp>
 namespace mi
 {
         std::string
