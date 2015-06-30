@@ -16,6 +16,9 @@ TARGET_LINK_LIBRARIES(list0 mibase)
 ADD_EXECUTABLE(memory0 memory0.cpp)
 TARGET_LINK_LIBRARIES(memory0 mibase)
 
+ADD_EXECUTABLE(system0 system0.cpp)
+TARGET_LINK_LIBRARIES(system0 mibase)
+
 ADD_EXECUTABLE(time0 time0.cpp)
 TARGET_LINK_LIBRARIES(time0 mibase)
 

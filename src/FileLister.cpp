@@ -2,6 +2,29 @@
 #include <mi/Tokenizer.hpp>
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)// Win32 API
+#ifndef	OS_WINDOWS
+#define	OS_WINDOWS 1
+#endif	//OS_WINDOWS
+#else
+#ifndef OS_UNIX
+#define OS_UNIX 1
+#endif//OS_UNIX
+#if defined (__APPLE__)
+#ifndef OS_MAC
+#define OS_MAC 1
+#endif//OS_MAC
+#elif defined(__linux__)
+#ifndef OS_LINUX
+#define OS_LINUX 1
+#endif//OS_LINUX
+#else 
+#ifndef OS_UNKNOWN
+#define OS_UNKNOWN 1
+#endif//OS_UNKNOWN
+#endif//if defined __APPLE__ __linux
+#endif//if defined 
+
+#if defined (OS_WINDOWS)
 #include <windows.h>
 #else //MAC
 #include <dirent.h>
@@ -11,7 +34,7 @@ namespace mi
         std::string
         FileLister::modify_path ( const std::string& path )
         {
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)// Win32 API
+#if defined (OS_WINDOWS)
                 const static char SEPARATER = '\\';
 #else
                 const static char SEPARATER = '/';
@@ -27,7 +50,7 @@ namespace mi
         {
                 std::string path0 = FileLister::modify_path ( path );
                 result.clear();
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)// Win32 API
+#if defined (OS_WINDOWS)
                 HANDLE hSearch;
                 WIN32_FIND_DATA fd;
                 path0 += "*";

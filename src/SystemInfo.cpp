@@ -4,8 +4,32 @@
 #include <cstdlib>
 #include <iomanip>
 #include <sstream>
+//macros
+//http://d.hatena.ne.jp/torutk/20090420/p1
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)// Win32 API
-#define OS_WINDOWS 1
+#ifndef	OS_WINDOWS
+#define	OS_WINDOWS 1
+#endif	//OS_WINDOWS
+#else
+#ifndef OS_UNIX
+#define OS_UNIX 1
+#endif//OS_UNIX
+#if defined (__APPLE__)
+#ifndef OS_MAC
+#define OS_MAC 1
+#endif//OS_MAC
+#elif defined(__linux__)
+#ifndef OS_LINUX
+#define OS_LINUX 1
+#endif//OS_LINUX
+#else 
+#ifndef OS_UNKNOWN
+#define OS_UNKNOWN 1
+#endif//OS_UNKNOWN
+#endif//if defined __APPLE__ __linux
+#endif//if defined 
+
+#if defined OS_WINDOWS 
 #include <windows.h>
 #include <process.h>
 #include <intrin.h>
@@ -14,7 +38,6 @@
 #include <Psapi.h>
 #pragma comment(lib, "psapi.lib")
 #endif// PEAK_MEMORY_COUNTER_DISABLED
-//#elif defined(__APPLE__)
 #else
 #include <ctime>
 #include <sys/types.h>
@@ -169,7 +192,7 @@ namespace mi
         {
                 double peakMemory = 0;
 #ifndef PEAK_MEMORY_COUNTER_DISABLED
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)// Win32 API
+#if defined(OS_WINDOWS)
                 PROCESS_MEMORY_COUNTERS pmc = { 0 };
                 HANDLE hProcess = OpenProcess ( PROCESS_QUERY_INFORMATION, FALSE, GetCurrentProcessId() );
                 if ( GetProcessMemoryInfo ( hProcess, &pmc, sizeof ( pmc ) ) ) {

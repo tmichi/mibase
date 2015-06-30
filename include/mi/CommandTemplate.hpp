@@ -12,7 +12,10 @@
 #include "AttributeSet.hpp"
 #include "SystemInfo.hpp"
 #include "Timer.hpp"
-
+/**
+ * @namespace mi
+ * @brief Namespace of codes those I created. 
+ */
 namespace mi
 {
         /**
