@@ -9,15 +9,60 @@
 
 namespace mi
 {
-        AttributeSet::AttributeSet ( void ) : Attribute ( "" ) , _isAnd ( true )
+        class AttributeSet::Impl
+        {
+        public:
+                Impl ( void ) : _isAnd ( true )
+                {
+                        return;
+                };
+
+                ~Impl ( void )
+                {
+                        for ( Iterator iter = this->_attr.begin() ; iter != this->_attr.end() ; ++iter ) {
+                                delete ( *iter );
+                        }
+                }
+
+                void setOr ( void )
+                {
+                        this->_isAnd = false;
+                        return;
+                }
+
+                Attribute& add ( Attribute* attribute )
+                {
+                        this->_attr.push_back( attribute );
+                        return *attribute;
+                }
+
+                bool isAnd ( void )
+                {
+                        return this->_isAnd;
+                }
+
+                Iterator begin( void )
+                {
+                        return this->_attr.begin();
+                }
+                Iterator end( void )
+                {
+                        return this->_attr.end();
+                }
+        private:
+                bool _isAnd; ///< Flag whether this attribute set is "AND".
+                std::list<Attribute*> _attr; ///< List of attributes.
+        };
+        AttributeSet::AttributeSet ( void ) : Attribute ( "" ) , _impls ( new Impl() )
         {
                 return;
         }
 
         AttributeSet::~AttributeSet ( void )
         {
-                for ( Iterator iter = this->_attr.begin() ; iter != this->_attr.end() ; ++iter ) {
-                        delete ( *iter );
+                if ( this->_impls != NULL ) {
+                        delete this->_impls;
+                        this->_impls = NULL;
                 }
                 return ;
         }
@@ -25,34 +70,31 @@ namespace mi
         AttributeSet&
         AttributeSet::setOr ( void )
         {
-                this->_isAnd = false;
+                this->_impls->setOr();
                 return *this;
         }
 
         AttributeSet&
         AttributeSet::createAttributeSet ( void )
         {
-                Attribute* sAttr = new AttributeSet();
-                this->_attr.push_back ( sAttr );
-                return dynamic_cast<AttributeSet&> ( *sAttr );
+                Attribute& attr = this->_impls->add( new AttributeSet() );
+                return dynamic_cast<AttributeSet&> ( attr );
         }
 
         BooleanAttribute&
         AttributeSet::createBooleanAttribute ( const std::string& key, bool& value , const std::string& message )
         {
-                Attribute* bAttr = new BooleanAttribute ( key, value ) ;
-                bAttr->setMessage ( message );
-                this->_attr.push_back ( bAttr );
-                return dynamic_cast<BooleanAttribute& > ( *bAttr );
+                Attribute& attr =  this->_impls->add( new BooleanAttribute( key, value ) );
+                attr.setMessage( message );
+                return dynamic_cast<BooleanAttribute& > ( attr );
         }
 
         StringAttribute&
         AttributeSet::createStringAttribute ( const std::string& key, std::string& value , const std::string& message )
         {
-                Attribute* sAttr = new StringAttribute ( key, value ) ;
-                sAttr->setMessage ( message );
-                this->_attr.push_back ( sAttr );
-                return dynamic_cast<StringAttribute&> ( *sAttr );
+                Attribute& attr =  this->_impls->add( new StringAttribute( key, value ) );
+                attr.setMessage( message );
+                return dynamic_cast<StringAttribute&> ( attr );
         }
 
 
@@ -60,10 +102,9 @@ namespace mi
         NumericAttribute<T>&
         AttributeSet::createNumericAttribute ( const std::string& key, T& value,  const std::string& message )
         {
-                Attribute* nAttr = new NumericAttribute<T> ( key, value , 1 ) ;
-                nAttr->setMessage ( message );
-                this->_attr.push_back ( nAttr );
-                return dynamic_cast<NumericAttribute<T>& > ( *nAttr );
+                Attribute& attr =  this->_impls->add( new NumericAttribute<T> ( key, value , 1 ) );
+                attr.setMessage( message );
+                return dynamic_cast<NumericAttribute<T>& > ( attr );
         }
 
         template<typename T>
@@ -73,10 +114,9 @@ namespace mi
                 /// @todo should allocate memory in Double Numeric Attribute.
                 NumericAttribute<T>* nAttr0 = new NumericAttribute<T> ( key, value0 , 1 );
                 NumericAttribute<T>* nAttr1 = new NumericAttribute<T> ( key, value1 , 2 );
-                Attribute* dAttr = new DoubleNumericAttribute<T> ( key, nAttr0, nAttr1 );
-                dAttr->setMessage ( message );
-                this->_attr.push_back ( dAttr );
-                return dynamic_cast<DoubleNumericAttribute<T>& > ( *dAttr );
+                Attribute& attr =  this->_impls->add( new DoubleNumericAttribute<T> ( key, nAttr0, nAttr1 ) );
+                attr.setMessage( message );
+                return dynamic_cast<DoubleNumericAttribute<T>& > ( attr );
         }
 
         template<typename T>
@@ -86,24 +126,25 @@ namespace mi
                 NumericAttribute<T>* nAttr0 = new NumericAttribute<T> ( key, value0 , 1 );
                 NumericAttribute<T>* nAttr1 = new NumericAttribute<T> ( key, value1 , 2 );
                 NumericAttribute<T>* nAttr2 = new NumericAttribute<T> ( key, value2 , 3 );
-                Attribute* tAttr = new TripleNumericAttribute<T> ( key, nAttr0, nAttr1, nAttr2 );
-                tAttr->setMessage ( message );
-                this->_attr.push_back ( tAttr );
-                return dynamic_cast<TripleNumericAttribute<T>& > ( *tAttr );
+                Attribute& attr = this->_impls->add( new TripleNumericAttribute<T> ( key, nAttr0, nAttr1, nAttr2 ) );
+                attr.setMessage( message );
+                return dynamic_cast<TripleNumericAttribute<T>& > ( attr );
         }
 
         bool
         AttributeSet::parse ( const Argument& arg )
         {
+                Iterator begin = this->_impls->begin();
+                Iterator end   = this->_impls->end();
                 bool result;
-                if ( this->_isAnd ) {
+                if ( this->_impls->isAnd() ) {
                         result = true;
-                        for ( Iterator iter = this->_attr.begin() ; iter != this->_attr.end() ; ++iter ) {
+                        for ( Iterator iter = begin ; iter != end ; ++iter ) {
                                 result &= ( *iter )->parse ( arg );
                         }
                 } else {
                         result  = false;
-                        for ( Iterator iter = this->_attr.begin() ; iter != this->_attr.end() ; ++iter ) {
+                        for ( Iterator iter = begin ; iter != end ; ++iter ) {
                                 result |=  ( *iter )->parse ( arg );
                         }
                 }
@@ -117,7 +158,7 @@ namespace mi
         void
         AttributeSet::printError ( void )
         {
-                for ( Iterator iter = this->_attr.begin() ; iter != this->_attr.end() ; iter++ ) {
+                for ( Iterator iter = this->_impls->begin() ; iter != this->_impls->end() ; iter++ ) {
                         ( *iter )->printError();
                 }
                 return;
@@ -127,7 +168,7 @@ namespace mi
         AttributeSet::print ( std::ostream& out )
         {
                 out << "Arguments: " << std::endl;
-                for ( Iterator iter = this->_attr.begin() ; iter != this->_attr.end() ; iter++ ) {
+                for ( Iterator iter = this->_impls->begin() ; iter != this->_impls->end() ; iter++ ) {
                         ( *iter )->print ( out );
                 }
                 return;
@@ -153,7 +194,7 @@ namespace mi
         void
         AttributeSet::print_usage ( void )
         {
-                for ( Iterator iter = this->_attr.begin() ; iter != this->_attr.end() ; iter++ ) {
+                for ( Iterator iter = this->_impls->begin() ; iter != this->_impls->end() ; iter++ ) {
                         ( *iter )->print_usage();
                 }
         }
@@ -193,4 +234,3 @@ namespace mi
 #endif
 
 };
-

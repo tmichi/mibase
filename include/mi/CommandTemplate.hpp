@@ -2,7 +2,7 @@
 * @file  CommandTemplate.hpp
 * @author Takashi Michikawa <michikawa@acm.org>
 */
-#pragma once 
+#pragma once
 #ifndef MI_COMMAND_TEMPLATE_HPP
 #define MI_COMMAND_TEMPLATE_HPP 1
 
@@ -101,6 +101,8 @@ namespace mi
                 */
                 static int execute ( CommandTemplate& cmd, Argument& arg );
         private:
+                class Impl;
+                Impl* _impl;
                 std::string  _cmdStr; ///< Command name
                 AttributeSet _attr;   ///< Attribute set.
                 Timer        _timer;///< Timer.
@@ -109,5 +111,3 @@ namespace mi
         };//class CommandTemplate
 }//namespace mi
 #endif // MI_COMMAND_TEMPLATE_HPP
-
-

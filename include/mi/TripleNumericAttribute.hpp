@@ -86,4 +86,3 @@ namespace mi
         };
 }
 #endif// MI_TRIPLE_NUMERIC_ATTRIBUTE_HPP
-

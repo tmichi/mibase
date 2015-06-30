@@ -87,7 +87,7 @@ namespace mi
                 bool clamp_value ( T& value );
         private:
                 class Impl;
-                Impl* _impl;
+                Impl* _impln;
         };
 };
 #endif// MI_NUMERIC_ATTRIBUTE_HPP

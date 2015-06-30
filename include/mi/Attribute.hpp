@@ -98,6 +98,24 @@ namespace mi
                  * @retval false The attribute is not mandatory.
                  */
                 bool isMandatory ( void ) const;
+
+                /**
+                 * @brief Set usage message for the argument
+                 * @param[in] message Message
+                 * @return A referent to itself
+                 */
+                Attribute&  setMessage ( const std::string& message );
+
+                /**
+                 * @brief Get message
+                 * @return Message.
+                 */
+                std::string getMessage ( void ) const;
+
+                /**
+                 * @brief Print usage message.
+                 */
+                virtual void print_usage ( void ); // collision of AttributeSet::printUsage()
         protected:
                 /**
                  * @brief Check the key exists or not.
@@ -119,16 +137,15 @@ namespace mi
                  * @param [in] code Error code.
                  */
                 void setErrorCode ( const AttributeErrorCode code );
-        public:
-                void setMessage ( const std::string& message );
-                std::string getMessage ( void ) const;
-                virtual void print_usage ( void );
         private:
-                std::string        _key;         ///< Key string.
+                class Impl;
+                Impl* _impl;
+                /*std::string        _key;        ///< Key string.
                 std::string        _message;    ///< Message for the attribute.
-                bool               _isMandatory; ///< Flag this is mandatory attribute.
-                bool               _isHidden; ///< This is a hidden attribute.
-                AttributeErrorCode _errorCode;   ///< Error code
+                bool               _isMandatory;///< Flag this is mandatory attribute.
+                bool               _isHidden;   ///< This is a hidden attribute.
+                AttributeErrorCode _errorCode;  ///< Error code
+                */
         };
 }
 #endif //MI_ATTRIBUTE_HPP

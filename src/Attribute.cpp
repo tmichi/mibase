@@ -5,27 +5,98 @@
 
 namespace mi
 {
-        Attribute::Attribute ( const std::string& key ) : _key ( key ), _isMandatory ( false ), _isHidden ( false ), _errorCode ( ATTRIBUTE_ERROR_OK )
+        class Attribute::Impl
+        {
+        public:
+                Impl ( const std::string& key ) : _key ( key ), _isMandatory ( false ), _isHidden ( false ), _errorCode ( ATTRIBUTE_ERROR_OK )
+                {
+                        return;
+                }
+
+                ~Impl ( void )
+                {
+                        return;
+                }
+
+                std::string getKey ( void ) const
+                {
+                        return this->_key;
+                }
+
+                void setMessage ( const std::string& message )
+                {
+                        this->_message = message;
+                        return;
+                }
+
+                std::string getMessage ( void ) const
+                {
+                        return this->_message;
+                }
+
+                void setMandatory ( void )
+                {
+                        this-> _isMandatory = true;
+                }
+
+                bool isMandatory ( void ) const
+                {
+                        return this->_isMandatory;
+                }
+
+                void setHidden ( void )
+                {
+                        this->_isHidden = true;
+                }
+
+                bool isHidden ( void )
+                {
+                        return this->_isHidden;
+                }
+
+                void setErrorCode ( const AttributeErrorCode code )
+                {
+                        this->_errorCode = code;
+                }
+
+                AttributeErrorCode getErrorCode ( void )
+                {
+                        return this->_errorCode;
+                }
+        private:
+                const std::string        _key;        ///< Key string.
+                std::string        _message;    ///< Message for the attribute.
+                bool               _isMandatory;///< Flag this is mandatory attribute.
+                bool               _isHidden;   ///< This is a hidden attribute.
+                AttributeErrorCode _errorCode;  ///< Error code
+        };
+
+
+        Attribute::Attribute ( const std::string& key ) : _impl ( new Attribute::Impl ( key ) )
         {
                 return ;
         }
 
         Attribute::~Attribute ( void )
         {
+                if ( this->_impl != NULL ) {
+                        delete this->_impl;
+                        this->_impl = NULL;
+                }
                 return;
         }
 
         Attribute&
         Attribute::setMandatory ( void )
         {
-                this->_isMandatory = true;
+                this->_impl->setMandatory();
                 return *this;
         }
 
         Attribute&
         Attribute::setHidden ( void )
         {
-                this->_isHidden = true;
+                this->_impl->setHidden();
                 return *this;
         }
 
@@ -58,7 +129,7 @@ namespace mi
         std::string
         Attribute::getKey ( void ) const
         {
-                return this->_key;
+                return this->_impl->getKey();
         }
 
         std::string
@@ -70,7 +141,7 @@ namespace mi
         bool
         Attribute::isMandatory ( void ) const
         {
-                return this->_isMandatory;
+                return this->_impl->isMandatory();
         }
 
         bool
@@ -83,36 +154,35 @@ namespace mi
         AttributeErrorCode
         Attribute::getErrorCode ( void  ) const
         {
-                return this->_errorCode;
+                return this->_impl->getErrorCode();
         }
 
         void
         Attribute::setErrorCode ( const AttributeErrorCode code )
         {
-                this->_errorCode = code;
+                this->_impl->setErrorCode( code );
                 return;
         }
 
 
 
-        void
+        Attribute&
         Attribute::setMessage ( const std::string& message )
         {
-                this->_message = message;
-                return;
+                this->_impl->setMessage( message );
+                return *this;
         }
 
         std::string
         Attribute::getMessage ( void ) const
         {
-                return this->_message;
+                return this->_impl->getMessage();
         }
 
         void
         Attribute::print_usage ( void )
         {
-                if ( this->_isHidden ) return;
+                if ( this->_impl->isHidden() ) return;
                 std::cerr << "\t" << this->getKey() << "\t" << this->getMessage() << std::endl;
         }
 }
-

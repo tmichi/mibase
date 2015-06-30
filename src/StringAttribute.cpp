@@ -36,15 +36,16 @@ namespace mi
                 std::string     _defaultValue; ///< Default value.
         };
 
-        StringAttribute::StringAttribute ( const std::string& key,  std::string& value ) : Attribute ( key ) , _impl ( new StringAttribute::Impl ( value ) )
+        StringAttribute::StringAttribute ( const std::string& key,  std::string& value ) : Attribute ( key ) , _impls ( new StringAttribute::Impl ( value ) )
         {
                 return;
         }
 
         StringAttribute::~StringAttribute ( void )
         {
-                if ( this->_impl != NULL ) {
-                        delete this->_impl;
+                if ( this->_impls != NULL ) {
+                        delete this->_impls;
+                        this->_impls = NULL;
                 }
                 return;
         }
@@ -53,14 +54,14 @@ namespace mi
         StringAttribute::parse ( const Argument& arg )
         {
                 if ( this->is_key_found ( arg, this->getKey(), 1 ) ) {
-                        this->_impl->value() = arg.get<std::string> ( this->getKey() );
+                        this->_impls->value() = arg.get<std::string> ( this->getKey() );
                         return true;
                 } else {
                         if ( this->isMandatory() ) {
                                 this->setErrorCode ( ATTRIBUTE_ERROR_KEY_NOT_FOUND );
                                 return false;
                         } else {
-                                this->_impl->value() = this->_impl->defaultValue();
+                                this->_impls->value() = this->_impls->defaultValue();
                                 return true;
                         }
                 }
@@ -69,7 +70,7 @@ namespace mi
         StringAttribute&
         StringAttribute::setDefaultValue ( const std::string& defaultValue )
         {
-                this->_impl->defaultValue() = defaultValue;
+                this->_impls->defaultValue() = defaultValue;
                 return *this;
         }
 
@@ -97,14 +98,13 @@ namespace mi
         StringAttribute::toString ( void ) const
         {
                 std::stringstream ss;
-                ss << this->getKey() << " : " << this->_impl->value();
+                ss << this->getKey() << " : " << this->getValue();
                 return ss.str();
         }
 
         std::string
         StringAttribute::getValue ( void ) const
         {
-                return this->_impl->value();
+                return this->_impls->value();
         }
 }
-

@@ -7,8 +7,8 @@ namespace mi
         class Argument::Impl
         {
         private:
-                Impl ( const Impl& that );
-                void operator = ( const Impl& that );
+                Impl ( const Argument::Impl& that );
+                void operator = ( const Argument::Impl& that );
         public:
                 Impl ( void )
                 {
@@ -118,7 +118,7 @@ namespace mi
         }
 
 
-        #define ARGUMENT__GET2(TYPE) template TYPE Argument::get<TYPE> ( const std::string& key, const int offset ) const
+#define ARGUMENT__GET2(TYPE) template TYPE Argument::get<TYPE> ( const std::string& key, const int offset ) const
         ARGUMENT__GET2 ( unsigned char );
         ARGUMENT__GET2 ( char );
         ARGUMENT__GET2 ( unsigned short );
@@ -128,7 +128,7 @@ namespace mi
         ARGUMENT__GET2 ( float );
         ARGUMENT__GET2 ( double );
         ARGUMENT__GET2 ( std::string );
-        #define ARGUMENT__GET(TYPE) template TYPE Argument::get<TYPE> ( const int idx ) const
+#define ARGUMENT__GET(TYPE) template TYPE Argument::get<TYPE> ( const int idx ) const
         ARGUMENT__GET ( unsigned char );
         ARGUMENT__GET ( char );
         ARGUMENT__GET ( unsigned short );

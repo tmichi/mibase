@@ -9,28 +9,32 @@
 
 namespace mi
 {
-        class FileNameConverter::Impl {
+        class FileNameConverter::Impl
+        {
         private:
                 std::string _filename; ///> File name.
         private:
-                Impl ( const Impl& that);
-                void operator = ( const Impl& that);
+                Impl ( const Impl& that );
+                void operator = ( const Impl& that );
         public:
-                Impl ( const std::string& filename  ) : _filename( filename) {
+                Impl ( const std::string& filename  ) : _filename( filename )
+                {
                         return;
-                }     
-                ~Impl ( void ) {
-                        
                 }
-                std::string& filename ( void ) {
+                ~Impl ( void )
+                {
+
+                }
+                std::string& filename ( void )
+                {
                         return this->_filename;
                 }
         };
 
-    
-        FileNameConverter::FileNameConverter ( const std::string& filename ) 
+
+        FileNameConverter::FileNameConverter ( const std::string& filename )
         {
-                this->_impl = new Impl (filename);
+                this->_impl = new Impl ( filename );
                 return;
         }
 

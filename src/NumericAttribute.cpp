@@ -130,7 +130,7 @@ namespace mi
 
         template<typename T>
         NumericAttribute<T>::NumericAttribute ( const std::string& key,  T& value, const int offset  )
-                : Attribute ( key ), _impl ( new NumericAttribute<T>::Impl ( value, offset ) )
+                : Attribute ( key ), _impln ( new NumericAttribute<T>::Impl ( value, offset ) )
         {
                 return;
         }
@@ -139,9 +139,9 @@ namespace mi
         bool
         NumericAttribute<T>::parse ( const Argument& arg )
         {
-                const int& offset = this->_impl->getOffset();
+                const int& offset = this->_impln->getOffset();
                 const std::string key = this->getKey();
-                T& value = this->_impl->getValue();
+                T& value = this->_impln->getValue();
                 if ( this->is_key_found ( arg, key, offset ) ) {
                         value = arg.get<T> ( key , offset );
                         return this->clamp_value ( value );
@@ -150,7 +150,7 @@ namespace mi
                                 this->setErrorCode ( ATTRIBUTE_ERROR_KEY_NOT_FOUND );
                                 return false;
                         } else {
-                                value = this->_impl->getDefaultValue();
+                                value = this->_impln->getDefaultValue();
                                 return true;
                         }
                 }
@@ -160,7 +160,7 @@ namespace mi
         NumericAttribute<T>&
         NumericAttribute<T>::setMin ( const T minValue )
         {
-                this->_impl->setMinValue ( minValue ) ;
+                this->_impln->setMinValue ( minValue ) ;
                 return *this;
         }
 
@@ -168,7 +168,7 @@ namespace mi
         NumericAttribute<T>&
         NumericAttribute<T>::setMax ( const T maxValue )
         {
-                this->_impl->setMaxValue ( maxValue );
+                this->_impln->setMaxValue ( maxValue );
                 return *this;
         }
 
@@ -183,7 +183,7 @@ namespace mi
         NumericAttribute<T>&
         NumericAttribute<T>::setDefaultValue ( const T defaultValue )
         {
-                this->_impl->setDefaultValue ( defaultValue );
+                this->_impln->setDefaultValue ( defaultValue );
                 return *this;
         }
 
@@ -191,7 +191,7 @@ namespace mi
         NumericAttribute<T>&
         NumericAttribute<T>::setOutRangeRejected ( void )
         {
-                this->_impl->setOutRangeRejected();
+                this->_impln->setOutRangeRejected();
                 return *this;
         }
 
@@ -201,7 +201,7 @@ namespace mi
         {
                 std::stringstream ss;
                 ss << this->getKey();
-                if ( this->_impl->getOffset() > 1 ) ss << "[" << this->_impl->getOffset() << "]";
+                if ( this->_impln->getOffset() > 1 ) ss << "[" << this->_impln->getOffset() << "]";
                 ss << " : " << this->getValue();
                 return ss.str();
         }
@@ -210,7 +210,7 @@ namespace mi
         NumericAttribute<T>::getValue ( void ) const
         {
                 std::stringstream ss;
-                ss << this->_impl->getValue();
+                ss << this->_impln->getValue();
                 return ss.str();
         }
 
@@ -241,7 +241,7 @@ namespace mi
         bool
         NumericAttribute<T>::clamp_value ( T& value )
         {
-                if ( !this->_impl->clampValue ( value ) ) {
+                if ( !this->_impln->clampValue ( value ) ) {
                         this->setErrorCode ( ATTRIBUTE_ERROR_VALUE_OUT_OF_RANGE );
                         return false;
                 } else return true;

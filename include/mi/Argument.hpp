@@ -1,6 +1,6 @@
 /**
  * @file Argument.hpp
- * @brief manages argument objefct.
+ * @brief Class declaration of mi::Argument
  * @author Takashi Michikawa <michikawa@acm.org>
  */
 #pragma once
@@ -67,7 +67,6 @@ namespace mi
                 template <typename T>
                 T get ( const std::string& key, const int offset = 1 ) const;
 
-
                 /**
                  * @brief Get value at i-th argument.
                  * @param [in] idx Index.
@@ -93,5 +92,5 @@ namespace mi
                 class Impl;
                 Argument::Impl* _impl;
         };
-}//namespace mi
+} //namespace mi
 #endif //MI_ARGUMENT_HPP

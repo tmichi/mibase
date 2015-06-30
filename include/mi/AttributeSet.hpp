@@ -108,10 +108,10 @@ namespace mi
                 void printUsage ( const std::string cmdStr ) ;
 
                 virtual void print_usage ( void ) ;
+
         private:
-                bool _isAnd; ///< Flag whether this attribute set is "AND".
-        protected:
-                std::list<Attribute*> _attr; ///< List of attributes.
+                class Impl;
+                Impl* _impls;
         };
-};
+}
 #endif //MI_ATTRIBUTE_SET_HPP

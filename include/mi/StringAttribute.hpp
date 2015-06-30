@@ -56,8 +56,7 @@ namespace mi
                 std::string getValue ( void ) const ;
         private:
                 class Impl;
-                Impl* _impl;
+                Impl* _impls;
         };
 };
 #endif// MI_STRING_ATTRIBUTE_HPP
-
