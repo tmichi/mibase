@@ -29,8 +29,11 @@ namespace mi
 
                 std::string get ( const int i ) const
                 {
-                        if ( 0 <= i && i < this->size() ) return this->_argv.at ( i );
-                        else return std::string();
+                        if ( 0 <= i && i < this->size() ) {
+                                return this->_argv.at ( i );
+                        } else {
+                                return std::string();
+                        }
                 }
 
                 int size ( void ) const
@@ -48,6 +51,7 @@ namespace mi
                 for ( int i = 0 ; i < argc ; ++i ) {
                         this->add ( std::string ( argv[i] ) );
                 }
+
                 return;
         }
 
@@ -57,6 +61,7 @@ namespace mi
                         delete this->_impl;
                         this->_impl = NULL;
                 }
+
                 return;
         }
 
@@ -98,10 +103,16 @@ namespace mi
         int
         Argument::find ( const std::string& key, const int offset ) const
         {
-                if ( offset < 0 ) return -1; // Offset number is negative
-                for ( int i = 0 ; i < this->size() - offset ; ++i ) {
-                        if ( this->_impl->get ( i ).compare ( key ) == 0 ) return i + offset;
+                if ( offset < 0 ) {
+                        return -1;        // Offset number is negative
                 }
+
+                for ( int i = 0 ; i < this->size() - offset ; ++i ) {
+                        if ( this->_impl->get ( i ).compare ( key ) == 0 ) {
+                                return i + offset;
+                        }
+                }
+
                 return -1; // any arguments are not matched.
         };
 
@@ -110,9 +121,14 @@ namespace mi
         {
                 for ( int i = 0  ; i < this->size() ; ++i ) {
                         const std::string str = this->_impl->get ( i );
-                        if ( str.find ( "-", 0 ) == 0 ) out << std::endl; //
+
+                        if ( str.find ( "-", 0 ) == 0 ) {
+                                out << std::endl;        //
+                        }
+
                         out << str << " ";
                 }
+
                 out << std::endl;
                 return;
         }

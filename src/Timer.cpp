@@ -29,7 +29,7 @@ namespace mi
         public:
                 Impl ( void )
                 {
-			this->init();
+                        this->init();
                 }
 
                 ~Impl ( void )
@@ -125,20 +125,33 @@ namespace mi
         double
         Timer::get ( const std::string& key , const time_format format )
         {
-                if ( !this->_impl->exist ( key ) ) return -1.0;
+                if ( !this->_impl->exist ( key ) ) {
+                        return -1.0;
+                }
+
                 const double t0 =  this->_impl->get ( key );
-                if      ( format == TIME_SECOND ) return t0;
-                else if ( format == TIME_MINUTE ) return t0 / TIMER_MINUTE;
-                else if ( format == TIME_HOUR )   return t0 / TIMER_MINUTE / TIMER_HOUR;
-                else if ( format == TIME_DAY )    return t0 / TIMER_MINUTE / TIMER_HOUR / TIMER_DAY;
-                else return -1.0;// error
+
+                if      ( format == TIME_SECOND ) {
+                        return t0;
+                } else if ( format == TIME_MINUTE ) {
+                        return t0 / TIMER_MINUTE;
+                } else if ( format == TIME_HOUR ) {
+                        return t0 / TIMER_MINUTE / TIMER_HOUR;
+                } else if ( format == TIME_DAY ) {
+                        return t0 / TIMER_MINUTE / TIMER_HOUR / TIMER_DAY;
+                } else {
+                        return -1.0;        // error
+                }
         }
 
 
         void
         Timer::print ( const std::string& key, const int digit, const time_format format, std::ostream& out )
         {
-                if ( ! this->_impl->exist ( key ) ) return; // do nothing if the key does not exist.
+                if ( ! this->_impl->exist ( key ) ) {
+                        return;        // do nothing if the key does not exist.
+                }
+
                 out << this->toString ( key, digit, format ) << std::endl;
                 return;
         }
@@ -161,11 +174,11 @@ namespace mi
 
                 if ( format == TIME_AUTO ) {
                         const double t = this->get ( key, TIME_SECOND );
-			const time_format f = this->estimate_format ( t );
-			return this->toString( key, digit, f);
+                        const time_format f = this->estimate_format ( t );
+                        return this->toString ( key, digit, f );
                 } else {
                         std::stringstream ss;
-                        ss << key << " : \t" << std::setprecision ( digit ) << this->get ( key , format ) << "\t"<<this->get_format_string(format);
+                        ss << key << " : \t" << std::setprecision ( digit ) << this->get ( key , format ) << "\t" << this->get_format_string ( format );
                         return ss.str();
                 }
         }
@@ -185,25 +198,45 @@ namespace mi
 #endif
         }
 
-	time_format 
-	Timer::estimate_format ( const double t ) const {
-		double t0 = t;
-		if ( t0 < TIMER_MINUTE ) return TIME_SECOND;
-		t0 *= 1.0 / TIMER_MINUTE;
-		if ( t0 < TIMER_HOUR   ) return TIME_MINUTE;
-		t0 *= 1.0 / TIMER_HOUR;
-		if ( t0 < TIMER_DAY    ) return TIME_HOUR;
-		t0 *= 1.0 / TIMER_HOUR;
-		return TIME_DAY;
-	}
+        time_format
+        Timer::estimate_format ( const double t ) const
+        {
+                double t0 = t;
 
-	std::string 
-	Timer::get_format_string ( const time_format format ) const {
-		if      ( format == TIME_SECOND ) return std::string("[s]");
-		else if ( format == TIME_MINUTE ) return std::string("[m]");
-		else if ( format == TIME_HOUR )   return std::string("[h]");
-		else if ( format == TIME_DAY )    return std::string("[d]");
-		else                              return std::string("[?]");
-	}
+                if ( t0 < TIMER_MINUTE ) {
+                        return TIME_SECOND;
+                }
+
+                t0 *= 1.0 / TIMER_MINUTE;
+
+                if ( t0 < TIMER_HOUR   ) {
+                        return TIME_MINUTE;
+                }
+
+                t0 *= 1.0 / TIMER_HOUR;
+
+                if ( t0 < TIMER_DAY    ) {
+                        return TIME_HOUR;
+                }
+
+                t0 *= 1.0 / TIMER_HOUR;
+                return TIME_DAY;
+        }
+
+        std::string
+        Timer::get_format_string ( const time_format format ) const
+        {
+                if      ( format == TIME_SECOND ) {
+                        return std::string ( "[s]" );
+                } else if ( format == TIME_MINUTE ) {
+                        return std::string ( "[m]" );
+                } else if ( format == TIME_HOUR ) {
+                        return std::string ( "[h]" );
+                } else if ( format == TIME_DAY ) {
+                        return std::string ( "[d]" );
+                } else {
+                        return std::string ( "[?]" );
+                }
+        }
 }
 

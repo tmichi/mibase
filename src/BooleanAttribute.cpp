@@ -9,7 +9,7 @@ namespace mi
         class BooleanAttribute::Impl
         {
         public:
-                Impl ( bool & value ) : _value( value )
+                Impl ( bool& value ) : _value ( value )
                 {
                         return;
                 }
@@ -27,7 +27,7 @@ namespace mi
                 bool&    _value; ///< Value.
         };
 
-        BooleanAttribute::BooleanAttribute ( const std::string& key,  bool& value ) : Attribute ( key ) , _implb ( new BooleanAttribute::Impl( value ) )
+        BooleanAttribute::BooleanAttribute ( const std::string& key,  bool& value ) : Attribute ( key ) , _implb ( new BooleanAttribute::Impl ( value ) )
         {
                 return;
         }
@@ -38,6 +38,7 @@ namespace mi
                         delete this->_implb;
                         this->_implb = NULL;
                 }
+
                 return;
         }
 

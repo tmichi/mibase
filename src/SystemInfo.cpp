@@ -22,14 +22,14 @@
 #ifndef OS_LINUX
 #define OS_LINUX 1
 #endif//OS_LINUX
-#else 
+#else
 #ifndef OS_UNKNOWN
 #define OS_UNKNOWN 1
 #endif//OS_UNKNOWN
 #endif//if defined __APPLE__ __linux
 #endif//if defined 
 
-#if defined OS_WINDOWS 
+#if defined OS_WINDOWS
 #include <windows.h>
 #include <process.h>
 #include <intrin.h>
@@ -65,20 +65,27 @@ namespace mi
                 __cpuid ( CPUInfo, 0x80000000 );
                 unsigned int nExIds = CPUInfo[0];
                 memset ( CPUBrandString, 0, sizeof ( CPUBrandString ) );
+
                 // Get the information associated with each extended ID.
                 for ( unsigned int i = 0x80000000; i <= nExIds; ++i ) {
                         __cpuid ( CPUInfo, i );
+
                         // Interpret CPU brand string and cache information.
-                        if  ( i == 0x80000002 )
+                        if  ( i == 0x80000002 ) {
                                 memcpy ( CPUBrandString, CPUInfo, sizeof ( CPUInfo ) );
-                        else if  ( i == 0x80000003 )
+                        } else if  ( i == 0x80000003 ) {
                                 memcpy ( CPUBrandString + 16, CPUInfo, sizeof ( CPUInfo ) );
-                        else if  ( i == 0x80000004 )
+                        } else if  ( i == 0x80000004 ) {
                                 memcpy ( CPUBrandString + 32, CPUInfo, sizeof ( CPUInfo ) );
+                        }
                 }
+
                 std::string name;
-                if  ( nExIds >= 0x80000004 )
+
+                if  ( nExIds >= 0x80000004 ) {
                         name = std::string ( CPUBrandString );
+                }
+
                 return name;
 #else
                 return SystemInfo::get_sysctl ( "machdep.cpu.brand_string" );
@@ -91,10 +98,12 @@ namespace mi
 #ifdef OS_WINDOWS
                 MEMORYSTATUSEX stat;
                 stat.dwLength = sizeof ( MEMORYSTATUSEX );
+
                 if ( GlobalMemoryStatusEx ( &stat ) == 0 ) {
                         std::cerr << "error while calling GlobalMemoryStatusEx()" << std::endl;
                         return 0;
                 }
+
                 /// @note The retrun value is somewhat smaller than actual size.
                 return static_cast<double> ( stat.ullTotalPhys / 1024.0 / 1024 / 1024 ) ;
 #else
@@ -195,18 +204,26 @@ namespace mi
 #if defined(OS_WINDOWS)
                 PROCESS_MEMORY_COUNTERS pmc = { 0 };
                 HANDLE hProcess = OpenProcess ( PROCESS_QUERY_INFORMATION, FALSE, GetCurrentProcessId() );
+
                 if ( GetProcessMemoryInfo ( hProcess, &pmc, sizeof ( pmc ) ) ) {
                         peakMemory = static_cast<double> ( pmc.PeakWorkingSetSize );
                 }
+
                 CloseHandle ( hProcess );
 #else // MAC or Linux
                 struct rusage rusage;
                 getrusage ( RUSAGE_SELF, &rusage );                ///@todo The result somewhat strange on Mac.
                 peakMemory = static_cast<double> ( rusage.ru_maxrss );
 #endif // WIN32
-                if ( type == MI_GIGA_BYTE ) peakMemory /= 1024 * 1024 * 1024 ;
-                else if ( type == MI_MEGA_BYTE ) peakMemory /= 1024 * 1024;
-                else if ( type == MI_KILO_BYTE ) peakMemory /= 1024;
+
+                if ( type == MI_GIGA_BYTE ) {
+                        peakMemory /= 1024 * 1024 * 1024 ;
+                } else if ( type == MI_MEGA_BYTE ) {
+                        peakMemory /= 1024 * 1024;
+                } else if ( type == MI_KILO_BYTE ) {
+                        peakMemory /= 1024;
+                }
+
 #endif// PEAK_MEMORY_COUNTER_DISABLED
                 return  peakMemory;
         }

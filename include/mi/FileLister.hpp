@@ -12,20 +12,21 @@ namespace mi
 {
         /**
          * @class FileLister FileLister.hpp <mi/FileLister.hpp>
-         * @brief List files 
+         * @brief List files
          */
-        class FileLister {
-	private:
-		/// Modify the end character of the path, or add / or \.
+        class FileLister
+        {
+        private:
+                /// Modify the end character of the path, or add / or \.
                 static std::string modify_path ( const std::string& path );
-		/// List all of files in the path.
+                /// List all of files in the path.
                 static int list_all ( const std::string& path, std::vector<std::string>& result );
         public:
                 /**
-                 * @brief List file paths. 
+                 * @brief List file paths.
                  * @param [in] path A path where you want to search
                  * @param [in] filter Filters. it is tokenized by a space and ",". e.g. "cpp,hpp txt"
-                 * @param [out] result result paths. 
+                 * @param [out] result result paths.
                  * @return The number of listed paths
                  */
                 static int list ( const std::string& path, const std::string& filter, std::vector<std::string>& result );

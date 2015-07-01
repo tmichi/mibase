@@ -17,7 +17,7 @@
 #ifndef OS_LINUX
 #define OS_LINUX 1
 #endif//OS_LINUX
-#else 
+#else
 #ifndef OS_UNKNOWN
 #define OS_UNKNOWN 1
 #endif//OS_UNKNOWN
@@ -41,7 +41,11 @@ namespace mi
 #endif
                 std::string path0 = path;
                 const char lastChar = path0.at ( path0.length() - 1 );
-                if ( lastChar != SEPARATER ) path0 += SEPARATER;
+
+                if ( lastChar != SEPARATER ) {
+                        path0 += SEPARATER;
+                }
+
                 return path0;
         };
 
@@ -55,20 +59,32 @@ namespace mi
                 WIN32_FIND_DATA fd;
                 path0 += "*";
                 hSearch = FindFirstFile ( path0.c_str(), &fd );
-                if ( hSearch == INVALID_HANDLE_VALUE ) return 0;
+
+                if ( hSearch == INVALID_HANDLE_VALUE ) {
+                        return 0;
+                }
+
                 while ( TRUE ) {
                         result.push_back ( std::string ( fd.cFileName ) );
-                        if ( !FindNextFile ( hSearch, &fd ) ) break;
+
+                        if ( !FindNextFile ( hSearch, &fd ) ) {
+                                break;
+                        }
                 }
+
                 FindClose ( hSearch );
 #else
                 DIR* dir = opendir ( path0.c_str() );
 
-                if ( dir == NULL ) return 0; // dir is somewhat wrong ( wrong path, permission, etc)
+                if ( dir == NULL ) {
+                        return 0;        // dir is somewhat wrong ( wrong path, permission, etc)
+                }
+
                 for ( struct dirent* dp = readdir ( dir ) ; dp != NULL ; dp = readdir ( dir ) ) {
                         const std::string file = std::string ( dp->d_name );
                         result.push_back ( file );
                 }
+
                 closedir ( dir );
 #endif
                 return static_cast<int> ( result.size() );
@@ -79,15 +95,17 @@ namespace mi
         {
                 // step 1: decomposes extensions of filters
                 std::vector< std::string > filters;
-                mi::Tokenizer tokenizer( filter, " ," );
+                mi::Tokenizer tokenizer ( filter, " ," );
+
                 for ( int i = 0 ; i < tokenizer.size() ; ++i ) {
-                        filters.push_back( tokenizer.get( i ) );
+                        filters.push_back ( tokenizer.get ( i ) );
                 }
 
                 // step 2: lists all files
                 typedef std::vector<std::string>::iterator string_iterator;
                 std::vector< std::string > files;
                 FileLister::list_all ( path, files );
+
                 // step 3: removes the file without any filters.
                 if ( filters.size() == 0 ) {
                         result.insert ( result.end(), files.begin(), files.end() );
@@ -95,6 +113,7 @@ namespace mi
                         for ( string_iterator iter0 = files.begin() ; iter0 != files.end() ; ++iter0 ) {
                                 for ( string_iterator iter1 = filters.begin() ; iter1 != filters.end() ; ++iter1 ) {
                                         const int n = static_cast<int> ( iter0->rfind ( *iter1 ) );
+
                                         if ( n > 0 && n == iter0->length() - iter1->length() ) {
                                                 std::string path0 = FileLister::modify_path ( path );
                                                 path0 += *iter0;
@@ -104,6 +123,7 @@ namespace mi
                                 }
                         }
                 }
+
                 return static_cast<int> ( result.size() );
         }
 }

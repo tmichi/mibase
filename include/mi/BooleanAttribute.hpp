@@ -29,7 +29,7 @@ namespace mi
                  */
                 explicit BooleanAttribute ( const std::string& key,  bool& value );
 
-                ~BooleanAttribute( void );
+                ~BooleanAttribute ( void );
                 /**
                  * @brief Analyze the attribute.
                  * @param [in] arg Argument object.

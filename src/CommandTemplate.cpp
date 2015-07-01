@@ -19,7 +19,7 @@ namespace mi
                 {
                         return;
                 }
-                std::string getCommandStr( void ) const
+                std::string getCommandStr ( void ) const
                 {
                         return this->_cmdStr;
                 }
@@ -69,16 +69,19 @@ namespace mi
         CommandTemplate::~CommandTemplate ( void )
         {
                 std::ostream& out = std::cerr;
+
                 if ( this->isTimingModeOn() ) {
                         this->getTimer().end ( "total" );
                         this->getTimer().printAll ( 4, mi::TIME_SECOND, out );
                 }
+
                 out << "peakMemory : " << SystemInfo::getPeakMemorySize() << "[mb]" << std::endl;
 
                 if ( this->_impl != NULL ) {
                         delete this->_impl;
                         this->_impl = NULL;
                 }
+
                 return;
         }
 
@@ -137,9 +140,11 @@ namespace mi
                         cmd.setDebugModeOn();
                         std::cerr << "debug mode on." << std::endl;
                 }
+
                 if ( arg.exist ( "--timing" ) ) {
                         cmd.setTimingModeOn();
                 }
+
                 /*        if ( arg.exist ( "--version" ) ) {
                             cmd.version();
                             return 1;
@@ -148,19 +153,23 @@ namespace mi
                         cmd.usage();
                         return 2;
                 }
+
                 if ( !cmd.init ( arg ) ) {
                         std::cerr << "initialization failed." << std::endl;
                         cmd.usage();
                         return -1;
                 }
+
                 if ( !cmd.run()  ) {
                         std::cerr << "main routine failed." << std::endl;
                         return -2;
                 }
+
                 if ( !cmd.term() ) {
                         std::cerr << "termination failed." << std::endl;
                         return -3;
                 }
+
                 return 0;
         }
 }//namespace mi

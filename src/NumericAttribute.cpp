@@ -43,9 +43,11 @@ namespace mi
                 {
                         this->_minValue = minValue;
                         this->_isMinSet = true;
+
                         if ( this->_isMaxSet ) {
                                 this->swap_min_max ( this->_minValue, this->_maxValue );
                         }
+
                         this->clamp_value ( this->_defaultValue );
                         return;
                 }
@@ -59,9 +61,11 @@ namespace mi
                 {
                         this->_maxValue = maxValue;
                         this->_isMaxSet = true;
+
                         if ( this->_isMinSet ) {
                                 this->swap_min_max ( this->_minValue, this->_maxValue );
                         }
+
                         this->clamp_value ( this->_defaultValue );
                         return;
                 }
@@ -94,6 +98,7 @@ namespace mi
                                 minValue = maxValue;
                                 maxValue = tmp;
                         }
+
                         return;
                 }
 
@@ -103,14 +108,18 @@ namespace mi
                                 if ( this->_isOutRangeRejected ) {
                                         return false;
                                 }
+
                                 value = this->_minValue;
                         }
+
                         if ( this->_isMaxSet && value > this->_maxValue ) {
                                 if ( this->_isOutRangeRejected ) {
                                         return false;
                                 }
+
                                 value = this->_maxValue;
                         }
+
                         return true;
                 }
         private:
@@ -142,6 +151,7 @@ namespace mi
                 const int& offset = this->_impln->getOffset();
                 const std::string key = this->getKey();
                 T& value = this->_impln->getValue();
+
                 if ( this->is_key_found ( arg, key, offset ) ) {
                         value = arg.get<T> ( key , offset );
                         return this->clamp_value ( value );
@@ -201,7 +211,11 @@ namespace mi
         {
                 std::stringstream ss;
                 ss << this->getKey();
-                if ( this->_impln->getOffset() > 1 ) ss << "[" << this->_impln->getOffset() << "]";
+
+                if ( this->_impln->getOffset() > 1 ) {
+                        ss << "[" << this->_impln->getOffset() << "]";
+                }
+
                 ss << " : " << this->getValue();
                 return ss.str();
         }
@@ -244,7 +258,9 @@ namespace mi
                 if ( !this->_impln->clampValue ( value ) ) {
                         this->setErrorCode ( ATTRIBUTE_ERROR_VALUE_OUT_OF_RANGE );
                         return false;
-                } else return true;
+                } else {
+                        return true;
+                }
         }
 
 #define CLASS__NUMERIC_ATTRIBUTE(TYPE)         template class NumericAttribute<TYPE>

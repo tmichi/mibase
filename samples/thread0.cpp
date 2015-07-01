@@ -10,38 +10,40 @@ typedef struct _argument {
 } argument;
 
 
-void run_child( int a, double b, double* sum )
+void run_child ( int a, double b, double* sum )
 {
         thread.startCriticalSection();
-        std::cerr<<a<<" : "<<b<<std::endl;
+        std::cerr << a << " : " << b << std::endl;
         *sum += b;
         thread.endCriticalSection();
 }
-static ThreadResult launch( void* arg )
+static ThreadResult launch ( void* arg )
 {
-        argument* arg0 = ( argument* )( arg );
+        argument* arg0 = ( argument* ) ( arg );
         int a = arg0->a;
         double b = arg0->b;
-        double *sum = arg0->sum;
-        run_child( a, b, sum );
+        double* sum = arg0->sum;
+        run_child ( a, b, sum );
         return 0;
 }
 void run_sample ( int nthread )
 {
-        argument *args = new argument [ nthread ];
+        argument* args = new argument [ nthread ];
         double sum = 0.0;
+
         for ( int i = 0 ; i < nthread ; ++i ) {
                 args[i].a = i;
                 args[i].b = rand() % 1000 * 0.01;
                 args[i].sum = &sum;
 
-                thread.createThread( launch, &args[i] );
+                thread.createThread ( launch, &args[i] );
         }
+
         thread.waitAll();
         thread.closeAll();
         delete[] args;
 
-        std::cerr<<"total : "<<sum<<std::endl;
+        std::cerr << "total : " << sum << std::endl;
         return;
 }
 
@@ -50,6 +52,6 @@ void run_sample ( int nthread )
 int main ( int argc, char** argv )
 {
         const int nthread = 20;
-        run_sample( nthread ) ;
+        run_sample ( nthread ) ;
         return 0;
 }

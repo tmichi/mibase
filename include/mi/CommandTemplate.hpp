@@ -14,7 +14,7 @@
 #include "Timer.hpp"
 /**
  * @namespace mi
- * @brief Namespace of codes those I created. 
+ * @brief Namespace of codes those I created.
  */
 namespace mi
 {

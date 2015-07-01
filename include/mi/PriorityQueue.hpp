@@ -116,14 +116,17 @@ namespace mi
                 {
                         idx.clear();
                         std::deque<float> cost;
+
                         while ( !this->empty() ) {
                                 idx.push_back (  this->getTopIndex() );
                                 cost.push_back ( this->getTopCost() );
                                 this->pop();
                         }
+
                         for ( size_t i = 0 ; i < idx.size() ; ++i ) {
                                 this->push ( idx.at ( i ), cost.at ( i ) );
                         }
+
                         cost.clear();
                         return;
                 }

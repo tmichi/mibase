@@ -32,8 +32,11 @@ namespace mi
 
                 std::string get ( const int i ) const
                 {
-                        if ( 0 <= i && i < this->size() ) return this->_token.at ( i );
-                        else return std::string();
+                        if ( 0 <= i && i < this->size() ) {
+                                return this->_token.at ( i );
+                        } else {
+                                return std::string();
+                        }
                 }        private:
                 std::vector<std::string> _token; ///<Tokens
         };
@@ -42,14 +45,21 @@ namespace mi
         {
                 std::string::size_type end;
                 std::string line = str;
+
                 for ( ; ; ) {
                         end = line.find_first_of ( delimiter );
+
                         if ( line.substr ( 0, end ).length() > 0 ) {
                                 this->_impl->add ( line.substr ( 0, end ) );
                         }
-                        if ( std::string::npos == end ) break;
+
+                        if ( std::string::npos == end ) {
+                                break;
+                        }
+
                         line = line.substr ( end + 1 );
                 }
+
                 return;
         };
         Tokenizer::~Tokenizer ( void )
@@ -58,6 +68,7 @@ namespace mi
                         delete this->_impl;
                         this->_impl = NULL;
                 }
+
                 return;
         }
 
@@ -77,9 +88,11 @@ namespace mi
         Tokenizer::printAll ( std::ostream& out )
         {
                 out << "Num. of tokens : " << this->size() << std::endl;
+
                 for ( int i = 0 ; i < this->size() ; ++i ) {
                         out << "token[" << i << "] : " << this->_impl->get ( i ) << std::endl;
                 }
+
                 return;
         }
 };

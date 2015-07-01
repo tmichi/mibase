@@ -83,6 +83,7 @@ namespace mi
                         delete this->_impl;
                         this->_impl = NULL;
                 }
+
                 return;
         }
 
@@ -106,16 +107,20 @@ namespace mi
                 switch ( this->getErrorCode() ) {
                 case ATTRIBUTE_ERROR_OK :
                         break;
+
                 case ATTRIBUTE_ERROR_KEY_NOT_FOUND :
                         std::cerr << this->getKey() << " was not found." << std::endl;
                         break;
+
                 case ATTRIBUTE_ERROR_VALUE_OUT_OF_RANGE :
                         std::cerr << "key value " << this->getValue() << " (for " << this->getKey() << ") is out-of-range." << std::endl;
                         break;
+
                 default : //  ATTRIBUTE_ERROR_INVALID
                         std::cerr << "unknown error found." << std::endl;
                         break;
                 }
+
                 return;
         }
 
@@ -160,7 +165,7 @@ namespace mi
         void
         Attribute::setErrorCode ( const AttributeErrorCode code )
         {
-                this->_impl->setErrorCode( code );
+                this->_impl->setErrorCode ( code );
                 return;
         }
 
@@ -169,7 +174,7 @@ namespace mi
         Attribute&
         Attribute::setMessage ( const std::string& message )
         {
-                this->_impl->setMessage( message );
+                this->_impl->setMessage ( message );
                 return *this;
         }
 
@@ -182,7 +187,10 @@ namespace mi
         void
         Attribute::print_usage ( void )
         {
-                if ( this->_impl->isHidden() ) return;
+                if ( this->_impl->isHidden() ) {
+                        return;
+                }
+
                 std::cerr << "\t" << this->getKey() << "\t" << this->getMessage() << std::endl;
         }
 }

@@ -164,14 +164,20 @@ namespace mi
         void
         Thread::waitAll ( void )
         {
-                for ( int i = 0 ; i  < this->getNumThread() ; i++ ) this->wait ( i );
+                for ( int i = 0 ; i  < this->getNumThread() ; i++ ) {
+                        this->wait ( i );
+                }
+
                 return;
         }
 
         void
         Thread::wait ( const int id )
         {
-                if ( id >= static_cast<int> ( this->getNumThread() ) ) return;
+                if ( id >= static_cast<int> ( this->getNumThread() ) ) {
+                        return;
+                }
+
 #ifdef OS_WINDOWS
                 WaitForSingleObject ( this->_impl->getHandle ( id ), INFINITE );
 #else //pthread
@@ -184,14 +190,20 @@ namespace mi
         void
         Thread::closeAll ( void )
         {
-                for ( int i = 0 ; i  < this->getNumThread() ; i++ ) this->close ( i );
+                for ( int i = 0 ; i  < this->getNumThread() ; i++ ) {
+                        this->close ( i );
+                }
+
                 return;
         }
 
         bool
         Thread::close ( const int id ) const
         {
-                if ( id >=  this->getNumThread( ) ) return false;
+                if ( id >=  this->getNumThread( ) ) {
+                        return false;
+                }
+
 #ifdef OS_WINDOWS
                 return ( CloseHandle ( this->getHandle ( id ) ) != 0 );
 #else //pthread

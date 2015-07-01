@@ -23,7 +23,10 @@ namespace mi
                 }
                 bool  add ( void )
                 {
-                        if ( this->end() ) return false;
+                        if ( this->end() ) {
+                                return false;
+                        }
+
                         this->_current += 1;
                         return true;
                 }
@@ -81,21 +84,33 @@ namespace mi
         void
         Progress::print ( void )
         {
-                if ( this->_impl->isReturned() ) return;
+                if ( this->_impl->isReturned() ) {
+                        return;
+                }
+
                 const int keta = this->_impl->getWidth() * 2 + 1;
-                for ( int i = 0 ; i < keta; ++i ) std::cerr << "\b";
+
+                for ( int i = 0 ; i < keta; ++i ) {
+                        std::cerr << "\b";
+                }
+
                 std::cerr << this->to_string();
+
                 if ( this->_impl->end() ) {
                         std::cerr << std::endl;
                         this->_impl->setReturned();
                 }
+
                 return;
         }
 
         bool
         Progress::addCounter ( void )
         {
-                if ( this->_impl->end() ) return false;
+                if ( this->_impl->end() ) {
+                        return false;
+                }
+
                 this->_impl->add();
                 return true;
         }
@@ -104,10 +119,12 @@ namespace mi
         Progress::to_string ( void ) const
         {
                 std::stringstream ss;
+
                 if ( this->_impl->getCurrentSteps() <= this->_impl->getMaxSteps() ) {
                         ss << std::setw ( this->_impl->getWidth() ) << std::setfill ( ' ' ) << this->_impl->getCurrentSteps() << "/"
                            << std::setw ( this->_impl->getWidth() ) << std::setfill ( ' ' ) << this->_impl->getMaxSteps();
                 }
+
                 return ss.str();
         }
 }

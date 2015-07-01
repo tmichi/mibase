@@ -47,6 +47,7 @@ namespace mi
                         delete this->_impls;
                         this->_impls = NULL;
                 }
+
                 return;
         }
 

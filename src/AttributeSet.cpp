@@ -32,7 +32,7 @@ namespace mi
 
                 Attribute& add ( Attribute* attribute )
                 {
-                        this->_attr.push_back( attribute );
+                        this->_attr.push_back ( attribute );
                         return *attribute;
                 }
 
@@ -41,11 +41,11 @@ namespace mi
                         return this->_isAnd;
                 }
 
-                Iterator begin( void )
+                Iterator begin ( void )
                 {
                         return this->_attr.begin();
                 }
-                Iterator end( void )
+                Iterator end ( void )
                 {
                         return this->_attr.end();
                 }
@@ -64,6 +64,7 @@ namespace mi
                         delete this->_impls;
                         this->_impls = NULL;
                 }
+
                 return ;
         }
 
@@ -77,23 +78,23 @@ namespace mi
         AttributeSet&
         AttributeSet::createAttributeSet ( void )
         {
-                Attribute& attr = this->_impls->add( new AttributeSet() );
+                Attribute& attr = this->_impls->add ( new AttributeSet() );
                 return dynamic_cast<AttributeSet&> ( attr );
         }
 
         BooleanAttribute&
         AttributeSet::createBooleanAttribute ( const std::string& key, bool& value , const std::string& message )
         {
-                Attribute& attr =  this->_impls->add( new BooleanAttribute( key, value ) );
-                attr.setMessage( message );
+                Attribute& attr =  this->_impls->add ( new BooleanAttribute ( key, value ) );
+                attr.setMessage ( message );
                 return dynamic_cast<BooleanAttribute& > ( attr );
         }
 
         StringAttribute&
         AttributeSet::createStringAttribute ( const std::string& key, std::string& value , const std::string& message )
         {
-                Attribute& attr =  this->_impls->add( new StringAttribute( key, value ) );
-                attr.setMessage( message );
+                Attribute& attr =  this->_impls->add ( new StringAttribute ( key, value ) );
+                attr.setMessage ( message );
                 return dynamic_cast<StringAttribute&> ( attr );
         }
 
@@ -102,8 +103,8 @@ namespace mi
         NumericAttribute<T>&
         AttributeSet::createNumericAttribute ( const std::string& key, T& value,  const std::string& message )
         {
-                Attribute& attr =  this->_impls->add( new NumericAttribute<T> ( key, value , 1 ) );
-                attr.setMessage( message );
+                Attribute& attr =  this->_impls->add ( new NumericAttribute<T> ( key, value , 1 ) );
+                attr.setMessage ( message );
                 return dynamic_cast<NumericAttribute<T>& > ( attr );
         }
 
@@ -114,8 +115,8 @@ namespace mi
                 /// @todo should allocate memory in Double Numeric Attribute.
                 NumericAttribute<T>* nAttr0 = new NumericAttribute<T> ( key, value0 , 1 );
                 NumericAttribute<T>* nAttr1 = new NumericAttribute<T> ( key, value1 , 2 );
-                Attribute& attr =  this->_impls->add( new DoubleNumericAttribute<T> ( key, nAttr0, nAttr1 ) );
-                attr.setMessage( message );
+                Attribute& attr =  this->_impls->add ( new DoubleNumericAttribute<T> ( key, nAttr0, nAttr1 ) );
+                attr.setMessage ( message );
                 return dynamic_cast<DoubleNumericAttribute<T>& > ( attr );
         }
 
@@ -126,8 +127,8 @@ namespace mi
                 NumericAttribute<T>* nAttr0 = new NumericAttribute<T> ( key, value0 , 1 );
                 NumericAttribute<T>* nAttr1 = new NumericAttribute<T> ( key, value1 , 2 );
                 NumericAttribute<T>* nAttr2 = new NumericAttribute<T> ( key, value2 , 3 );
-                Attribute& attr = this->_impls->add( new TripleNumericAttribute<T> ( key, nAttr0, nAttr1, nAttr2 ) );
-                attr.setMessage( message );
+                Attribute& attr = this->_impls->add ( new TripleNumericAttribute<T> ( key, nAttr0, nAttr1, nAttr2 ) );
+                attr.setMessage ( message );
                 return dynamic_cast<TripleNumericAttribute<T>& > ( attr );
         }
 
@@ -137,21 +138,26 @@ namespace mi
                 Iterator begin = this->_impls->begin();
                 Iterator end   = this->_impls->end();
                 bool result;
+
                 if ( this->_impls->isAnd() ) {
                         result = true;
+
                         for ( Iterator iter = begin ; iter != end ; ++iter ) {
                                 result &= ( *iter )->parse ( arg );
                         }
                 } else {
                         result  = false;
+
                         for ( Iterator iter = begin ; iter != end ; ++iter ) {
                                 result |=  ( *iter )->parse ( arg );
                         }
                 }
+
                 if ( !result ) {
                         std::cerr << "error" << std::endl;
                         this->printError();
                 }
+
                 return result;
         }
 
@@ -161,6 +167,7 @@ namespace mi
                 for ( Iterator iter = this->_impls->begin() ; iter != this->_impls->end() ; iter++ ) {
                         ( *iter )->printError();
                 }
+
                 return;
         }
 
@@ -168,9 +175,11 @@ namespace mi
         AttributeSet::print ( std::ostream& out )
         {
                 out << "Arguments: " << std::endl;
+
                 for ( Iterator iter = this->_impls->begin() ; iter != this->_impls->end() ; iter++ ) {
                         ( *iter )->print ( out );
                 }
+
                 return;
         }
 

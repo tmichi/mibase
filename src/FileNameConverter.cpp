@@ -17,7 +17,7 @@ namespace mi
                 Impl ( const Impl& that );
                 void operator = ( const Impl& that );
         public:
-                Impl ( const std::string& filename  ) : _filename( filename )
+                Impl ( const std::string& filename  ) : _filename ( filename )
                 {
                         return;
                 }
@@ -105,9 +105,11 @@ namespace mi
         FileNameConverter::to_upper ( const  std::string str ) const
         {
                 std::string result = str;
+
                 for ( std::string::iterator iter = result.begin() ; iter != result.end() ; iter++ ) {
                         *iter = static_cast<char> ( std::toupper ( *iter ) );
                 }
+
                 return result;
         }
 };
