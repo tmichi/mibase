@@ -28,6 +28,9 @@ namespace mi
                  * @param [in] offset Offset value.
                  */
                 NumericAttribute ( const std::string& key,  T& value, const int offset = 1 );
+
+                virtual ~NumericAttribute ( void );
+
                 /**
                  * @brief Parse attribute.
                  * @param[in] arg Argument object.

@@ -1,3 +1,7 @@
+/**
+ * @file PrioirtyQueue.hpp
+ * @author Takashi Michikawa <michikawa@acm.org>
+ */
 #ifndef MI_PRIORITY_QUEUE_HPP
 #define MI_PRIORITY_QUEUE_HPP 1
 
@@ -8,7 +12,7 @@
 namespace mi
 {
         /**
-         * @class PriorityQueue PriorityQueue.hpp "mi/PriorityQueue.hpp"
+         * @class PriorityQueue PriorityQueue.hpp <mi/PriorityQueue.hpp>
          * @brief Finding minimum value with index from a queue structure.
          *
          * This class is a wrapper of std::priority_queue in STL, and most of fucntion gives same name as those in std::pririty_queue.
@@ -131,5 +135,5 @@ namespace mi
                         return;
                 }
         };
-};
+}
 #endif //PRIORITY_QUEUE_HPP

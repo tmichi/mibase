@@ -28,7 +28,7 @@
 
 /**
  * @mainpage
- * mibase library provides basic classes for building CUI-based application quickly. 
+ * mibase library provides basic classes for building CUI-based application quickly.
  *
  *
  *

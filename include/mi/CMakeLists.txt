@@ -1,4 +1,4 @@
-SET ( include_files base.hpp
+SET ( INCLUDE_FILES base.hpp
 	Argument.hpp
       Attribute.hpp
       AttributeSet.hpp
@@ -23,6 +23,6 @@ SET ( include_files base.hpp
       Tokenizer.hpp
       TripleNumericAttribute.hpp
     )
-INSTALL ( FILES ${include_files}
+INSTALL ( FILES ${INCLUDE_FILES}
           DESTINATION include/mi
           PERMISSIONS OWNER_READ GROUP_READ WORLD_READ )

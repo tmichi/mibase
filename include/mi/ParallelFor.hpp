@@ -38,8 +38,9 @@ namespace mi
                         {
                                 Thread thread;
                                 Iterator start = begin;
-				Iterator iter  = begin;
-				std::vector<packed_data* > params;
+                                Iterator iter  = begin;
+                                std::vector<packed_data* > params;
+
                                 while ( start != end ) {
                                         for ( int i = 0 ; i < grainSize ; ++i ) {
                                                 if ( iter == end ) {
@@ -50,16 +51,18 @@ namespace mi
                                         }
 
                                         packed_data* p = new packed_data ( start, iter, Function ( fn ) ); //deleted in child_thread() ;
-					params.push_back(p);
+                                        params.push_back ( p );
                                         thread.createThread ( ParallelFor::child_thread, p );
                                         start = iter;
                                 }
+
                                 thread.waitAll();
                                 thread.closeAll();
-				for ( size_t i = 0 ; i < params.size() ; ++i ) 
-				{
-					delete params[i];
-				}
+
+                                for ( size_t i = 0 ; i < params.size() ; ++i ) {
+                                        delete params[i];
+                                }
+
                                 return;
                         }
                 private:
