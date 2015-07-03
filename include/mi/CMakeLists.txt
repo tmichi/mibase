@@ -1,4 +1,5 @@
-SET ( include_files Argument.hpp
+SET ( include_files base.hpp
+	Argument.hpp
       Attribute.hpp
       AttributeSet.hpp
       BooleanAttribute.hpp
