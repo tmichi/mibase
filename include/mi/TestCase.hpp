@@ -77,7 +77,7 @@ namespace mi
 
                 /**
                  * @brief Check the values are exactly same.
-                 * @param [in] filename The filename of the test
+                 * @param [in] fileName The filename of the test
                  * @param [in] lineNo Line number of the test
                  * @param [in] expectedValue The expected value
                  * @param [in] actualValue The acutual value
@@ -88,7 +88,7 @@ namespace mi
                 static bool checkEquals ( const char* fileName, const int lineNo,  const T expectedValue, const T actualValue );
                 /**
                  * @brief Check the values are exactly same.
-                 * @param [in] filename The filename of the test
+                 * @param [in] fileName The filename of the test
                  * @param [in] lineNo Line number of the test
                  * @param [in] expectedValue The expected value
                  * @param [in] actualValue The acutual value
