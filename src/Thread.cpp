@@ -77,7 +77,7 @@ namespace mi
 
                 int size ( void ) const
                 {
-                        return this->_handle.size();
+                        return static_cast<int>(this->_handle.size());
                 }
         private:
                 void add_sequence ( void )
@@ -205,7 +205,7 @@ namespace mi
                 }
 
 #ifdef OS_WINDOWS
-                return ( CloseHandle ( this->getHandle ( id ) ) != 0 );
+                return ( CloseHandle ( this->_impl->getHandle ( id ) ) != 0 );
 #else //pthread
                 return true;
 #endif

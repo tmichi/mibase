@@ -210,7 +210,7 @@ namespace mi
         }
 
 #ifndef ATTRIBUTE_SET__CREATE_NUMERIC_ATTRIBUTE
-#define ATTRIBUTE_SET__CREATE_NUMERIC_ATTRIBUTE( TYPE ) template NumericAttribute<TYPE>&  AttributeSet::createNumericAttribute<TYPE>( const std::string& key, TYPE& value,  const std::string &message = std::string() )
+#define ATTRIBUTE_SET__CREATE_NUMERIC_ATTRIBUTE( TYPE ) template NumericAttribute<TYPE>&  AttributeSet::createNumericAttribute<TYPE>( const std::string& key, TYPE& value,  const std::string &message  )
         ATTRIBUTE_SET__CREATE_NUMERIC_ATTRIBUTE ( unsigned char ) ;
         ATTRIBUTE_SET__CREATE_NUMERIC_ATTRIBUTE ( char ) ;
         ATTRIBUTE_SET__CREATE_NUMERIC_ATTRIBUTE ( unsigned short ) ;
@@ -221,7 +221,7 @@ namespace mi
         ATTRIBUTE_SET__CREATE_NUMERIC_ATTRIBUTE ( double ) ;
 #endif
 #ifndef ATTRIBUTE_SET__CREATE_DOUBLE_NUMERIC_ATTRIBUTE
-#define ATTRIBUTE_SET__CREATE_DOUBLE_NUMERIC_ATTRIBUTE( TYPE ) template DoubleNumericAttribute<TYPE>& AttributeSet::createDoubleNumericAttribute<TYPE>( const std::string& key, TYPE& value0, TYPE& value1, const std::string &message = std::string() )
+#define ATTRIBUTE_SET__CREATE_DOUBLE_NUMERIC_ATTRIBUTE( TYPE ) template DoubleNumericAttribute<TYPE>& AttributeSet::createDoubleNumericAttribute<TYPE>( const std::string& key, TYPE& value0, TYPE& value1, const std::string &message)
         ATTRIBUTE_SET__CREATE_DOUBLE_NUMERIC_ATTRIBUTE ( unsigned char ) ;
         ATTRIBUTE_SET__CREATE_DOUBLE_NUMERIC_ATTRIBUTE ( char ) ;
         ATTRIBUTE_SET__CREATE_DOUBLE_NUMERIC_ATTRIBUTE ( unsigned short ) ;
@@ -232,7 +232,7 @@ namespace mi
         ATTRIBUTE_SET__CREATE_DOUBLE_NUMERIC_ATTRIBUTE ( double ) ;
 #endif
 #ifndef ATTRIBUTE_SET__CREATE_TRIPLE_NUMERIC_ATTRIBUTE
-#define ATTRIBUTE_SET__CREATE_TRIPLE_NUMERIC_ATTRIBUTE( TYPE ) template  TripleNumericAttribute<TYPE>& AttributeSet::createTripleNumericAttribute<TYPE>( const std::string& key, TYPE& value0, TYPE& value1, TYPE& value2, const std::string &message = std::string() )
+#define ATTRIBUTE_SET__CREATE_TRIPLE_NUMERIC_ATTRIBUTE( TYPE ) template  TripleNumericAttribute<TYPE>& AttributeSet::createTripleNumericAttribute<TYPE>( const std::string& key, TYPE& value0, TYPE& value1, TYPE& value2, const std::string &message )
         ATTRIBUTE_SET__CREATE_TRIPLE_NUMERIC_ATTRIBUTE ( unsigned char ) ;
         ATTRIBUTE_SET__CREATE_TRIPLE_NUMERIC_ATTRIBUTE ( char ) ;
         ATTRIBUTE_SET__CREATE_TRIPLE_NUMERIC_ATTRIBUTE ( unsigned short ) ;

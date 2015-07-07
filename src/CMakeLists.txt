@@ -1,4 +1,4 @@
-ADD_LIBRARY( mibase SHARED
+ADD_LIBRARY( mibase STATIC #SHARED
              Argument.cpp
              Attribute.cpp
              AttributeSet.cpp
@@ -22,6 +22,7 @@ ADD_LIBRARY( mibase SHARED
              TripleNumericAttribute.cpp
            )
 SET_TARGET_PROPERTIES( mibase PROPERTIES VERSION ${serial} SOVERSION ${soserial} )
-INSTALL( TARGETS mibase LIBRARY DESTINATION lib )
-
-
+INSTALL( TARGETS mibase 
+		 ARCHIVE DESTINATION lib
+		 LIBRARY DESTINATION lib
+		 COMPONENT library )

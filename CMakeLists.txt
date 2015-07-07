@@ -17,14 +17,11 @@ if(APPLE)
 	set(CMAKE_MACOSX_RPATH 1)
 	ADD_DEFINITIONS(-g -O3 -Wall)
 elseif(WIN32) 
-	set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE)
+	SET(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE)
+	SET(CMAKE_BUILD_TYPE Release)
 	SET(CMAKE_INSTALL_PREFIX, "C:/Program Files/mi")
-	INCLUDE_DIRECTORIES(d:/usr/local/include ) #need to be modified 
-	if(CMAKE_SIZEOF_VOID_P EQUAL 8) # 64bit system
-		LINK_DIRECTORIES(d:/usr/local/lib/x64)
-	else()
-		LINK_DIRECTORIES(d:/usr/local/lib)
-	endif()
+	LINK_DIRECTORIES(${CMAKE_BINARY_DIR})
+	INCLUDE_DIRECTORIES(include ) 
 endif(APPLE)
 
 ADD_SUBDIRECTORY(include)
@@ -33,7 +30,7 @@ ADD_SUBDIRECTORY(samples)
 ADD_SUBDIRECTORY(tests)
 
 #Documentation set ON/OFF if you enable/disable documentation by doxygen
-OPTION(DOC_ENABLED "Create doxygen documentation for developers" OFF)
+OPTION(DOC_ENABLED "Create doxygen documentation for developers" ON)
 IF(DOC_ENABLED)
 ADD_SUBDIRECTORY(docs)
 ELSE(DOC_ENABLED)
