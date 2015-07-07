@@ -21,8 +21,6 @@ ADD_LIBRARY( mibase STATIC #SHARED
              Tokenizer.cpp
              TripleNumericAttribute.cpp
            )
-SET_TARGET_PROPERTIES( mibase PROPERTIES VERSION ${serial} SOVERSION ${soserial} )
-INSTALL( TARGETS mibase 
-		 ARCHIVE DESTINATION lib
-		 LIBRARY DESTINATION lib
-		 COMPONENT library )
+SET_TARGET_PROPERTIES( mibase PROPERTIES 
+			VERSION ${serial} SOVERSION ${soserial}
+			 )
