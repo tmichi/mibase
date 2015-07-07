@@ -25,20 +25,22 @@ namespace mi
                  * @param [in] width Display width.
                  */
                 explicit Progress ( const int maxnum = 0 , const int width = 6 );
+
                 /**
                  * @brief Destructor.
                  */
                 ~Progress ( void );
+
                 /**
                  * @brief Print progress.
                  */
                 void print ( void );
 
-                /*
-                         * @brief Add counter.
-                         * @retval true Success.
-                         * @retval false Counter already reaches to the end..
-                         */
+                /**
+                 * @brief Add counter.
+                 * @retval true Success.
+                 * @retval false Counter already reaches to the end..
+                 */
                 bool goNext ( void );
                 /**
                  * @brief Add counter.
@@ -46,6 +48,10 @@ namespace mi
                  * @retval false Counter already reaches to the end..
                  */
                 bool addCounter ( void );
+                /**
+                 * @brief Get string
+                 * @return String representation of progress.
+                 */
                 inline std::string to_string ( void ) const;
         private:
                 Impl* _impl;

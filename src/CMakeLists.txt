@@ -10,11 +10,12 @@ ADD_LIBRARY( mibase SHARED
              FileNameConverter.cpp
              Importer.cpp
              NumericAttribute.cpp
-#ParallelFor.cpp
              Parse.cpp
              Progress.cpp
              StringAttribute.cpp
              SystemInfo.cpp
+	     TestSuite.cpp
+	     TestCase.cpp
              Thread.cpp
              Timer.cpp
              Tokenizer.cpp

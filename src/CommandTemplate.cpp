@@ -1,4 +1,3 @@
-
 /**
  * @file  CommandTemplate.cpp
  * @author Takashi Michikawa <michikawa@acm.org>

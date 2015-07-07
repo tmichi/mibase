@@ -1,5 +1,6 @@
 /**
  * @file PrioirtyQueue.hpp
+ * @brief Implementation of mi::PriorityQueue
  * @author Takashi Michikawa <michikawa@acm.org>
  */
 #ifndef MI_PRIORITY_QUEUE_HPP

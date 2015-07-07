@@ -53,6 +53,7 @@ namespace mi
                 bool _isAnd; ///< Flag whether this attribute set is "AND".
                 std::list<Attribute*> _attr; ///< List of attributes.
         };
+
         AttributeSet::AttributeSet ( void ) : Attribute ( "" ) , _impls ( new Impl() )
         {
                 return;

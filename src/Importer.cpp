@@ -49,7 +49,9 @@ namespace mi
                 if ( !this->readHeader ( fin ) ) {
                         std::cerr << "failed. invalid header." << std::endl;
                         return false;
-                } else if ( !this->readBody ( fin ) ) {
+                }
+
+                if ( !this->readBody ( fin ) ) {
                         std::cerr << "failed." << std::endl;
                         return false;
                 }

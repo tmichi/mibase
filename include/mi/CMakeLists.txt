@@ -1,5 +1,5 @@
 SET ( INCLUDE_FILES base.hpp
-	Argument.hpp
+      Argument.hpp
       Attribute.hpp
       AttributeSet.hpp
       BooleanAttribute.hpp
@@ -18,6 +18,8 @@ SET ( INCLUDE_FILES base.hpp
       Progress.hpp
       StringAttribute.hpp
       SystemInfo.hpp
+      TestSuite.hpp
+      TestCase.hpp
       Thread.hpp
       Timer.hpp
       Tokenizer.hpp

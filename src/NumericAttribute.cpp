@@ -147,129 +147,140 @@ namespace mi
         template<typename T>
         NumericAttribute<T>::~NumericAttribute ( void )
         {
-                {
-                        if ( this->_impln != NULL ) {
-                                delete this->_impln;
-                                this->_impln = NULL;
-                        }
-
-                        return;
+                if ( this->_impln != NULL ) {
+                        delete this->_impln;
+                        this->_impln = NULL;
                 }
 
-                template<typename T>
-                bool
-                NumericAttribute<T>::parse ( const Argument & arg ) {
-                        const int& offset = this->_impln->getOffset();
-                        const std::string key = this->getKey();
-                        T& value = this->_impln->getValue();
+                return;
+        }
 
-                        if ( this->is_key_found ( arg, key, offset ) ) {
-                                value = arg.get<T> ( key , offset );
-                                return this->clamp_value ( value );
-                        } else {
-                                if ( this->isMandatory() ) {
-                                        this->setErrorCode ( ATTRIBUTE_ERROR_KEY_NOT_FOUND );
-                                        return false;
-                                } else {
-                                        value = this->_impln->getDefaultValue();
-                                        return true;
-                                }
-                        }
-                }
+        template<typename T>
+        bool
+        NumericAttribute<T>::parse ( const Argument& arg )
+        {
+                const int& offset = this->_impln->getOffset();
+                const std::string key = this->getKey();
+                T& value = this->_impln->getValue();
 
-                template< typename T>
-                NumericAttribute<T>&
-                NumericAttribute<T>::setMin ( const T minValue ) {
-                        this->_impln->setMinValue ( minValue ) ;
-                        return *this;
-                }
-
-                template <typename T>
-                NumericAttribute<T>&
-                NumericAttribute<T>::setMax ( const T maxValue ) {
-                        this->_impln->setMaxValue ( maxValue );
-                        return *this;
-                }
-
-                template <typename T>
-                NumericAttribute<T>&
-                NumericAttribute<T>::setMinMax ( const T minValue, const T maxValue ) {
-                        return this->setMin ( minValue ).setMax ( maxValue );
-                }
-
-                template <typename T>
-                NumericAttribute<T>&
-                NumericAttribute<T>::setDefaultValue ( const T defaultValue ) {
-                        this->_impln->setDefaultValue ( defaultValue );
-                        return *this;
-                }
-
-                template <typename T>
-                NumericAttribute<T>&
-                NumericAttribute<T>::setOutRangeRejected ( void ) {
-                        this->_impln->setOutRangeRejected();
-                        return *this;
-                }
-
-                template<typename T>
-                std::string
-                NumericAttribute<T>::toString ( void ) const {
-                        std::stringstream ss;
-                        ss << this->getKey();
-
-                        if ( this->_impln->getOffset() > 1 ) {
-                                ss << "[" << this->_impln->getOffset() << "]";
-                        }
-
-                        ss << " : " << this->getValue();
-                        return ss.str();
-                }
-                template< typename T>
-                std::string
-                NumericAttribute<T>::getValue ( void ) const {
-                        std::stringstream ss;
-                        ss << this->_impln->getValue();
-                        return ss.str();
-                }
-
-                template<typename T>
-                NumericAttribute<T>&
-                NumericAttribute<T>::setMandatory ( void ) {
-                        Attribute::setMandatory();
-                        return *this;
-                }
-                template<typename T>
-                NumericAttribute<T>&
-                NumericAttribute<T>::setHidden ( void ) {
-                        Attribute::setHidden();
-                        return *this;
-                }
-
-                template<typename T>
-                NumericAttribute<T>&
-                NumericAttribute<T>::setMessage ( const std::string & message ) {
-                        Attribute::setMessage ( message ) ;
-                        return *this;
-                }
-
-                template<typename T>
-                bool
-                NumericAttribute<T>::clamp_value ( T & value ) {
-                        if ( !this->_impln->clampValue ( value ) ) {
-                                this->setErrorCode ( ATTRIBUTE_ERROR_VALUE_OUT_OF_RANGE );
+                if ( this->is_key_found ( arg, key, offset ) ) {
+                        value = arg.get<T> ( key , offset );
+                        return this->clamp_value ( value );
+                } else {
+                        if ( this->isMandatory() ) {
+                                this->setErrorCode ( ATTRIBUTE_ERROR_KEY_NOT_FOUND );
                                 return false;
                         } else {
+                                value = this->_impln->getDefaultValue();
                                 return true;
                         }
                 }
+        }
+
+        template< typename T>
+        NumericAttribute<T>&
+        NumericAttribute<T>::setMin ( const T minValue )
+        {
+                this->_impln->setMinValue ( minValue ) ;
+                return *this;
+        }
+
+        template <typename T>
+        NumericAttribute<T>&
+        NumericAttribute<T>::setMax ( const T maxValue )
+        {
+                this->_impln->setMaxValue ( maxValue );
+                return *this;
+        }
+
+        template <typename T>
+        NumericAttribute<T>&
+        NumericAttribute<T>::setMinMax ( const T minValue, const T maxValue )
+        {
+                return this->setMin ( minValue ).setMax ( maxValue );
+        }
+
+        template <typename T>
+        NumericAttribute<T>&
+        NumericAttribute<T>::setDefaultValue ( const T defaultValue )
+        {
+                this->_impln->setDefaultValue ( defaultValue );
+                return *this;
+        }
+
+        template <typename T>
+        NumericAttribute<T>&
+        NumericAttribute<T>::setOutRangeRejected ( void )
+        {
+                this->_impln->setOutRangeRejected();
+                return *this;
+        }
+
+        template<typename T>
+        std::string
+        NumericAttribute<T>::toString ( void ) const
+        {
+                std::stringstream ss;
+                ss << this->getKey();
+
+                if ( this->_impln->getOffset() > 1 ) {
+                        ss << "[" << this->_impln->getOffset() << "]";
+                }
+
+                ss << " : " << this->getValue();
+                return ss.str();
+        }
+        template< typename T>
+        std::string
+        NumericAttribute<T>::getValue ( void ) const
+        {
+                std::stringstream ss;
+                ss << this->_impln->getValue();
+                return ss.str();
+        }
+
+        template<typename T>
+        NumericAttribute<T>&
+        NumericAttribute<T>::setMandatory ( void )
+        {
+                Attribute::setMandatory();
+                return *this;
+        }
+        template<typename T>
+        NumericAttribute<T>&
+        NumericAttribute<T>::setHidden ( void )
+        {
+                Attribute::setHidden();
+                return *this;
+        }
+
+        template<typename T>
+        NumericAttribute<T>&
+        NumericAttribute<T>::setMessage ( const std::string& message )
+        {
+                Attribute::setMessage ( message ) ;
+                return *this;
+        }
+
+        template<typename T>
+        bool
+        NumericAttribute<T>::clamp_value ( T& value )
+        {
+                if ( !this->_impln->clampValue ( value ) ) {
+                        this->setErrorCode ( ATTRIBUTE_ERROR_VALUE_OUT_OF_RANGE );
+                        return false;
+                } else {
+                        return true;
+                }
+        }
 
 #define CLASS__NUMERIC_ATTRIBUTE(TYPE)         template class NumericAttribute<TYPE>
-                CLASS__NUMERIC_ATTRIBUTE ( unsigned char );
-                CLASS__NUMERIC_ATTRIBUTE ( char );
-                CLASS__NUMERIC_ATTRIBUTE ( unsigned short );
-                CLASS__NUMERIC_ATTRIBUTE ( short );
-                CLASS__NUMERIC_ATTRIBUTE ( unsigned int );
-                CLASS__NUMERIC_ATTRIBUTE ( int );
-                CLASS__NUMERIC_ATTRIBUTE ( float );
-                CLASS__NUMERIC_ATTRIBUTE ( double );
-        };
+        CLASS__NUMERIC_ATTRIBUTE ( unsigned char );
+        CLASS__NUMERIC_ATTRIBUTE ( char );
+        CLASS__NUMERIC_ATTRIBUTE ( unsigned short );
+        CLASS__NUMERIC_ATTRIBUTE ( short );
+        CLASS__NUMERIC_ATTRIBUTE ( unsigned int );
+        CLASS__NUMERIC_ATTRIBUTE ( int );
+        CLASS__NUMERIC_ATTRIBUTE ( float );
+        CLASS__NUMERIC_ATTRIBUTE ( double );
+};
