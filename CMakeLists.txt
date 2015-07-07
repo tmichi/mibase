@@ -3,25 +3,37 @@ PROJECT(mibase)
 
 SET(PROJECT_NAME "mibase")
 SET(PACKAGE_VERSION_MAJOR "3")
-SET(PACKAGE_VERSION_MINOR "1")
-SET(PACKAGE_VERSION_PATCH "20150701")
+SET(PACKAGE_VERSION_MINOR "2")
+SET(PACKAGE_VERSION_PATCH "20150707")
+
 SET(serial "${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}")
 SET(soserial "${PACKAGE_VERSION_MAJOR}")
-SET ( VERSION_STRING  "${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}-${PACKAGE_VERSION_PATCH}")
+
+SET (VERSION_STRING  "${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}-${PACKAGE_VERSION_PATCH}")
 
 ENABLE_TESTING()
 if(APPLE)
 	INCLUDE_DIRECTORIES(include)
 	set(CMAKE_MACOSX_RPATH 1)
 	ADD_DEFINITIONS(-g -O3 -Wall)
+elseif(WIN32) 
+	set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE)
+	SET(CMAKE_INSTALL_PREFIX, "C:/Program Files/mi")
+	INCLUDE_DIRECTORIES(d:/usr/local/include ) #need to be modified 
+	if(CMAKE_SIZEOF_VOID_P EQUAL 8) # 64bit system
+		LINK_DIRECTORIES(d:/usr/local/lib/x64)
+	else()
+		LINK_DIRECTORIES(d:/usr/local/lib)
+	endif()
 endif(APPLE)
+
 ADD_SUBDIRECTORY(include)
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(samples)
 ADD_SUBDIRECTORY(tests)
 
-#Documentation set off if you disable documentation by doxygen
-OPTION(DOC_ENABLED "Create doxygen documentation for developers" ON)
+#Documentation set ON/OFF if you enable/disable documentation by doxygen
+OPTION(DOC_ENABLED "Create doxygen documentation for developers" OFF)
 IF(DOC_ENABLED)
 ADD_SUBDIRECTORY(docs)
 ELSE(DOC_ENABLED)
