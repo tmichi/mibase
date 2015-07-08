@@ -33,11 +33,8 @@
 #include <windows.h>
 #include <process.h>
 #include <intrin.h>
-///@note Windows platform SDK is required to use this feature on Windows.
-#ifndef PEAK_MEMORY_COUNTER_DISABLED
 #include <Psapi.h>
 #pragma comment(lib, "psapi.lib")
-#endif// PEAK_MEMORY_COUNTER_DISABLED
 #else
 #include <ctime>
 #include <sys/types.h>
@@ -200,16 +197,15 @@ namespace mi
         SystemInfo::getPeakMemorySize ( const SIZE_TYPE type )
         {
                 double peakMemory = 0;
-#ifndef PEAK_MEMORY_COUNTER_DISABLED
 #if defined(OS_WINDOWS)
-                PROCESS_MEMORY_COUNTERS pmc = { 0 };
-                HANDLE hProcess = OpenProcess ( PROCESS_QUERY_INFORMATION, FALSE, GetCurrentProcessId() );
-
-                if ( GetProcessMemoryInfo ( hProcess, &pmc, sizeof ( pmc ) ) ) {
-                        peakMemory = static_cast<double> ( pmc.PeakWorkingSetSize );
-                }
-
-                CloseHandle ( hProcess );
+		PROCESS_MEMORY_COUNTERS pmc = { 0 };
+		HANDLE hProcess = OpenProcess ( PROCESS_QUERY_INFORMATION, FALSE, GetCurrentProcessId() );
+		
+		if ( GetProcessMemoryInfo ( hProcess, &pmc, sizeof ( pmc ) ) ) {
+			peakMemory = static_cast<double> ( pmc.PeakWorkingSetSize );
+		}
+			
+		CloseHandle ( hProcess );
 #else // MAC or Linux
                 struct rusage rusage;
                 getrusage ( RUSAGE_SELF, &rusage );                ///@todo The result somewhat strange on Mac.
@@ -223,8 +219,6 @@ namespace mi
                 } else if ( type == MI_KILO_BYTE ) {
                         peakMemory /= 1024;
                 }
-
-#endif// PEAK_MEMORY_COUNTER_DISABLED
                 return  peakMemory;
         }
 }

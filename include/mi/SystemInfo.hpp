@@ -63,6 +63,8 @@ namespace mi
                 static std::string get_sysctl        ( const std::string&  key );
                 static double      get_sysctl_double ( const std::string&  key );
                 static int         get_sysctl_int    ( const std::string&  key );
+
+		
         };
 }
 #endif// MI_SYSTEM_INFO_HPP

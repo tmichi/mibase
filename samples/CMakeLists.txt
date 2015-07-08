@@ -10,7 +10,6 @@ ADD_EXECUTABLE(thread0 thread0.cpp)
 ADD_EXECUTABLE(thread1 thread1.cpp)
 ADD_EXECUTABLE(thread2 thread2.cpp)
 
-#if (APPLE)
 TARGET_LINK_LIBRARIES(attr0 mibase)
 TARGET_LINK_LIBRARIES(argument0 mibase)
 TARGET_LINK_LIBRARIES(command0 mibase)
@@ -22,9 +21,4 @@ TARGET_LINK_LIBRARIES(time0 mibase)
 TARGET_LINK_LIBRARIES(thread0 mibase)
 TARGET_LINK_LIBRARIES(thread1 mibase)
 TARGET_LINK_LIBRARIES(thread2 mibase)
-#endif (APPLE)
-
-
-
-
 

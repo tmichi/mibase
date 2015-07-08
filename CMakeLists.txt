@@ -12,28 +12,26 @@ SET(soserial "${PACKAGE_VERSION_MAJOR}")
 SET (VERSION_STRING  "${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}-${PACKAGE_VERSION_PATCH}")
 
 ENABLE_TESTING()
+
+INCLUDE_DIRECTORIES(include)
+LINK_DIRECTORIES(${CMAKE_BINARY_DIR})
+
 if(APPLE)
-	INCLUDE_DIRECTORIES(include)
-	set(CMAKE_MACOSX_RPATH 1)
+	SET(CMAKE_MACOSX_RPATH 1)
 	ADD_DEFINITIONS(-g -O3 -Wall)
 elseif(WIN32) 
 	SET(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE)
 	SET(CMAKE_BUILD_TYPE Release)
 	SET(CMAKE_INSTALL_PREFIX, "C:/Program Files/mi")
-	LINK_DIRECTORIES(${CMAKE_BINARY_DIR})
-	INCLUDE_DIRECTORIES(include ) 
 endif(APPLE)
 
 ADD_SUBDIRECTORY(include)
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(samples)
 ADD_SUBDIRECTORY(tests)
-	 
-#Documentation set ON/OFF if you enable/disable documentation by doxygen
-OPTION(DOC_ENABLED "Create doxygen documentation for developers" ON)
-IF(DOC_ENABLED)
 ADD_SUBDIRECTORY(docs)
-ELSE(DOC_ENABLED)
-MESSAGE ("documentation skipped")
-ENDIF(DOC_ENABLED)
+
+#ctags
+#add_custom_target(ctags ALL COMMAND "ctags" "-R" "-f" ".tags" "--languages=C++" "--exclude='CMake*'" "${CMAKE_SOURCE_DIR}/include")
+	 
 
