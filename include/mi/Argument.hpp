@@ -15,6 +15,7 @@ namespace mi
         /**
          * @class Argument Argument.hpp <mi/Argument.hpp>
          * @brief Argument object.
+	 *
          * @sa AttributeSet, NumericAttribute, BooleanAttribute, StringAttribute
          */
         class Argument

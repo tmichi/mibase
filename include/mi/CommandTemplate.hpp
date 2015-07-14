@@ -36,6 +36,7 @@ namespace mi
                 * @brief Destructor.
                 */
                 virtual ~CommandTemplate ( void );
+	protected:
                 /**
                  * @brief Initialize the command.
                  * @param [in] arg Argument.
@@ -56,7 +57,6 @@ namespace mi
                  */
                 virtual bool term ( void ) = 0;
 
-        protected:
                 /**
                  * @brief Get attribute set.
                  * @return A reference to the attribute set.

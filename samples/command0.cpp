@@ -66,21 +66,6 @@ int main ( int argc, char** argv )
 {
         mi::Argument arg ( argc, argv );
         ExampleCommand cmd;
+	return  mi::CommandTemplate::execute ( cmd, arg );
 
-        if ( !cmd.init ( arg ) ) {
-                std::cerr << "initalization failed." << std::endl;
-                return -1;
-        }
-
-        if ( !cmd.run() ) {
-                std::cerr << "execution failed." << std::endl;
-                return -2;
-        }
-
-        if ( !cmd.term() ) {
-                std::cerr << "terminiation failed." << std::endl;
-                return -3;
-        }
-
-        return 0;
 }
