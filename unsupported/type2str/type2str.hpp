@@ -2,12 +2,8 @@
 #define MI_TYPE_2_STR_HPP 1
 #include <string>
 namespace mi {
-	
 	template <typename T> 
 	std::string type2str( void );	
-	//	template <typename T> 
-	//std::string type2str( void );
-	
 	
 	template <> 
 	std::string type2str<char>( void ) {
