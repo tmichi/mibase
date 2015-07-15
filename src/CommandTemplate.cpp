@@ -60,7 +60,7 @@ namespace mi
                 bool         _isTimingModeOn; ///< Flag for timing mode.
                 bool         _isDebugModeOn;///< Flag for debug mode.
         };
-        CommandTemplate::CommandTemplate ( const std::string& cmdStr )
+        CommandTemplate::CommandTemplate ( const std::string& cmdStr ) : _impl ( new CommandTemplate::Impl(cmdStr))
         {
                 return;
         }
