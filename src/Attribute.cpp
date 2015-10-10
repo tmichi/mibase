@@ -64,7 +64,7 @@ namespace mi
                         return this->_errorCode;
                 }
         private:
-                const std::string        _key;        ///< Key string.
+                const std::string  _key;        ///< Key string.
                 std::string        _message;    ///< Message for the attribute.
                 bool               _isMandatory;///< Flag this is mandatory attribute.
                 bool               _isHidden;   ///< This is a hidden attribute.
@@ -187,10 +187,9 @@ namespace mi
         void
         Attribute::print_usage ( void )
         {
-                if ( this->_impl->isHidden() ) {
-                        return;
-                }
-
-                std::cerr << "\t" << this->getKey() << "\t" << this->getMessage() << std::endl;
+                if ( ! this->_impl->isHidden() ) {
+                	std::cerr << "\t" << this->getKey() << "\t" << this->getMessage() << std::endl;
+		}
+		return;
         }
 }

@@ -83,12 +83,8 @@ namespace mi
                 if ( TestCase::getNumErrors() == 0 ) {
                         return  EXIT_SUCCESS;
                 }
-
-                const std::string dateStr = TestSuite::replace_str ( __DATE__ );
-                const std::string timeStr = TestSuite::replace_str ( __TIME__ );
-
                 std::stringstream ss;
-                ss << testname << "-" << dateStr << "-" << timeStr << ".log";
+                ss << testname <<".log";
                 std::ofstream fout ( ss.str().c_str() );
                 TestCase::print ( fout );
                 std::cerr << "error(s) found. see " << ss.str() << "." << std::endl;

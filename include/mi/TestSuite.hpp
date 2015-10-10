@@ -35,7 +35,7 @@ namespace mi
                 /**
                  * @brief Run test cases.
                  */
-                int run ( const std::string& testname = "test" );
+                int run ( const std::string& testname );
         private:
                 static std::string replace_str ( const std::string& inStr );
         private:
