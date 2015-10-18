@@ -13,7 +13,9 @@ ADD_LIBRARY( mibase STATIC #SHARED
              Parse.cpp
              Progress.cpp
              StringAttribute.cpp
+	     SvgRenderer.cpp
              SystemInfo.cpp
+
 	     TestSuite.cpp
 	     TestCase.cpp
              Thread.cpp
