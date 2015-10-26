@@ -1,1 +1,1 @@
-cdADD_SUBDIRECTORY ( mi )
+ADD_SUBDIRECTORY ( mi )

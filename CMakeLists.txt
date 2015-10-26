@@ -30,8 +30,3 @@ ADD_SUBDIRECTORY(samples)
 ADD_SUBDIRECTORY(tests)
 ADD_SUBDIRECTORY(unsupported)
 ADD_SUBDIRECTORY(docs)
-
-#ctags
-#add_custom_target(ctags ALL COMMAND "ctags" "-R" "-f" ".tags" "--languages=C++" "--exclude='CMake*'" "${CMAKE_SOURCE_DIR}/include")
-	 
-

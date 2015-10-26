@@ -1,14 +1,15 @@
 #include "XmlDocument.hpp"
 #include "XmlDocumentExporter.hpp"
 #include <iostream>
-int main ( int argc, char** argv) {
-	mi::XmlDocument doc( "node") ;
-	mi::XmlNode& node = doc.getNode();
-	node.addNode("hoge", "1");
-	node.addAttribute("attr", "yes");
-	mi::XmlDocumentExporter exporter(doc);
-	exporter.write("test.xml");
-	return 0;
+int main ( int argc, char** argv )
+{
+        mi::XmlDocument doc( "node" ) ;
+        mi::XmlNode& node = doc.getNode();
+        node.addNode( "hoge", "1" );
+        node.addAttribute( "attr", "yes" );
+        mi::XmlDocumentExporter exporter( doc );
+        exporter.write( "test.xml" );
+        return 0;
 }
 
 /*

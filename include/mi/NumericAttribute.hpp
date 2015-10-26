@@ -29,6 +29,10 @@ namespace mi
                  */
                 NumericAttribute ( const std::string& key,  T& value, const int offset = 1 );
 
+		/*
+		 * @brief Destructor.
+		 *
+		 */
                 virtual ~NumericAttribute ( void );
 
                 /**
@@ -77,6 +81,10 @@ namespace mi
                  * @return Value.
                  */
                 std::string toString ( void ) const;
+                /**
+                 * @brief Get value.
+                 * @return Value.
+                 */
                 std::string getValue ( void ) const;
 
                 /**
@@ -84,7 +92,16 @@ namespace mi
                  * @return Itself.
                  */
                 NumericAttribute<T>& setMandatory ( void );
+                /**
+                 * @brief Set this attribute is hidden.
+                 * @return Itself.
+                 */
                 NumericAttribute<T>& setHidden ( void );
+                /**
+                 * @brief Set this attribute's message.
+		 * @param [in] message Message.
+                 * @return Itself.
+                 */
                 NumericAttribute<T>& setMessage ( const std::string& message );
         private:
                 bool clamp_value ( T& value );
