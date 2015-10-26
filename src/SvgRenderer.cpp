@@ -277,7 +277,7 @@ namespace mi
 	}
 
 	void
-	SvgRenderer::drawText ( const double bx, const double by, const std::string& text) {
+	SvgRenderer::drawText ( const double bx, const double by, const std::string& text, const std::string& align) {
 		SvgRenderer::Impl& impl = *(this->_impl);
 		std::ofstream &fout     = impl.getFileStream();
 		const std::string& fill_color =  impl.getFillColor();
@@ -286,11 +286,28 @@ namespace mi
 		double b0x = bx;
 		double b0y = by;
 		impl.convert(b0x, b0y);
-		fout <<"<text x=\""<< b0x<<"\" y=\""<<b0y<<"\" font-family=\""<<font_family<<"\" fill=\""<<fill_color<<"\" font-size=\""<<font_size<<"\">"
+		fout <<"<text x=\""<< b0x<<"\" y=\""<<b0y<<"\" font-family=\""<<font_family<<"\" fill=\""<<fill_color<<"\" font-size=\""<<font_size<<"\" align = \""<<align<<">"
 		     << text 
 		     <<"</text>"<<std::endl;
+		/*
+		  mi::SvgTextNode& node = doc.addNode();
+		  node.addAttribute("x", b0x);
+		  node.addAttribute("y", b0y);
+		  node.addAttribute("font-family", font_family);
+		  node.addAttribute("font-size", font_size);
+		  node.addAttribute("align", align);
+		*/
+		
+		
 		return;
 	}
 }
 
 
+/*
+XmlDocument doc;
+Node node;
+node.addAttribute("font-familiy", "value");
+doc.addNode(node);
+XmlExporter exporter(doc).write
+*/

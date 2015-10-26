@@ -40,7 +40,7 @@ namespace mi
                 void drawLine ( const double x0 , const double y0, const double x1, const double y1 );
                 void drawCircle ( const double cx, const double cy, const double r );
                 void drawRect ( const double x0, const double y0, const double w, const double h );               
-		void drawText ( const double bx, const double by, const std::string& text);				
+		void drawText ( const double bx, const double by, const std::string& text, const std::string& algin = std::string("start")); // start, end, middle
         };
 }
 #endif// MI_SVG_DRAWER_HPP
