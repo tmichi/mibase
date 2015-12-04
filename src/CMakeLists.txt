@@ -15,13 +15,17 @@ ADD_LIBRARY( mibase STATIC #SHARED
              StringAttribute.cpp
 	     SvgRenderer.cpp
              SystemInfo.cpp
-
 	     TestSuite.cpp
 	     TestCase.cpp
              Thread.cpp
              Timer.cpp
              Tokenizer.cpp
              TripleNumericAttribute.cpp
+	     XmlDocument.cpp
+	     XmlDocumentExporter.cpp
+	     XmlNode.cpp
+	     XmlText.cpp
+	     XmlElement.cpp
            )
 #SET_TARGET_PROPERTIES( mibase PROPERTIES 
 #			VERSION ${serial} SOVERSION ${soserial}

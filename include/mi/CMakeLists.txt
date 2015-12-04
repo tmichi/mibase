@@ -25,6 +25,12 @@ SET ( INCLUDE_FILES base.hpp
       Timer.hpp
       Tokenizer.hpp
       TripleNumericAttribute.hpp
+      XmlDocument.hpp
+      XmlDocumentExporter.hpp
+      XmlNode.hpp
+      XmlText.hpp
+      XmlElement.hpp
+      xml.hpp
     )
 INSTALL ( FILES ${INCLUDE_FILES}
           DESTINATION include/mi

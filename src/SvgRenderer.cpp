@@ -3,6 +3,7 @@
  * @author Takashi Michikawa <michikawa@acm.org>
  */
 #include <mi/SvgRenderer.hpp>
+#include <mi/xml.hpp>
 namespace mi
 {
         class SvgRenderer::Impl
@@ -28,11 +29,14 @@ namespace mi
                         y = ( 1.0 - t ) * this->_size.y;
                         return;
                 }		
+
 		Impl ( const int width, const int height, const std::string& filename) {
 			this->_size.x = width;
 			this->_size.y = height;
+			this->_filename = filename;
+			this->_xml = std::make_shared<XmlDocument>();
 			this->init();
-			this->_fout.open (filename.c_str());
+			
 			return;
 		}
 
@@ -50,8 +54,8 @@ namespace mi
 			return;
 		}
 
-		std::ofstream& getFileStream ( void ) {
-			return this->_fout;
+		const std::string& getFileName ( void )const {
+			return this->_filename;
 		}
 		
 		void setViewBox ( const double mnx, const double mny, const double mxx, const double mxy ) {
@@ -113,9 +117,14 @@ namespace mi
 		std::string getFontFamily( void ) const {
 			return this->_font_family;
 		}
-        private:
-		std::ofstream _fout;
 		
+		std::shared_ptr<XmlDocument> getXml(void) {
+			return this->_xml;
+		}
+        private:
+		std::shared_ptr<XmlDocument> _xml;
+		std::string _filename;
+
                 int _stroke_dashed;
                 double _stroke_width;
 		std::string _stroke_color;
@@ -133,18 +142,24 @@ namespace mi
 	
 	SvgRenderer::SvgRenderer( const int width, const int height, const std::string& filename )
 		: _impl ( new SvgRenderer::Impl ( width, height, filename) ) {
-		SvgRenderer::Impl& impl = *(this->_impl);
-		std::ofstream &fout = impl.getFileStream();
-		fout<<"<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width= \""
-			   <<width<<"\" height=\""
-			   <<height<<"\">"<<std::endl;
+		std::shared_ptr<mi::XmlElement> elem( new mi::XmlElement("svg") ) ;
+		elem->addAttribute("xmlns", "http://www.w3.org/2000/svg");
+		elem->addAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
+		elem->addAttribute("width", std::to_string(width));
+		elem->addAttribute("height", std::to_string(height));
+		this->_impl->getXml()->addRoot(elem);
 		return;
 	}
 	
 	SvgRenderer::~SvgRenderer ( void ) {
-		SvgRenderer::Impl& impl = *(this->_impl);
-		std::ofstream &fout = impl.getFileStream();
-		fout<<"</svg>"<<std::endl;
+		if (!mi::XmlDocumentExporter(this->_impl->getXml()).write(this->_impl->getFileName())) {
+			std::cerr<<"Saving failed."<<std::endl;
+		};
+		
+		if ( this->_impl != NULL ) {
+			delete this->_impl;
+			this->_impl = NULL;
+		}
 		return;
 	}
 	
@@ -199,10 +214,10 @@ namespace mi
 		impl.setFontFamily ( family );
 		return;
 	}	
+
 	void 
 	SvgRenderer::drawLine ( const double x0 , const double y0, const double x1, const double y1 ) {
 		SvgRenderer::Impl& impl = *(this->_impl);
-		std::ofstream &fout = impl.getFileStream();
 		double v0x = x0;
 		double v0y = y0;
 		double v1x = x1;
@@ -212,18 +227,22 @@ namespace mi
 		const int stroke_dashed = impl.getStrokeDash();
 		const double stroke_width = impl.getStrokeWidth();
 		const std::string stroke_color = impl.getStrokeColor();
-
-		fout<<"<line x1=\""<<v0x<<"\" y1=\""<<v0y<<"\" x2=\""<<v1x<<"\" y2=\""<<v1y<<"\"";
-		if ( stroke_dashed > 0 ) fout<<" stroke-dasharray=\""<<stroke_dashed<<"\"";
-		fout<<" stroke-width=\""<<stroke_width<<"\""
-		    <<" stroke=\""<<stroke_color<<"\" />"<<std::endl;
+		
+		std::shared_ptr<XmlElement> elem( new XmlElement("line"));
+		elem->addAttribute("x1", std::to_string(v0x));
+		elem->addAttribute("y1", std::to_string(v0y));
+		elem->addAttribute("x2", std::to_string(v1x));
+		elem->addAttribute("y2", std::to_string(v1y));
+		if ( stroke_dashed > 0 ) elem->addAttribute("stroke-dasharray", std::to_string(stroke_dashed));
+		elem->addAttribute("stroke-width", std::to_string(stroke_width));
+		elem->addAttribute("stroke", stroke_color);
+		this->_impl->getXml()->getRoot()->addChild(elem);
 		return;
 	}
 	
 	void 
 	SvgRenderer::drawCircle ( const double cx, const double cy, const double r ) {
 		SvgRenderer::Impl& impl = *(this->_impl);
-		std::ofstream &fout     = impl.getFileStream();
 		double c0x = cx;
 		double c0y = cy;
 		impl.convert( c0x, c0y );
@@ -233,20 +252,22 @@ namespace mi
 		const std::string stroke_color = impl.getStrokeColor();
 		const std::string fill_color =  impl.getFillColor();;
 		
-		fout<<"<circle cx=\""<<c0x<<"\" cy=\""<<c0y<<"\" r=\""<<r<<"\""
-		    <<" stroke-width=\""<<stroke_width<<"\""
-		    <<" stroke=\""<<stroke_color<<"\"";
-		if (stroke_dashed > 0 ) {
-			fout<<" stroke-dasharray=\""<<stroke_dashed<<"\"";
-		}
-		fout<<" fill=\""<<fill_color<<"\"/>"<<std::endl;
+
+		std::shared_ptr<XmlElement> elem( new XmlElement("circle"));
+		elem->addAttribute("cx", std::to_string(c0x));
+		elem->addAttribute("cy", std::to_string(c0y));
+		elem->addAttribute("r", std::to_string(r));
+		elem->addAttribute("stroke-width", std::to_string(stroke_width));
+		elem->addAttribute("stroke", stroke_color);
+		if ( stroke_dashed > 0 ) elem->addAttribute("stroke-dasharray", std::to_string(stroke_dashed));
+		elem->addAttribute("fill", fill_color);
+		this->_impl->getXml()->getRoot()->addChild(elem);
 		return;
 	}
 	
 	void 
 	SvgRenderer::drawRect ( const double x0, const double y0, const double w, const double h ) {
 		SvgRenderer::Impl& impl = *(this->_impl);
-		std::ofstream &fout     = impl.getFileStream();
 
 		const int stroke_dashed = impl.getStrokeDash();
 		const double stroke_width = impl.getStrokeWidth();
@@ -257,6 +278,7 @@ namespace mi
 		double v0y = y0;
 		double v1x = x0 + w;
 		double v1y = y0 + h;
+
 		impl.convert( v0x, v0y );
 		impl.convert( v1x, v1y );
 		
@@ -268,46 +290,43 @@ namespace mi
 		const double sizex = maxx - minx;
 		const double sizey = maxy - miny;
 		
-		fout<<"<rect x=\""<<minx<<"\" y=\""<<miny<<"\" width=\""<<sizex<<"\" height=\""<<sizey<<"\"";
-		if ( stroke_dashed > 0 ) {
-			fout<<" stroke-dasharray=\""<<stroke_dashed<<"\"";
-		}
-		fout<<" stroke-width=\""<<stroke_width<<"\" stroke=\""<<stroke_color<<"\" fill=\""<<fill_color<<"\"/>"<<std::endl;
+		std::shared_ptr<XmlElement> elem( new XmlElement("rect"));
+		elem->addAttribute("x", std::to_string(v0x));
+		elem->addAttribute("y", std::to_string(v0y));
+		elem->addAttribute("width", std::to_string(sizex));
+		elem->addAttribute("height", std::to_string(sizey));
+		if ( stroke_dashed > 0 ) elem->addAttribute("stroke-dasharray", std::to_string(stroke_dashed));
+		elem->addAttribute("stroke-width", std::to_string(stroke_width));
+		elem->addAttribute("stroke", stroke_color);
+		elem->addAttribute("fill", fill_color);
+		this->_impl->getXml()->getRoot()->addChild(elem);
 		return;
 	}
 
 	void
 	SvgRenderer::drawText ( const double bx, const double by, const std::string& text, const std::string& align) {
 		SvgRenderer::Impl& impl = *(this->_impl);
-		std::ofstream &fout     = impl.getFileStream();
+
 		const std::string& fill_color =  impl.getFillColor();
 		const int font_size = impl.getFontSize();
 		const std::string&  font_family = impl.getFontFamily();
 		double b0x = bx;
 		double b0y = by;
 		impl.convert(b0x, b0y);
-		fout <<"<text x=\""<< b0x<<"\" y=\""<<b0y<<"\" font-family=\""<<font_family<<"\" fill=\""<<fill_color<<"\" font-size=\""<<font_size<<"\" align = \""<<align<<">"
-		     << text 
-		     <<"</text>"<<std::endl;
-		/*
-		  mi::SvgTextNode& node = doc.addNode();
-		  node.addAttribute("x", b0x);
-		  node.addAttribute("y", b0y);
-		  node.addAttribute("font-family", font_family);
-		  node.addAttribute("font-size", font_size);
-		  node.addAttribute("align", align);
-		*/
+
+		std::shared_ptr<XmlElement> elem( new XmlElement("text"));
+		elem->addAttribute("x", std::to_string(b0x));
+		elem->addAttribute("y", std::to_string(b0y));
+		elem->addAttribute("font-family", font_family);
+		elem->addAttribute("fill", fill_color);
+		elem->addAttribute("font-size", std::to_string(font_size));
+		elem->addAttribute("align", align);
 		
-		
+		std::shared_ptr<XmlText> tnode ( new XmlText) ;
+		tnode->setText(text);
+		elem->addChild(tnode);
+		this->_impl->getXml()->getRoot()->addChild(elem);
 		return;
 	}
 }
 
-
-/*
-XmlDocument doc;
-Node node;
-node.addAttribute("font-familiy", "value");
-doc.addNode(node);
-XmlExporter exporter(doc).write
-*/
