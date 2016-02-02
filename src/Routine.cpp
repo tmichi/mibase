@@ -48,20 +48,17 @@ namespace mi
 	Routine::Routine ( const std::string& name ) : _impl ( new Impl ( name ) ) {
 		Routine::Impl::getTimer().start( this->_impl->getName() );
 		if ( this->is_debug_mode() ) {
-			std::cerr<< "applying "<< this->_impl->getName() <<" routine ... ";
+			std::cerr<< this->_impl->getName() <<" routine ... ";
 		}
 		return;
 	}
 	
 	Routine::~Routine ( void ) {
 		Routine::Impl::getTimer().end( this->_impl->getName() );
-		if ( this->is_debug_mode() ) {
-			if ( ! this->check() ) {
-				std::cerr << " failed." << std::endl;
-				std::cerr << this->_impl->getStream().str()<<std::endl;
-			} else {
-				std::cerr << " done." << std::endl;
-			}
+		if ( this->check() ) std::cerr <<" done."<<std::endl;
+		else  {
+			std::cerr <<" failed."<<std::endl;;  
+			std::cerr << this->_impl->getStream().str()<<std::endl;
 		}
 		// delete
 		if ( this->_impl != NULL ) delete this->_impl;
