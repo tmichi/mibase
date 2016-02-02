@@ -12,6 +12,7 @@ ADD_LIBRARY( mibase STATIC #SHARED
              NumericAttribute.cpp
              Parse.cpp
              Progress.cpp
+	     Routine.cpp
              StringAttribute.cpp
 	     SvgRenderer.cpp
              SystemInfo.cpp

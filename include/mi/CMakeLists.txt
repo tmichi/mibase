@@ -16,6 +16,7 @@ SET ( INCLUDE_FILES base.hpp
       Parse.hpp
       PriorityQueue.hpp
       Progress.hpp
+      Routine.hpp
       SvgRenderer.hpp
       StringAttribute.hpp
       SystemInfo.hpp
