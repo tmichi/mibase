@@ -1,5 +1,6 @@
 #include <mi/Routine.hpp>
 #include <iostream>
+#include <memory>
 class TestRoutine: public mi::Routine {
 private:
 	const int& _a;
@@ -19,8 +20,10 @@ public:
 int main ( int argc, char** argv ) {
 	int a = 20;
 	int b;
-	TestRoutine routine (a, b);
-	if ( !mi::Routine::run(routine) ) return -1;
+//	if ( !mi::Routine::run(TestRoutine(a, b).getInstance() ) ) return -1;
+	if ( !mi::Routine::run(TestRoutine(a, b).getInstance() ) ) return -1;
+	//TestRoutine routine (a, b);
+	//if ( !mi::Routine::run(routine) ) return -1;
 	std::cerr<<b<<std::endl;
 	return 0;
 }

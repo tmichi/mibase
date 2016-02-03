@@ -47,9 +47,7 @@ namespace mi
 
 	Routine::Routine ( const std::string& name ) : _impl ( new Impl ( name ) ) {
 		Routine::Impl::getTimer().start( this->_impl->getName() );
-		if ( this->is_debug_mode() ) {
-			std::cerr<< this->_impl->getName() <<" routine ... ";
-		}
+		std::cerr<< this->_impl->getName() <<" routine ... ";
 		return;
 	}
 	
@@ -65,12 +63,20 @@ namespace mi
 		this->_impl = NULL;
 		return ;
 	}
-	
+	Routine* 
+	Routine::getInstance ( void ) {
+		return this;
+	}
 	bool
+	Routine::run ( Routine* routine ) {
+		if ( ! routine->check() ) return false;
+		return routine->run_main_routine();
+	}
+/*	bool
 	Routine::run ( Routine& routine ) {
 		if ( ! routine.check() ) return false;
 		return routine.run_main_routine();
-	}
+		}*/
 	
 	bool 
 	Routine::check ( void ) const {

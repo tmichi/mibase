@@ -29,8 +29,10 @@ int main ( int argc, char** argv ) {
 	int a = 20;
 	int b;
 	mi::Routine::setDebugModeOn();
-	TestRoutine routine (a, b);
-	if ( !mi::Routine::run(	routine ) ) return 0;
+	if ( !mi::Routine::run(	TestRoutine(a, b).getInstance() ) ) return 0;
+	//TestRoutine routine (a, b);
+//	if ( !mi::Routine::run(	routine ) ) return 0;
+
 	std::cerr<<"invalid"<<std::endl;
 	return -1;
 }

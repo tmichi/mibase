@@ -18,11 +18,12 @@ namespace mi
 		void operator = ( const Routine& that ) ;
 	public:
                 virtual ~Routine ( void );
-                static bool run ( Routine& routine );
+		Routine* getInstance ( void );
+                static bool run ( Routine* routine );
                 static void setDebugModeOn( void );
         protected:
                 std::stringstream& stream ();
-
+		
                 virtual bool run_main_routine( void );
                 bool check ( void ) const ;
 		void set_failed( void ) ;
