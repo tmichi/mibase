@@ -58,13 +58,6 @@ namespace mi
                  * @param[in] out Output stream
                  */
                 static void print ( std::ostream&  out  = std::cout );
-        private:
-                // only for unix-like system
-                static std::string get_sysctl        ( const std::string&  key );
-                static double      get_sysctl_double ( const std::string&  key );
-                static int         get_sysctl_int    ( const std::string&  key );
-
-		
         };
 }
 #endif// MI_SYSTEM_INFO_HPP
