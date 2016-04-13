@@ -114,7 +114,7 @@ namespace mi
                                 for ( string_iterator iter1 = filters.begin() ; iter1 != filters.end() ; ++iter1 ) {
                                         const int n = static_cast<int> ( iter0->rfind ( *iter1 ) );
 
-                                        if ( n > 0 && n == iter0->length() - iter1->length() ) {
+                                        if ( n > 0 && n == static_cast<int>(iter0->length() - iter1->length() ) ) {
                                                 std::string path0 = FileLister::modify_path ( path );
                                                 path0 += *iter0;
                                                 result.push_back ( path0 );
