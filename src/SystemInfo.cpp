@@ -29,7 +29,7 @@
 #endif//if defined __APPLE__ __linux
 #endif//if defined 
 
-#if defined OS_WINDOWS
+#if defined OS_WINDOWS 
 #include <windows.h>
 #include <process.h>
 #include <intrin.h>
