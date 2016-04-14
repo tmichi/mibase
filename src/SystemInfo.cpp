@@ -10,6 +10,10 @@
 #ifndef	OS_WINDOWS
 #define	OS_WINDOWS 1
 #endif	//OS_WINDOWS
+#elif defined (__CYGWIN__)
+#ifndef OS_CYGWIN
+#define OS_CYGWIN 1
+#endif//OS_CYGWIN 
 #else
 #ifndef OS_UNIX
 #define OS_UNIX 1
@@ -35,6 +39,10 @@
 #include <intrin.h>
 #include <Psapi.h>
 #pragma comment(lib, "psapi.lib")
+#elif defined OS_CYGWIN
+#include <ctime>
+#include <sys/types.h>
+#include <sys/resource.h>
 #else
 #include <ctime>
 #include <sys/types.h>
@@ -114,6 +122,47 @@ namespace mi
 			   << std::setw ( 2 ) << std::setfill ( '0' ) << systime.wSecond;
 			return ss.str();
 		}
+		double get_peak_memory( void ) {
+			double peakMemory = 0;
+			PROCESS_MEMORY_COUNTERS pmc = { 0 };
+			HANDLE hProcess = OpenProcess ( PROCESS_QUERY_INFORMATION, FALSE, GetCurrentProcessId() );
+			if ( GetProcessMemoryInfo ( hProcess, &pmc, sizeof ( pmc ) ) ) {
+				peakMemory = static_cast<double> ( pmc.PeakWorkingSetSize );
+			}
+			
+			CloseHandle ( hProcess );
+			return peakMemory;
+		}
+#elif defined (OS_CYGWIN) 
+		std::string get_cpu_name_cygwin ( void ) {
+			std::string name;
+			return name;
+		}
+		
+		double get_memory_size_cygwin() {
+			return static_cast<double> ( 0 ) ;
+		}
+
+		int get_num_core_cygwin(){
+			return 0;
+		}
+		
+		std::string get_date_cygwin() {
+			SYSTEMTIME systime;
+			GetLocalTime ( &systime );
+			std::stringstream ss;
+			ss << systime.wYear << "-" << std::setw ( 2 ) << std::setfill ( '0' ) << systime.wMonth << "-"
+			   << std::setw ( 2 ) << std::setfill ( '0' ) << systime.wDay << "-"
+			   << std::setw ( 2 ) << std::setfill ( '0' ) << systime.wHour << ":"
+			   << std::setw ( 2 ) << std::setfill ( '0' ) << systime.wMinute << ":"
+			   << std::setw ( 2 ) << std::setfill ( '0' ) << systime.wSecond;
+			return ss.str();
+		}
+		double get_peak_memory_cygwin( void ) {
+			double peakMemory = 0;
+			///@todo Add something here
+			return peakMemory;
+		}
 #else // unix like system
 		static std::string get_sysctl        ( const std::string&  key ) {
 			char result[256];
@@ -134,6 +183,13 @@ namespace mi
 			sysctlbyname ( key.c_str(), &result, &size, NULL, 0 );
 			return result;
 		}
+		double get_peak_memory_unix( void ) {
+			double peakMemory = 0;
+			struct rusage rusage;
+			getrusage ( RUSAGE_SELF, &rusage );                ///@todo The result somewhat strange on Mac.
+			peakMemory = static_cast<double> ( rusage.ru_maxrss );
+			return peakMemory;
+		}
 #endif
 	}
 	
@@ -144,6 +200,8 @@ namespace mi
         {
 #ifdef OS_WINDOWS
 		return mi::sys::get_cpu_name();
+#elif defined OS_CYGWIN
+		return mi::sys::get_cpu_time_cygwin();
 #else
                 return mi::sys::get_sysctl ( "machdep.cpu.brand_string" );
 #endif
@@ -153,6 +211,8 @@ namespace mi
         SystemInfo::getMemorySize ( void )
         {
 #ifdef OS_WINDOWS
+		return mi::sys::get_memory_size();
+#elif defined OS_CYGWIN
 		return mi::sys::get_memory_size();
 #else
                 return mi::sys::get_sysctl_double ( "hw.memsize" ) * 1.0 / 1024.0 / 1024.0 / 1024.0;
@@ -165,6 +225,8 @@ namespace mi
         {
 #ifdef OS_WINDOWS
 		return mi::sys::get_num_cores();
+#elif defined OS_CYGWIN
+		return mi::sys::get_num_cores_cygwin();
 #else
                 return mi::sys::get_sysctl_int ( "machdep.cpu.core_count" );
 #endif
@@ -175,6 +237,8 @@ namespace mi
         {
 #ifdef OS_WINDOWS
 		return mi::sys::get_date();
+#elif defined OS_CYGWIN
+		return mi::sys::get_date_cygwin();
 #else
                 time_t rawtime = std::time ( NULL );
                 struct tm* timeinfo = localtime ( &rawtime );
@@ -197,18 +261,11 @@ namespace mi
         {
                 double peakMemory = 0;
 #if defined(OS_WINDOWS)
-		PROCESS_MEMORY_COUNTERS pmc = { 0 };
-		HANDLE hProcess = OpenProcess ( PROCESS_QUERY_INFORMATION, FALSE, GetCurrentProcessId() );
-		
-		if ( GetProcessMemoryInfo ( hProcess, &pmc, sizeof ( pmc ) ) ) {
-			peakMemory = static_cast<double> ( pmc.PeakWorkingSetSize );
-		}
-			
-		CloseHandle ( hProcess );
+		peakMemory = mi::sys::get_peak_memory();
+#elif defined OS_CYGWIN
+		peakMemory = mi::sys::get_peak_memory_cygwin();
 #else // MAC or Linux
-                struct rusage rusage;
-                getrusage ( RUSAGE_SELF, &rusage );                ///@todo The result somewhat strange on Mac.
-                peakMemory = static_cast<double> ( rusage.ru_maxrss );
+		peakMemory = mi::sys::get_peak_memory_unix();
 #endif // WIN32
 
                 if ( type == MI_GIGA_BYTE ) {
