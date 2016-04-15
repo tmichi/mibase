@@ -17,7 +17,7 @@ LINK_DIRECTORIES(${CMAKE_BINARY_DIR})
 
 if(APPLE)
 	SET(CMAKE_MACOSX_RPATH 1)
-	ADD_DEFINITIONS(-g -O3 -Wall)
+	ADD_DEFINITIONS(-g -O3 -Wall -std=c++11 -Werror -Wno-c++98-compat -Wno-c++98-compat-pedantic)
 elseif(CYGWIN)
 	ADD_DEFINITIONS(-g -O3 -Wall -std=c++11)
 elseif(WIN32) 

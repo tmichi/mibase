@@ -27,18 +27,18 @@ namespace mi
                         return;
                 }
 
-                std::string get ( const int i ) const
+                std::string get ( const size_t i ) const
                 {
-                        if ( 0 <= i && i < this->size() ) {
+                        if ( i < this->size() ) {
                                 return this->_argv.at ( i );
                         } else {
                                 return std::string();
                         }
                 }
 
-                int size ( void ) const
+                size_t size ( void ) const
                 {
-                        return static_cast<int> ( this->_argv.size() );
+                        return this->_argv.size();
                 }
 
         private:
@@ -68,7 +68,7 @@ namespace mi
         int
         Argument::size ( void ) const
         {
-                return this->_impl->size();
+                return static_cast<int>(this->_impl->size());
         }
 
         Argument&
@@ -97,7 +97,7 @@ namespace mi
         T
         Argument::get ( const int idx ) const
         {
-                return mi::parse<T> ( this->_impl->get ( idx ) ) ;
+                return mi::parse<T> ( this->_impl->get( static_cast<size_t>(idx) ) ) ;
         }
 
         int
@@ -106,10 +106,10 @@ namespace mi
                 if ( offset < 0 ) {
                         return -1;        // Offset number is negative
                 }
-
-                for ( int i = 0 ; i < this->size() - offset ; ++i ) {
+		const size_t end = static_cast<size_t> ( static_cast<int>(this->size()) - offset );
+                for ( size_t i = 0 ; i < end ; ++i ) {
                         if ( this->_impl->get ( i ).compare ( key ) == 0 ) {
-                                return i + offset;
+                                return static_cast<int>(i) + offset;
                         }
                 }
 
@@ -119,7 +119,8 @@ namespace mi
         void
         Argument::print ( std::ostream& out )
         {
-                for ( int i = 0  ; i < this->size() ; ++i ) {
+		const size_t end = this->_impl->size();
+                for ( size_t i = 0  ; i < end ; ++i ) {
                         const std::string str = this->_impl->get ( i );
 
                         if ( str.find ( "-", 0 ) == 0 ) {
@@ -134,24 +135,24 @@ namespace mi
         }
 
 
-#define ARGUMENT__GET2(TYPE) template TYPE Argument::get<TYPE> ( const std::string& key, const int offset ) const
-        ARGUMENT__GET2 ( unsigned char );
-        ARGUMENT__GET2 ( char );
-        ARGUMENT__GET2 ( unsigned short );
-        ARGUMENT__GET2 ( short );
-        ARGUMENT__GET2 ( unsigned int );
-        ARGUMENT__GET2 ( int );
-        ARGUMENT__GET2 ( float );
-        ARGUMENT__GET2 ( double );
-        ARGUMENT__GET2 ( std::string );
-#define ARGUMENT__GET(TYPE) template TYPE Argument::get<TYPE> ( const int idx ) const
-        ARGUMENT__GET ( unsigned char );
-        ARGUMENT__GET ( char );
-        ARGUMENT__GET ( unsigned short );
-        ARGUMENT__GET ( short );
-        ARGUMENT__GET ( unsigned int );
-        ARGUMENT__GET ( int );
-        ARGUMENT__GET ( float );
-        ARGUMENT__GET ( double );
-        ARGUMENT__GET ( std::string );
+#define MI_ARGUMENT__GET2(TYPE) template TYPE Argument::get<TYPE> ( const std::string& key, const int offset ) const
+        MI_ARGUMENT__GET2 ( unsigned char );
+        MI_ARGUMENT__GET2 ( char );
+        MI_ARGUMENT__GET2 ( unsigned short );
+        MI_ARGUMENT__GET2 ( short );
+        MI_ARGUMENT__GET2 ( unsigned int );
+        MI_ARGUMENT__GET2 ( int );
+        MI_ARGUMENT__GET2 ( float );
+        MI_ARGUMENT__GET2 ( double );
+        MI_ARGUMENT__GET2 ( std::string );
+#define MI_ARGUMENT__GET(TYPE) template TYPE Argument::get<TYPE> ( const int idx ) const
+        MI_ARGUMENT__GET ( unsigned char );
+        MI_ARGUMENT__GET ( char );
+        MI_ARGUMENT__GET ( unsigned short );
+        MI_ARGUMENT__GET ( short );
+        MI_ARGUMENT__GET ( unsigned int );
+        MI_ARGUMENT__GET ( int );
+        MI_ARGUMENT__GET ( float );
+        MI_ARGUMENT__GET ( double );
+        MI_ARGUMENT__GET ( std::string );
 }
