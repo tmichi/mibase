@@ -53,7 +53,7 @@
 namespace mi
 {
 	namespace sys {
-#ifdef OS_WINDOWS
+#if defined OS_WINDOWS
 		std::string get_cpu_name ( void ) {
 			char CPUString[0x20];
 			char CPUBrandString[0x40];
@@ -143,20 +143,12 @@ namespace mi
 			return static_cast<double> ( 0 ) ;
 		}
 
-		int get_num_core_cygwin(){
+		int get_num_cores_cygwin(){
 			return 0;
 		}
 		
 		std::string get_date_cygwin() {
-			SYSTEMTIME systime;
-			GetLocalTime ( &systime );
-			std::stringstream ss;
-			ss << systime.wYear << "-" << std::setw ( 2 ) << std::setfill ( '0' ) << systime.wMonth << "-"
-			   << std::setw ( 2 ) << std::setfill ( '0' ) << systime.wDay << "-"
-			   << std::setw ( 2 ) << std::setfill ( '0' ) << systime.wHour << ":"
-			   << std::setw ( 2 ) << std::setfill ( '0' ) << systime.wMinute << ":"
-			   << std::setw ( 2 ) << std::setfill ( '0' ) << systime.wSecond;
-			return ss.str();
+			return std::string();
 		}
 		double get_peak_memory_cygwin( void ) {
 			double peakMemory = 0;
@@ -201,7 +193,7 @@ namespace mi
 #ifdef OS_WINDOWS
 		return mi::sys::get_cpu_name();
 #elif defined OS_CYGWIN
-		return mi::sys::get_cpu_time_cygwin();
+		return mi::sys::get_cpu_name_cygwin();
 #else
                 return mi::sys::get_sysctl ( "machdep.cpu.brand_string" );
 #endif
@@ -213,7 +205,7 @@ namespace mi
 #ifdef OS_WINDOWS
 		return mi::sys::get_memory_size();
 #elif defined OS_CYGWIN
-		return mi::sys::get_memory_size();
+		return mi::sys::get_memory_size_cygwin();
 #else
                 return mi::sys::get_sysctl_double ( "hw.memsize" ) * 1.0 / 1024.0 / 1024.0 / 1024.0;
 #endif
@@ -237,8 +229,6 @@ namespace mi
         {
 #ifdef OS_WINDOWS
 		return mi::sys::get_date();
-#elif defined OS_CYGWIN
-		return mi::sys::get_date_cygwin();
 #else
                 time_t rawtime = std::time ( NULL );
                 struct tm* timeinfo = localtime ( &rawtime );
