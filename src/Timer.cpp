@@ -193,7 +193,7 @@ namespace mi
                 return static_cast<double> ( start_pc.QuadPart ) / static_cast<double> ( freq_pc.QuadPart );
 #else //linux, mac
                 struct timeval tv0;
-                gettimeofday ( &tv0 , NULL );
+                gettimeofday ( &tv0 , NULL );///@todo use clock_gettime()
                 return tv0.tv_sec + tv0.tv_usec * SUBSECONDS;
 #endif
         }
