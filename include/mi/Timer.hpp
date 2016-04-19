@@ -38,11 +38,11 @@ namespace mi
          *
          * Here shows an example code :
          * @code
-         *  mi::Timer timer;
-         *  timer.start("hoge");
-         *  hoge();
-         *  timer.end("hoge");
-         *  timer.print("hoge");
+         *    mi::Timer timer;
+         *    timer.start("hoge");
+         *    hoge(); // do something
+         *    timer.end("hoge");
+         *    timer.print("hoge");
          * @endcode
          *
          */
@@ -52,6 +52,10 @@ namespace mi
                 Timer ( const Timer& that ) ;
                 void operator = ( const Timer& that ) ;
         public:
+		/**
+		 * @brief Constructor.
+		 */
+
                 Timer ( void );
                 /**
                  * @brief Destructor.

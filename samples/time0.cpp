@@ -5,7 +5,6 @@ int main ()
 {
         mi::Timer timer;
         timer.start ( "test" );
-        int c;
         for (int i = 0; i < 100; ++i) {
                 for (int j = 0; j < 100; ++j) {
                         std::cerr << "*";
