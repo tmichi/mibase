@@ -39,7 +39,7 @@ namespace mi
 					__cpuid ( CPUInfo, i );
 					// Interpret CPU brand string and cache information.
 					if  ( i == 0x80000002 ) {
-						1memcpy ( CPUBrandString, CPUInfo, sizeof ( CPUInfo ) );
+						memcpy ( CPUBrandString, CPUInfo, sizeof ( CPUInfo ) );
 					} else if  ( i == 0x80000003 ) {
 						memcpy ( CPUBrandString + 16, CPUInfo, sizeof ( CPUInfo ) );
 					} else if  ( i == 0x80000004 ) {
