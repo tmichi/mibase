@@ -34,12 +34,11 @@ namespace mi
 			}
 			virtual double getPeakMemory( void ) const {
 				double peakMemory = 0;
-				struct rusage rusage;
-				getrusage ( RUSAGE_SELF, &rusage );                ///@todo The result somewhat strange on Mac.
-				peakMemory = static_cast<double> ( rusage.ru_maxrss );
-				return peakMemory;
-			}
 			
+				return peakMemory;
+			
+			}
+
 			static SystemInfoInternal& getInstance(void) {
 				static SystemInfoInternal instance;
 				return instance;
