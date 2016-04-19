@@ -29,10 +29,10 @@ namespace mi
                  */
                 NumericAttribute ( const std::string& key,  T& value, const int offset = 1 );
 
-		/*
-		 * @brief Destructor.
-		 *
-		 */
+                /*
+                 * @brief Destructor.
+                 *
+                 */
                 virtual ~NumericAttribute ( void );
 
                 /**
@@ -99,7 +99,7 @@ namespace mi
                 NumericAttribute<T>& setHidden ( void );
                 /**
                  * @brief Set this attribute's message.
-		 * @param [in] message Message.
+                 * @param [in] message Message.
                  * @return Itself.
                  */
                 NumericAttribute<T>& setMessage ( const std::string& message );

@@ -118,7 +118,7 @@ namespace mi
         bool
         TestCase::checkEpsilonEquals ( const char* fileName, const int lineNo,  const T expectedValue, const T actualValue, const T epsilon )
         {
-                if ( std::fabs ( static_cast<double> (expectedValue - actualValue )) > epsilon ) {
+                if ( std::fabs ( static_cast<double> ( expectedValue - actualValue ) ) > epsilon ) {
                         TestCase::add_message ( fileName, lineNo, expectedValue, actualValue, epsilon, false );
                         return false;
                 }

@@ -3,7 +3,7 @@ namespace mi
 {
         class XmlDocument::Impl
         {
-	private:
+        private:
                 std::shared_ptr<XmlElement> _element;
         public:
                 Impl ( void )
@@ -15,14 +15,16 @@ namespace mi
                 {
                         return;
                 }
-		
-		void setRoot ( std::shared_ptr<XmlElement> element ) {
-			this->_element = element;
-		}
 
-		std::shared_ptr<XmlElement> getRoot( void ) {
-			return this->_element;
-		}
+                void setRoot ( std::shared_ptr<XmlElement> element )
+                {
+                        this->_element = element;
+                }
+
+                std::shared_ptr<XmlElement> getRoot( void )
+                {
+                        return this->_element;
+                }
         };
 
         XmlDocument::XmlDocument ( void ) : _impl ( new Impl() )
@@ -37,7 +39,7 @@ namespace mi
         void
         XmlDocument::addRoot( std::shared_ptr<XmlElement> element )
         {
-                this->_impl->setRoot(element);
+                this->_impl->setRoot( element );
         }
 
         std::shared_ptr<XmlElement>

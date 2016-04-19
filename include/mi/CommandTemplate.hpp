@@ -36,7 +36,7 @@ namespace mi
                 * @brief Destructor.
                 */
                 virtual ~CommandTemplate ( void );
-	protected:
+        protected:
                 /**
                  * @brief Initialize the command.
                  * @param [in] arg Argument.

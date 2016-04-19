@@ -3,10 +3,10 @@ namespace mi
 {
         class XmlText::Impl
         {
-	private:
-                std::string _text; 
+        private:
+                std::string _text;
         public:
-		Impl ( void )
+                Impl ( void )
                 {
                         return;
                 }
@@ -15,14 +15,16 @@ namespace mi
                         return;
                 }
 
-		const std::string& getText( void ) const {
-			return this->_text;
-		}
-		
-		void setText ( const std::string& str ) {
-			this->_text = str;
-			return ;
-		}
+                const std::string& getText( void ) const
+                {
+                        return this->_text;
+                }
+
+                void setText ( const std::string& str )
+                {
+                        this->_text = str;
+                        return ;
+                }
         };
         XmlText::XmlText ( void ) : XmlNode(), _impl ( new Impl )
         {
@@ -50,7 +52,7 @@ namespace mi
         void
         XmlText::setText ( const std::string& text )
         {
-                this->_impl->setText(text);
+                this->_impl->setText( text );
         }
 
         const std::string&

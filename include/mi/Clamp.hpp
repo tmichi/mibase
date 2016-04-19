@@ -52,21 +52,22 @@ namespace mi
                 return mi::min ( mi::max ( val, vmin ) , vmax );
         }
 
-	/**
-	 * @brief Check the value is inside between range.
-	 *
-	 */
+        /**
+         * @brief Check the value is inside between range.
+         *
+         */
 
-	template <typename T>
-	inline const bool inside( const T val, const T vmin, const T vmax , const bool isSame = true) {
-		if ( isSame ) {
-			if ( val == vmin ) return true;
-			if ( val == vmax ) return true;
-		}
-		if ( val > vmin ) return true;
-		if ( val < vmax ) return true;
-		return false;
-	}
+        template <typename T>
+        inline const bool inside( const T val, const T vmin, const T vmax , const bool isSame = true )
+        {
+                if ( isSame ) {
+                        if ( val == vmin ) return true;
+                        if ( val == vmax ) return true;
+                }
+                if ( val > vmin ) return true;
+                if ( val < vmax ) return true;
+                return false;
+        }
 }
 
 #endif// MI_CLAMP_HPP

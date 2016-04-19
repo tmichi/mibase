@@ -14,8 +14,8 @@
 
 namespace mi
 {
-	typedef std::chrono::high_resolution_clock::time_point clock_time_t;
-	
+        typedef std::chrono::high_resolution_clock::time_point clock_time_t;
+
         /**
          * @brief Time format.
          */
@@ -120,7 +120,7 @@ namespace mi
                  * @return Elapsed time.
                  */
                 clock_time_t get_elapsed_time ( void ) const;
-		
+
                 time_format estimate_format ( const double t ) const;
                 std::string get_format_string ( const time_format format ) const;
         private:

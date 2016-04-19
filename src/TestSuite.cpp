@@ -84,7 +84,7 @@ namespace mi
                         return  EXIT_SUCCESS;
                 }
                 std::stringstream ss;
-                ss << testname <<".log";
+                ss << testname << ".log";
                 std::ofstream fout ( ss.str().c_str() );
                 TestCase::print ( fout );
                 std::cerr << "error(s) found. see " << ss.str() << "." << std::endl;

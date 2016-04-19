@@ -1,4 +1,4 @@
-#ifndef MI_INTERNAL_SYSTEM_INFO_INTERNAL 
+#ifndef MI_INTERNAL_SYSTEM_INFO_INTERNAL
 #define MI_INTERNAL_SYSTEM_INFO_INTERNAL 1
 
 #include <iostream>
@@ -10,7 +10,7 @@
 //Windows
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)// Win32 API
 #ifndef	OS_WINDOWS
-   #define	OS_WINDOWS 1
+#define	OS_WINDOWS 1
 #include "SystemInfoInternalWindows.hpp"
 #endif	//OS_WINDOWS
 

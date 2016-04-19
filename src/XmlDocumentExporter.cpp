@@ -71,11 +71,10 @@ namespace mi
                                       iter != children.end() ; ++iter ) {
                                         if ( !this->write_node( out, *iter, indent + 1 ) ) return false;
                                 }
-				this->add_indent( out, indent );
-				out << "</" << elem->getName() << ">" << std::endl; // </node>
+                                this->add_indent( out, indent );
+                                out << "</" << elem->getName() << ">" << std::endl; // </node>
                         }
-                } 
-		else return false;
+                } else return false;
                 return out.good();
         }
 

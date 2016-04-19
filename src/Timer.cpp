@@ -38,7 +38,7 @@ namespace mi
 
                 bool end ( const std::string& key, const clock_time_t t )
                 {
-                        this->_time[key] =  std::chrono::duration_cast<std::chrono::milliseconds>( t - this->_startTime[key]).count() * 0.001;
+                        this->_time[key] =  std::chrono::duration_cast<std::chrono::milliseconds>( t - this->_startTime[key] ).count() * 0.001;
                         this->_keys.push_back ( key ) ;
                         return true;
                 }
@@ -165,17 +165,17 @@ namespace mi
                 } else {
                         std::stringstream ss;
                         ss << key  << " : "
-			   << "\t" << std::setprecision ( digit ) << this->get ( key , format )
-			   << "\t" << this->get_format_string ( format );
+                           << "\t" << std::setprecision ( digit ) << this->get ( key , format )
+                           << "\t" << this->get_format_string ( format );
                         return ss.str();
                 }
         }
 
 //        double
-	clock_time_t
+        clock_time_t
         Timer::get_elapsed_time ( void ) const
         {
-		return std::chrono::high_resolution_clock::now();
+                return std::chrono::high_resolution_clock::now();
         }
 
         time_format

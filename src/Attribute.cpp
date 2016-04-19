@@ -188,8 +188,8 @@ namespace mi
         Attribute::print_usage ( void )
         {
                 if ( ! this->_impl->isHidden() ) {
-                	std::cerr << "\t" << this->getKey() << "\t" << this->getMessage() << std::endl;
-		}
-		return;
+                        std::cerr << "\t" << this->getKey() << "\t" << this->getMessage() << std::endl;
+                }
+                return;
         }
 }

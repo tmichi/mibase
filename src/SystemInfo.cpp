@@ -11,25 +11,25 @@ namespace mi
         std::string
         SystemInfo::getCpuName ( void )
         {
-		return mi::internal::SystemInfoInternal::getInstance().getCpuName();
+                return mi::internal::SystemInfoInternal::getInstance().getCpuName();
         }
 
         double
         SystemInfo::getMemorySize ( void )
         {
-		return mi::internal::SystemInfoInternal::getInstance().getMemorySize();
+                return mi::internal::SystemInfoInternal::getInstance().getMemorySize();
         }
 
         int
         SystemInfo::getNumCores ( void )
         {
-		return mi::internal::SystemInfoInternal::getInstance().getNumCores();
+                return mi::internal::SystemInfoInternal::getInstance().getNumCores();
         }
 
         std::string
         SystemInfo::getDate ( void )
         {
-		return mi::internal::SystemInfoInternal::getInstance().getDate();
+                return mi::internal::SystemInfoInternal::getInstance().getDate();
         }
         void
         SystemInfo::print ( std::ostream&  out )
@@ -38,11 +38,11 @@ namespace mi
                 out << "cpu: "   << SystemInfo::getCpuName()    << "(" << SystemInfo::getNumCores() << "cores)" << std::endl;
                 out << "memory:" << SystemInfo::getMemorySize() << "[gb]" << std::endl;
         }
-	
+
         double
         SystemInfo::getPeakMemorySize ( const SIZE_TYPE type )
         {
-		double peakMemory = mi::internal::SystemInfoInternal::getInstance().getPeakMemory();
+                double peakMemory = mi::internal::SystemInfoInternal::getInstance().getPeakMemory();
                 if ( type == MI_GIGA_BYTE ) {
                         peakMemory /= 1024 * 1024 * 1024 ;
                 } else if ( type == MI_MEGA_BYTE ) {
