@@ -4,21 +4,6 @@
  */
 #include <mi/Timer.hpp>
 
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
-#include <windows.h>
-#else
-#include <sys/time.h>
-#endif
-
-///Unit of clocks (s) .
-#ifdef  __APPLE__
-#define SUBSECONDS 1.0e-6
-#else // linux
-#define SUBSECONDS 1.0e-3
-#endif
-
-#include <ctime>
-
 namespace mi
 {
         class Timer::Impl
@@ -45,15 +30,15 @@ namespace mi
                         return this->_startTime.find ( key ) != this->_startTime.end();
                 }
 
-                bool start ( const std::string& key, const double t )
+                bool start ( const std::string& key, const clock_time_t t )
                 {
                         this->_startTime[ key ] = t;
                         return true;
                 }
 
-                bool end ( const std::string& key, const double t )
+                bool end ( const std::string& key, const clock_time_t t )
                 {
-                        this->_time[key] =  t - this->_startTime[key];
+                        this->_time[key] =  std::chrono::duration_cast<std::chrono::seconds>(t - this->_startTime[key]).count();
                         this->_keys.push_back ( key ) ;
                         return true;
                 }
@@ -66,6 +51,7 @@ namespace mi
                 std::string  getKey ( const int i ) const
                 {
                         return this->_keys.at ( i );
+
                 }
 
                 void init ( void )
@@ -75,7 +61,7 @@ namespace mi
                         this->_keys.clear();
                 }
         private:
-                std::map<std::string, double> _startTime;/// Start time.
+                std::map<std::string, clock_time_t> _startTime;/// Start time.
                 std::map<std::string, double> _time; ///< Measured time
                 std::vector<std::string>      _keys; ///< Key
         };
@@ -178,24 +164,18 @@ namespace mi
                         return this->toString ( key, digit, f );
                 } else {
                         std::stringstream ss;
-                        ss << key << " : \t" << std::setprecision ( digit ) << this->get ( key , format ) << "\t" << this->get_format_string ( format );
+                        ss << key  << " : "
+			   << "\t" << std::setprecision ( digit ) << this->get ( key , format )
+			   << "\t" << this->get_format_string ( format );
                         return ss.str();
                 }
         }
 
-        double
+//        double
+	clock_time_t
         Timer::get_elapsed_time ( void ) const
         {
-#ifdef WIN32
-                LARGE_INTEGER start_pc, freq_pc;
-                QueryPerformanceFrequency ( &freq_pc );
-                QueryPerformanceCounter ( &start_pc );
-                return static_cast<double> ( start_pc.QuadPart ) / static_cast<double> ( freq_pc.QuadPart );
-#else //linux, mac
-                struct timeval tv0;
-                gettimeofday ( &tv0 , NULL );///@todo use clock_gettime()
-                return tv0.tv_sec + tv0.tv_usec * SUBSECONDS;
-#endif
+		return std::chrono::high_resolution_clock::now();
         }
 
         time_format
