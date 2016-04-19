@@ -16,6 +16,11 @@ ADD_LIBRARY( mibase STATIC #SHARED
              StringAttribute.cpp
 	     SvgRenderer.cpp
              SystemInfo.cpp
+             SystemInfoInternal.hpp
+             SystemInfoInternalWindows.hpp
+             SystemInfoInternalUnix.hpp
+             SystemInfoInternalCygwin.hpp	
+             SystemInfoInternalUnknown.hpp	
 	     TestSuite.cpp
 	     TestCase.cpp
              Thread.cpp

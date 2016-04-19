@@ -52,7 +52,7 @@ namespace mi
                  * @param [in] type the unit of return value.
                  * @return Peak memory size
                  */
-                static double      getPeakMemorySize ( const SIZE_TYPE type = MI_MEGA_BYTE );
+                static double getPeakMemorySize ( const SIZE_TYPE type = MI_MEGA_BYTE );
                 /**
                  * @brief Print all informatio
                  * @param[in] out Output stream
