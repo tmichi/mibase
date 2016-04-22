@@ -6,7 +6,7 @@
 #pragma once
 #ifndef MI_ARGUMENT_HPP
 #define MI_ARGUMENT_HPP 1
-
+#include "NonCopyable.hpp"
 #include <string>
 #include <iostream>
 
@@ -18,12 +18,8 @@ namespace mi
          *
          * @sa AttributeSet, NumericAttribute, BooleanAttribute, StringAttribute
          */
-        class Argument
+        class Argument : public NonCopyable
         {
-        private:
-                // prevent copy constructor and = operator.
-                Argument ( const Argument& that );
-                void operator = ( const Argument& that );
         public:
                 /**
                  * @brief Constructor.

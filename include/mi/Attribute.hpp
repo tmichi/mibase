@@ -9,6 +9,8 @@
 
 #include <string>
 #include <iostream>
+
+#include "NonCopyable.hpp"
 #include "Argument.hpp"
 
 namespace mi
@@ -29,11 +31,8 @@ namespace mi
          * @brief Base class for attributes.
          * @sa AttributeSet, NumericAttribute, BooleanAttribute, StringAttribute
          */
-        class Attribute
+        class Attribute : public NonCopyable
         {
-        private:
-                Attribute ( const Attribute& that );
-                void operator = ( const Attribute& that );
         protected:
                 /**
                  * @brief Constructor.
