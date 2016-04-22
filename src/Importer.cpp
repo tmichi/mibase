@@ -23,7 +23,7 @@ namespace mi
         }
 
         bool
-        Importer::isBinary ( void )
+        Importer::isBinary ( void ) const
         {
                 return this->_isBinary;
         }

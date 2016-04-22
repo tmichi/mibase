@@ -53,7 +53,8 @@ namespace mi
                  */
                 virtual std::string toString ( void ) const = 0;
 
-                bool isBinary ( void );
+		
+                bool isBinary ( void ) const;
 
         public:
                 /**
