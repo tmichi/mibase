@@ -16,15 +16,15 @@ namespace mi
                 Impl* _impl;
 
         public:
-		/**
-		 * @brief Constructor
-		 * @param [in] xmlDocument XML document object
-		 * @param [in] encoding Encoding of the document
-		 */
-		 XmlDocumentExporter( std::shared_ptr<XmlDocument> xmlDocument, const std::string encoding = "UTF-8" );
-		/**
-		 * @brief Destructor
-		 */
+                /**
+                 * @brief Constructor
+                 * @param [in] xmlDocument XML document object
+                 * @param [in] encoding Encoding of the document
+                 */
+                XmlDocumentExporter( std::shared_ptr<XmlDocument> xmlDocument, const std::string encoding = "UTF-8" );
+                /**
+                 * @brief Destructor
+                 */
                 ~XmlDocumentExporter ( void );
         private:
                 bool writeHeader ( std::ofstream& fout );

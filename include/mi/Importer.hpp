@@ -10,17 +10,15 @@
 #include <iostream>
 #include <fstream>
 
+#include "NonCopyable.hpp"
 namespace mi
 {
         /**
          * @class Importer
          * @brief Base class for Impoters.
          */
-        class Importer
+        class Importer : public NonCopyable
         {
-        private:
-                Importer ( const Importer& that );
-                void operator = ( const Importer& that );
         protected:
                 /**
                  * @brief Constructor.
@@ -53,7 +51,7 @@ namespace mi
                  */
                 virtual std::string toString ( void ) const = 0;
 
-		
+
                 bool isBinary ( void ) const;
 
         public:
@@ -64,7 +62,9 @@ namespace mi
                  */
                 bool read ( const std::string& filename  );
         private:
-                const bool _isBinary; ///<Binary mode.
+                class Impl;
+                Impl *_impl;
+//                const bool _isBinary; ///<Binary mode.
         };
 };
 #endif//MI_IMPORTER_HPP

@@ -1,16 +1,41 @@
 #include <mi/Exporter.hpp>
-#include <string>
 #include <iostream>
-#include <fstream>
 namespace mi
 {
-        Exporter::Exporter ( const bool isBinary ) : _isBinary ( isBinary )
+        class Exporter::Impl
+        {
+        public:
+                Impl ( const bool isBinary ) : _isBinary ( isBinary )
+                {
+                        return;
+                }
+
+                ~Impl ( void )
+                {
+                        return;
+                }
+
+                bool& isBinary ( void )
+                {
+                        return this->_isBinary;
+                }
+
+        private:
+                bool _isBinary;
+        };
+
+
+        Exporter::Exporter ( const bool isBinary ) : NonCopyable(), _impl ( new Impl( isBinary ) )
         {
                 return;
         }
 
         Exporter::~Exporter ( void )
         {
+                if ( this->_impl != NULL ) {
+                        delete this->_impl;
+                        this->_impl = nullptr;
+                }
                 return;
         }
 
@@ -23,7 +48,7 @@ namespace mi
         bool
         Exporter::isBinary ( void ) const
         {
-                return  this->_isBinary;
+                return  this->_impl->isBinary();
         }
 
         bool
@@ -31,7 +56,7 @@ namespace mi
         {
                 std::ios_base::openmode mode = std::ios_base::out;
 
-                if ( this->_isBinary ) {
+                if ( this->isBinary() ) {
                         mode |= std::ios::binary;
                 }
 

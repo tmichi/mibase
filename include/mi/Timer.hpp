@@ -52,9 +52,9 @@ namespace mi
                 Timer ( const Timer& that ) ;
                 void operator = ( const Timer& that ) ;
         public:
-		/**
-		 * @brief Constructor.
-		 */
+                /**
+                 * @brief Constructor.
+                 */
 
                 Timer ( void );
                 /**

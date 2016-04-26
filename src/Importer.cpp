@@ -6,13 +6,36 @@
 
 namespace mi
 {
-        Importer::Importer ( const bool isBinary ) : _isBinary ( isBinary )
+        class Importer::Impl
+        {
+        public:
+                Impl ( const bool isBinary ) : _isBinary ( isBinary )
+                {
+                        return ;
+                }
+                ~Impl ( void )
+                {
+                        return ;
+                }
+                bool &isBinary( void )
+                {
+                        return this->_isBinary;
+                }
+        private:
+                bool _isBinary;
+        };
+
+        Importer::Importer ( const bool isBinary ) : NonCopyable(), _impl( new Impl ( isBinary ) )
         {
                 return;
         }
 
         Importer::~Importer ( void )
         {
+                if ( this->_impl != NULL ) {
+                        delete this->_impl;
+                        this->_impl = nullptr;
+                }
                 return;
         }
 
@@ -25,7 +48,7 @@ namespace mi
         bool
         Importer::isBinary ( void ) const
         {
-                return this->_isBinary;
+                return this->_impl->isBinary();
         }
 
         bool
@@ -33,7 +56,7 @@ namespace mi
         {
                 std::ios_base::openmode mode = std::ios_base::in;
 
-                if ( this->_isBinary ) {
+                if ( this->isBinary() ) {
                         mode |= std::ios::binary;
                 }
 

@@ -7,19 +7,18 @@
 #define MI_EXPORTER_HPP 1
 
 #include <string>
-#include <iostream>
 #include <fstream>
+
+#include "NonCopyable.hpp"
 namespace mi
 {
         /**
          * @class Exporter Exporter.hpp "Exporter.hpp"
          * @brief Base class for Exporters.
          */
-        class Exporter
+        class Exporter : public NonCopyable
         {
-        private:
-                Exporter ( const Exporter& that );
-                void operator = ( const Exporter& that );
+
         protected:
                 /**
                  * @brief Constructor.
@@ -64,7 +63,9 @@ namespace mi
                  */
                 bool write ( const std::string& filename );
         private:
-                const bool _isBinary; ///< Binary mode.
+                class Impl;
+                Impl* _impl;
+//                const bool _isBinary; ///< Binary mode.
         };
 }
 #endif //MI_EXPORTER_HPP

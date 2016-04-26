@@ -10,6 +10,7 @@
 #include <deque>
 #include <queue>
 
+#include "NonCopyable.hpp"
 namespace mi
 {
         /**
@@ -23,12 +24,8 @@ namespace mi
          * I believe it will be a help for implementing Dijkstra's shortest path problem or distance transform algorithm.
          */
         template <typename T>
-        class PriorityQueue
+        class PriorityQueue : public NonCopyable
         {
-        private:
-                // disable copy constructor and = operator.
-                PriorityQueue ( const PriorityQueue& that );
-                void operator = ( const PriorityQueue& that );
         private:
                 typedef std::pair<float, T> queue_type;
                 /**

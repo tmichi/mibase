@@ -16,9 +16,9 @@ namespace mi
         protected:
                 XmlNode ( void );
         public:
-		/**
-		 * @brief Destructor
-		 */
+                /**
+                 * @brief Destructor
+                 */
                 virtual ~XmlNode ( void );
                 virtual XmlNodeType getType ( void ) const = 0;
                 virtual bool isLeaf( void ) const = 0;

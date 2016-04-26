@@ -46,7 +46,7 @@ namespace mi
         };
 
 
-        Argument::Argument ( int argc, char** argv ) : _impl ( new Argument::Impl() )
+        Argument::Argument ( int argc, char** argv ) : NonCopyable(), _impl ( new Argument::Impl() )
         {
                 for ( int i = 0 ; i < argc ; ++i ) {
                         this->add ( std::string ( argv[i] ) );

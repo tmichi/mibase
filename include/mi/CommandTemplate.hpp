@@ -12,6 +12,7 @@
 #include "AttributeSet.hpp"
 #include "SystemInfo.hpp"
 #include "Timer.hpp"
+#include "NonCopyable.hpp"
 /**
  * @namespace mi
  * @brief Namespace of codes those I created.
@@ -22,11 +23,8 @@ namespace mi
         * @class CommandTemplate CommandTemplate.hpp <mi/CommandTemplate.hpp>
         * @brief Template for CUI-based command.
         */
-        class CommandTemplate
+        class CommandTemplate : public NonCopyable
         {
-        private:
-                CommandTemplate ( const CommandTemplate& that );
-                void operator = ( const CommandTemplate& that );
         public:
                 /**
                 * @brief Constructor.
