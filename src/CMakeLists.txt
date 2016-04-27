@@ -3,6 +3,7 @@ ADD_LIBRARY( mibase STATIC #SHARED
              Attribute.cpp
              AttributeSet.cpp
              BooleanAttribute.cpp
+	     ColorMapper.cpp
              CommandTemplate.cpp
              DoubleNumericAttribute.cpp
              Exporter.cpp
