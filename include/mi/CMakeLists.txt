@@ -4,6 +4,7 @@ SET ( INCLUDE_FILES base.hpp
       AttributeSet.hpp
       BooleanAttribute.hpp
       Clamp.hpp
+      ColorMapper.hpp
       CommandTemplate.hpp
       DoubleNumericAttribute.hpp
       Exporter.hpp
@@ -11,6 +12,7 @@ SET ( INCLUDE_FILES base.hpp
       FileNameConverter.hpp
       Importer.hpp
       Limits.hpp
+      NonCopyable.hpp
       NumericAttribute.hpp
       ParallelFor.hpp
       Parse.hpp
