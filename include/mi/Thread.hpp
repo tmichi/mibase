@@ -6,19 +6,12 @@
 #ifndef MI_THREAD_HPP
 #define MI_THREAD_HPP 1
 
-#include <vector>
-
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)// Win32 API
-#define OS_WINDOWS 1
-#include <windows.h>
-#include <process.h>
 #define ThreadResult unsigned __stdcall
 #else // POSIX supporing system.
-#include <pthread.h>
-#define stdcall  ///< Ignorable macro.
 #define ThreadResult void*  ///<Thread result.
+#define stdcall  ///< Ignorable macro.
 #endif
-
 namespace mi
 {
         /**
