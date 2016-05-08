@@ -4,6 +4,7 @@
  */
 #ifndef MI_PARALLEL_FOR_HPP
 #define MI_PARALLEL_FOR_HPP 1
+#include <vector>
 #include <algorithm>
 #include "Thread.hpp"
 namespace mi
@@ -42,11 +43,7 @@ namespace mi
                                 std::vector<packed_data* > params;
 
                                 while ( start != end ) {
-                                        for ( int i = 0 ; i < grainSize ; ++i ) {
-                                                if ( iter == end ) {
-                                                        break;
-                                                }
-
+                                        for ( int i = 0 ; (i < grainSize && iter != end ); ++i ) {
                                                 ++iter; // += operator cannot be used .
                                         }
 

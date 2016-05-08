@@ -10,7 +10,8 @@
 #include <sstream>
 #include <iostream>
 #include <iomanip>
-#include <chrono>
+
+//#include <chrono>
 
 namespace mi
 {
@@ -119,11 +120,8 @@ namespace mi
                  * @retval false The key does not exist.
                  */
                 bool exist ( const std::string& key ) const;
-                /**
-                 * @brief Get elapsed time.
-                 * @return Elapsed time.
-                 */
-                clock_time_t get_elapsed_time ( void ) const;
+
+//                clock_time_t get_elapsed_time ( void ) const;
 
                 time_format estimate_format ( const double t ) const;
                 std::string get_format_string ( const time_format format ) const;

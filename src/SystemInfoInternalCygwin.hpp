@@ -8,6 +8,7 @@ namespace mi
 {
         namespace internal
         {
+                /// @todo Not implemented yet.
                 class SystemInfoInternal
                 {
                 public:

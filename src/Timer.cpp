@@ -3,6 +3,7 @@
  * @author Takashi Michikawa <michikawa@acm.org>
  */
 #include <mi/Timer.hpp>
+#include <chrono>
 
 namespace mi
 {
@@ -60,6 +61,10 @@ namespace mi
                         this->_time.clear();
                         this->_keys.clear();
                 }
+
+		clock_time_t getElapsedTime ( void ) const {
+			return std::chrono::high_resolution_clock::now();
+		}
         private:
                 std::map<std::string, clock_time_t> _startTime;/// Start time.
                 std::map<std::string, double> _time; ///< Measured time
@@ -91,7 +96,7 @@ namespace mi
                         std::cerr << "key " << key << " already exists." << std::endl;
                         return false;
                 } else {
-                        this->_impl->start ( key, this->get_elapsed_time() );
+                        this->_impl->start ( key, this->_impl->getElapsedTime() );
                         return true;
                 }
         }
@@ -103,7 +108,7 @@ namespace mi
                         std::cerr << "key " << key << " does not exist." << std::endl;
                         return false;
                 } else {
-                        this->_impl->end ( key, this->get_elapsed_time() );
+                        this->_impl->end ( key, this->_impl->getElapsedTime() );
                         return true;
                 }
         };
@@ -172,12 +177,12 @@ namespace mi
         }
 
 //        double
-        clock_time_t
+/*        clock_time_t
         Timer::get_elapsed_time ( void ) const
         {
                 return std::chrono::high_resolution_clock::now();
         }
-
+*/
         time_format
         Timer::estimate_format ( const double t ) const
         {
