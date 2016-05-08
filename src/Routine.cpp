@@ -14,7 +14,7 @@ namespace mi
                 Impl ( const Impl& that );
                 void operator = ( const Impl& that );
         public:
-                Impl ( const std::string &name ) : _name( name ), _status( true )
+                Impl ( const std::string& name ) : _name ( name ), _status ( true )
                 {
                         return;
                 }
@@ -24,7 +24,7 @@ namespace mi
                         return this->_name;
                 }
 
-                std::stringstream& getStream( void )
+                std::stringstream& getStream ( void )
                 {
                         return this->_ss;
                 }
@@ -39,7 +39,7 @@ namespace mi
                         this->_status = false;
                 }
 
-                static Timer& getTimer( void )
+                static Timer& getTimer ( void )
                 {
                         static Timer timer;
                         return timer;
@@ -55,21 +55,27 @@ namespace mi
 
         Routine::Routine ( const std::string& name ) : _impl ( new Impl ( name ) )
         {
-                Routine::Impl::getTimer().start( this->_impl->getName() );
+                Routine::Impl::getTimer().start ( this->_impl->getName() );
                 std::cerr << this->_impl->getName() << " routine ... ";
                 return;
         }
 
         Routine::~Routine ( void )
         {
-                Routine::Impl::getTimer().end( this->_impl->getName() );
-                if ( this->check() ) std::cerr << " done." << std::endl;
-                else  {
+                Routine::Impl::getTimer().end ( this->_impl->getName() );
+
+                if ( this->check() ) {
+                        std::cerr << " done." << std::endl;
+                } else  {
                         std::cerr << " failed." << std::endl;;
                         std::cerr << this->_impl->getStream().str() << std::endl;
                 }
+
                 // delete
-                if ( this->_impl != NULL ) delete this->_impl;
+                if ( this->_impl != NULL ) {
+                        delete this->_impl;
+                }
+
                 this->_impl = NULL;
                 return ;
         }
@@ -81,7 +87,10 @@ namespace mi
         bool
         Routine::run ( Routine* routine )
         {
-                if ( ! routine->check() ) return false;
+                if ( ! routine->check() ) {
+                        return false;
+                }
+
                 return routine->run_main_routine();
         }
         /*	bool
@@ -97,7 +106,7 @@ namespace mi
         }
 
         void
-        Routine::setDebugModeOn( void )
+        Routine::setDebugModeOn ( void )
         {
                 Routine::Impl::debug_mode() = true;
                 return;
@@ -110,14 +119,14 @@ namespace mi
         }
 
         bool
-        Routine::run_main_routine( void )
+        Routine::run_main_routine ( void )
         {
                 this->set_failed();
                 return this->_impl->getStatus();
         }
 
         void
-        Routine::set_failed( void )
+        Routine::set_failed ( void )
         {
                 this->_impl->setFailed();
                 return;

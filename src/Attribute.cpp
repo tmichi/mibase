@@ -190,6 +190,7 @@ namespace mi
                 if ( ! this->_impl->isHidden() ) {
                         std::cerr << "\t" << this->getKey() << "\t" << this->getMessage() << std::endl;
                 }
+
                 return;
         }
 }

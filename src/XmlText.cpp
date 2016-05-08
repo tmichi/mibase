@@ -15,7 +15,7 @@ namespace mi
                         return;
                 }
 
-                const std::string& getText( void ) const
+                const std::string& getText ( void ) const
                 {
                         return this->_text;
                 }
@@ -52,7 +52,7 @@ namespace mi
         void
         XmlText::setText ( const std::string& text )
         {
-                this->_impl->setText( text );
+                this->_impl->setText ( text );
         }
 
         const std::string&

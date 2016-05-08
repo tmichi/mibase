@@ -38,7 +38,7 @@ namespace mi
 
                 bool end ( const std::string& key, const clock_time_t t )
                 {
-                        this->_time[key] =  std::chrono::duration_cast<std::chrono::milliseconds>( t - this->_startTime[key] ).count() * 0.001;
+                        this->_time[key] =  std::chrono::duration_cast<std::chrono::milliseconds> ( t - this->_startTime[key] ).count() * 0.001;
                         this->_keys.push_back ( key ) ;
                         return true;
                 }
@@ -171,7 +171,6 @@ namespace mi
                 }
         }
 
-//        double
         clock_time_t
         Timer::get_elapsed_time ( void ) const
         {

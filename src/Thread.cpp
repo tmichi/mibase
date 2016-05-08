@@ -77,7 +77,7 @@ namespace mi
 
                 int size ( void ) const
                 {
-                        return static_cast<int>( this->_handle.size() );
+                        return static_cast<int> ( this->_handle.size() );
                 }
         private:
                 void add_sequence ( void )

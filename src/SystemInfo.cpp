@@ -43,6 +43,7 @@ namespace mi
         SystemInfo::getPeakMemorySize ( const SIZE_TYPE type )
         {
                 double peakMemory = mi::internal::SystemInfoInternal::getInstance().getPeakMemory();
+
                 if ( type == MI_GIGA_BYTE ) {
                         peakMemory /= 1024 * 1024 * 1024 ;
                 } else if ( type == MI_MEGA_BYTE ) {
@@ -50,6 +51,7 @@ namespace mi
                 } else if ( type == MI_KILO_BYTE ) {
                         peakMemory /= 1024;
                 }
+
                 return  peakMemory;
         }
 }

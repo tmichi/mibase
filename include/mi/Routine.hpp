@@ -20,13 +20,13 @@ namespace mi
                 virtual ~Routine ( void );
                 Routine* getInstance ( void );
                 static bool run ( Routine* routine );
-                static void setDebugModeOn( void );
+                static void setDebugModeOn ( void );
         protected:
                 std::stringstream& stream ();
 
-                virtual bool run_main_routine( void );
+                virtual bool run_main_routine ( void );
                 bool check ( void ) const ;
-                void set_failed( void ) ;
+                void set_failed ( void ) ;
                 /**
                  * @brief Check debug mode.
                  * @retval true Debug mode.

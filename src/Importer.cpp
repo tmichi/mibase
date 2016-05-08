@@ -17,7 +17,7 @@ namespace mi
                 {
                         return ;
                 }
-                bool &isBinary( void )
+                bool& isBinary ( void )
                 {
                         return this->_isBinary;
                 }
@@ -25,7 +25,7 @@ namespace mi
                 bool _isBinary;
         };
 
-        Importer::Importer ( const bool isBinary ) : NonCopyable(), _impl( new Impl ( isBinary ) )
+        Importer::Importer ( const bool isBinary ) : NonCopyable(), _impl ( new Impl ( isBinary ) )
         {
                 return;
         }
@@ -36,6 +36,7 @@ namespace mi
                         delete this->_impl;
                         this->_impl = nullptr;
                 }
+
                 return;
         }
 

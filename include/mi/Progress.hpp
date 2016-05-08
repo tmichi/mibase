@@ -11,6 +11,7 @@ namespace mi
         /**
          * @class Progress Progress.hpp <mi/Progress.hpp>
          * @brief Display progress.
+	 *
          */
         class Progress
         {
@@ -21,10 +22,10 @@ namespace mi
         public:
                 /**
                  * @brief Constructor.
-                 * @param [in] maxnum Maximum value of the counter.
+                 * @param [in] maxSteps Maximum value of the counter.
                  * @param [in] width Display width.
                  */
-                explicit Progress ( const int maxnum = 0 , const int width = 6 );
+                explicit Progress ( const int maxSteps = 0 , const int width = 6 );
 
                 /**
                  * @brief Destructor.
@@ -47,7 +48,9 @@ namespace mi
                  * @retval true Success.
                  * @retval false Counter already reaches to the end..
                  */
+
                 bool addCounter ( void );
+	private:
                 /**
                  * @brief Get string
                  * @return String representation of progress.

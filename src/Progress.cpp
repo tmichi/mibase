@@ -17,7 +17,7 @@ namespace mi
                 Impl ( const Impl& that ) ;
                 void operator = ( const Impl& that ) ;
         public:
-                Impl ( const int maxValue, const int width ) : _maxValue ( maxValue ), _width ( width ), _current ( 0 ), _isReturned ( false )
+                Impl ( const int maxStep, const int width ) : _maxStep ( maxStep ), _width ( width ), _current ( 0 ), _isReturned ( false )
                 {
                         return;
                 }
@@ -37,7 +37,7 @@ namespace mi
                 }
                 int getMaxSteps ( void ) const
                 {
-                        return this->_maxValue;
+                        return this->_maxStep;
                 }
 
                 int getCurrentSteps ( void ) const
@@ -60,7 +60,7 @@ namespace mi
                         this->_isReturned = true;
                 }
         private:
-                int _maxValue; ///< Max value.
+                int _maxStep; ///< Max value.
                 int _width;    ///< Display width
                 int _current;  ///< Current value.
                 bool _isReturned; ///< Flag for adding end line.
@@ -68,7 +68,7 @@ namespace mi
 
 
 
-        Progress::Progress ( const int maxnum, const int width ) : _impl ( new Progress::Impl ( maxnum, width ) )
+        Progress::Progress ( const int maxSteps, const int width ) : _impl ( new Progress::Impl ( maxSteps, width ) )
         {
                 std::cerr << std::endl;
                 std::cerr << "Progress : " << this->to_string();

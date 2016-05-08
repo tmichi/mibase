@@ -11,7 +11,7 @@ namespace mi
                         return;
                 }
 
-                ~Impl( void )
+                ~Impl ( void )
                 {
                         return;
                 }
@@ -21,7 +21,7 @@ namespace mi
                         this->_element = element;
                 }
 
-                std::shared_ptr<XmlElement> getRoot( void )
+                std::shared_ptr<XmlElement> getRoot ( void )
                 {
                         return this->_element;
                 }
@@ -37,13 +37,13 @@ namespace mi
                 return;
         }
         void
-        XmlDocument::addRoot( std::shared_ptr<XmlElement> element )
+        XmlDocument::addRoot ( std::shared_ptr<XmlElement> element )
         {
-                this->_impl->setRoot( element );
+                this->_impl->setRoot ( element );
         }
 
         std::shared_ptr<XmlElement>
-        XmlDocument::getRoot( void )
+        XmlDocument::getRoot ( void )
         {
                 return this->_impl->getRoot();
         }

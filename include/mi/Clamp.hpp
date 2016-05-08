@@ -58,14 +58,26 @@ namespace mi
          */
 
         template <typename T>
-        inline const bool inside( const T val, const T vmin, const T vmax , const bool isSame = true )
+        inline const bool inside ( const T val, const T vmin, const T vmax , const bool isSame = true )
         {
                 if ( isSame ) {
-                        if ( val == vmin ) return true;
-                        if ( val == vmax ) return true;
+                        if ( val == vmin ) {
+                                return true;
+                        }
+
+                        if ( val == vmax ) {
+                                return true;
+                        }
                 }
-                if ( val > vmin ) return true;
-                if ( val < vmax ) return true;
+
+                if ( val > vmin ) {
+                        return true;
+                }
+
+                if ( val < vmax ) {
+                        return true;
+                }
+
                 return false;
         }
 }
