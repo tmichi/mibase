@@ -25,7 +25,7 @@ namespace mi
         };
 
 
-        Exporter::Exporter ( const bool isBinary ) : NonCopyable(), _impl ( new Impl( isBinary ) )
+        Exporter::Exporter ( const bool isBinary ) : NonCopyable(), _impl ( new Impl ( isBinary ) )
         {
                 return;
         }
@@ -36,6 +36,7 @@ namespace mi
                         delete this->_impl;
                         this->_impl = nullptr;
                 }
+
                 return;
         }
 

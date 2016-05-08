@@ -26,12 +26,12 @@ namespace mi
                  * @brief Add node to root
                  * @param [in] element Root element
                  */
-                void addRoot( std::shared_ptr<XmlElement> element );
+                void addRoot ( std::shared_ptr<XmlElement> element );
                 /**
                  * @brief Get root node
                  * @return Root node
                  */
-                std::shared_ptr<XmlElement> getRoot( void );
+                std::shared_ptr<XmlElement> getRoot ( void );
         private:
                 class Impl;
                 Impl* _impl;

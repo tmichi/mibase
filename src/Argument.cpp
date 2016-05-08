@@ -57,18 +57,13 @@ namespace mi
 
         Argument::~Argument ( void )
         {
-                if ( this->_impl != NULL ) {
-                        delete this->_impl;
-                        this->_impl = NULL;
-                }
-
                 return;
         }
 
         int
         Argument::size ( void ) const
         {
-                return static_cast<int>( this->_impl->size() );
+                return static_cast<int> ( this->_impl->size() );
         }
 
         Argument&
@@ -97,7 +92,7 @@ namespace mi
         T
         Argument::get ( const int idx ) const
         {
-                return mi::parse<T> ( this->_impl->get( static_cast<size_t>( idx ) ) ) ;
+                return mi::parse<T> ( this->_impl->get ( static_cast<size_t> ( idx ) ) ) ;
         }
 
         int
@@ -106,10 +101,12 @@ namespace mi
                 if ( offset < 0 ) {
                         return -1;        // Offset number is negative
                 }
-                const size_t end = static_cast<size_t> ( static_cast<int>( this->size() ) - offset );
+
+                const size_t end = static_cast<size_t> ( static_cast<int> ( this->size() ) - offset );
+
                 for ( size_t i = 0 ; i < end ; ++i ) {
                         if ( this->_impl->get ( i ).compare ( key ) == 0 ) {
-                                return static_cast<int>( i ) + offset;
+                                return static_cast<int> ( i ) + offset;
                         }
                 }
 
@@ -120,6 +117,7 @@ namespace mi
         Argument::print ( std::ostream& out )
         {
                 const size_t end = this->_impl->size();
+
                 for ( size_t i = 0  ; i < end ; ++i ) {
                         const std::string str = this->_impl->get ( i );
 

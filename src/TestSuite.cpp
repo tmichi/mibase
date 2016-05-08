@@ -83,6 +83,7 @@ namespace mi
                 if ( TestCase::getNumErrors() == 0 ) {
                         return  EXIT_SUCCESS;
                 }
+
                 std::stringstream ss;
                 ss << testname << ".log";
                 std::ofstream fout ( ss.str().c_str() );

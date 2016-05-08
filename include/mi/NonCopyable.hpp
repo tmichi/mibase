@@ -12,9 +12,9 @@ namespace mi
                 {
                         return;
                 }
-                virtual ~NonCopyable( void )
+                virtual ~NonCopyable ( void )
                 {
-                        ;
+                        return;
                 }
         };
 }

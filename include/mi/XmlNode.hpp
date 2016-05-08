@@ -12,7 +12,7 @@ namespace mi
         {
         private:
                 void operator = ( const XmlNode& node );
-                XmlNode( const XmlNode& node );
+                XmlNode ( const XmlNode& node );
         protected:
                 XmlNode ( void );
         public:
@@ -21,7 +21,7 @@ namespace mi
                  */
                 virtual ~XmlNode ( void );
                 virtual XmlNodeType getType ( void ) const = 0;
-                virtual bool isLeaf( void ) const = 0;
+                virtual bool isLeaf ( void ) const = 0;
         };
 }
 #endif// MI_XML_NODE_HPP

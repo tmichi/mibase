@@ -30,14 +30,15 @@ namespace mi
                         return this->_lower;
                 }
 
-                double upper( void ) const
+                double upper ( void ) const
                 {
                         return this->_upper;
                 }
 
         };
 
-        ColorMapper::ColorMapper ( const double lower, const double upper ) : _impl ( new Impl( lower , upper ) )
+        ColorMapper::ColorMapper ( const double lower, const double upper ) : _impl ( new Impl ( lower , upper ) )
+
         {
                 return;
         }
@@ -51,7 +52,6 @@ namespace mi
                 return;
         }
 
-
         void
         ColorMapper::convert ( const double value, double& r,  double& g, double& b )
         {
@@ -61,6 +61,7 @@ namespace mi
                 r = mi::clamp( v   - 2.0                , 0.0, 1.0 );
                 g = mi::clamp( 2.0 - std::fabs( 2.0 - v ), 0.0, 1.0 );
                 b = mi::clamp( 2.0 - v                  , 0.0, 1.0 );
+
                 return;
         }
 
@@ -68,6 +69,7 @@ namespace mi
         ColorMapper::convert ( const double value, int& r,  int& g, int& b )
         {
                 double r0, g0, b0;
+
                 this->convert( value, r0, g0, b0 );
                 r = static_cast<int>( r0 * 255 ) ;
                 g = static_cast<int>( g0 * 255 ) ;
@@ -79,6 +81,7 @@ namespace mi
         ColorMapper::convert ( const double value, unsigned char& r,  unsigned char& g, unsigned char& b )
         {
                 int r0, g0, b0;
+
                 this->convert( value, r0, g0, b0 );
                 r = static_cast<unsigned char>( r0 ) ;
                 g = static_cast<unsigned char>( g0 ) ;

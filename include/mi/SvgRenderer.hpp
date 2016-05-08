@@ -22,7 +22,7 @@ namespace mi
         private:
                 Impl* _impl;
         public:
-                SvgRenderer( const int width, const int height, const std::string& filename = std::string( "draw.svg" ) );
+                SvgRenderer ( const int width, const int height, const std::string& filename = std::string ( "draw.svg" ) );
                 ~SvgRenderer ( void );
                 void setViewBox ( const double mnx, const double mny, const double mxx, const double mxy );
 
@@ -30,9 +30,9 @@ namespace mi
                 void init ( void );
 
                 void setStrokeWidth ( const double width );
-                void setStrokeColor( const std::string &col );
-                void setFillColor( const std::string &col );
-                void setStrokeDash( const int dash_pitch );
+                void setStrokeColor ( const std::string& col );
+                void setFillColor ( const std::string& col );
+                void setStrokeDash ( const int dash_pitch );
                 void setFontSize ( const int size );
                 void setFontFamily ( const std::string& family ) ;
 
@@ -40,7 +40,7 @@ namespace mi
                 void drawLine ( const double x0 , const double y0, const double x1, const double y1 );
                 void drawCircle ( const double cx, const double cy, const double r );
                 void drawRect ( const double x0, const double y0, const double w, const double h );
-                void drawText ( const double bx, const double by, const std::string& text, const std::string& algin = std::string( "start" ) ); // start, end, middle
+                void drawText ( const double bx, const double by, const std::string& text, const std::string& algin = std::string ( "start" ) ); // start, end, middle
         };
 }
 #endif// MI_SVG_DRAWER_HPP

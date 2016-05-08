@@ -16,10 +16,12 @@ namespace mi
                 {
                         return;
                 };
+
                 ~Impl ( void )
                 {
                         return;
                 }
+
                 void add ( const std::string&  str )
                 {
                         this->_token.push_back ( str );
@@ -37,26 +39,22 @@ namespace mi
                         } else {
                                 return std::string();
                         }
-                }        private:
+                } 
+	private:
                 std::vector<std::string> _token; ///<Tokens
         };
 
         Tokenizer::Tokenizer ( const std::string& str, const std::string delimiter ) : _impl ( new Tokenizer::Impl() )
         {
-                std::string::size_type end;
+                std::string::size_type end = 0;
                 std::string line = str;
 
-                for ( ; ; ) {
+		while ( end != std::string::npos ) {
                         end = line.find_first_of ( delimiter );
 
                         if ( line.substr ( 0, end ).length() > 0 ) {
                                 this->_impl->add ( line.substr ( 0, end ) );
                         }
-
-                        if ( std::string::npos == end ) {
-                                break;
-                        }
-
                         line = line.substr ( end + 1 );
                 }
 

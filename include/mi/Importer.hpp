@@ -63,7 +63,7 @@ namespace mi
                 bool read ( const std::string& filename  );
         private:
                 class Impl;
-                Impl *_impl;
+                Impl* _impl;
 //                const bool _isBinary; ///<Binary mode.
         };
 };

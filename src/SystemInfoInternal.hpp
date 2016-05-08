@@ -13,7 +13,6 @@
 #define	OS_WINDOWS 1
 #include "SystemInfoInternalWindows.hpp"
 #endif	//OS_WINDOWS
-
 //Cygwin
 #elif defined (__CYGWIN__)
 #ifndef OS_CYGWIN

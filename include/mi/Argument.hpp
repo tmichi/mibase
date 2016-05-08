@@ -9,6 +9,7 @@
 #include "NonCopyable.hpp"
 #include <string>
 #include <iostream>
+#include <memory>
 
 namespace mi
 {
@@ -87,7 +88,7 @@ namespace mi
                 void print ( std::ostream& out );
         private:
                 class Impl;
-                Argument::Impl* _impl;
+		std::unique_ptr<Impl> _impl;
         };
 } //namespace mi
 #endif //MI_ARGUMENT_HPP

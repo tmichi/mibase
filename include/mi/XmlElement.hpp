@@ -12,18 +12,18 @@ namespace mi
         class XmlElement : public XmlNode
         {
         public:
-                XmlElement ( const std::string &name );
+                XmlElement ( const std::string& name );
                 ~XmlElement ( void );
                 virtual XmlNodeType getType ( void ) const;
-                virtual bool isLeaf( void ) const;
+                virtual bool isLeaf ( void ) const;
 
                 void addChild ( std::shared_ptr<XmlNode> node );
                 void addAttribute ( const std::string& key, const std::string& value = std::string() );
 
-                std::list< std::shared_ptr<XmlNode> >& getChildren( void );
-                const std::map<std::string, std::string>& getAttributes( void ) const;
-                std::string getAttribute( const std::string& key ) const;
-                std::list<std::string> getAttributeKeys( void ) const;
+                std::list< std::shared_ptr<XmlNode> >& getChildren ( void );
+                const std::map<std::string, std::string>& getAttributes ( void ) const;
+                std::string getAttribute ( const std::string& key ) const;
+                std::list<std::string> getAttributeKeys ( void ) const;
                 const std::string& getName ( void ) const;
         private:
                 std::string _name; // element name
