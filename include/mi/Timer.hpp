@@ -11,6 +11,7 @@
 #include <iostream>
 #include <iomanip>
 #include <chrono>
+#include <memory>
 
 #include "NonCopyable.hpp"
 namespace mi

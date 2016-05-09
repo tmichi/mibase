@@ -8,6 +8,7 @@
 #include <cctype>
 #include <sstream>
 #include <iomanip>
+#include <memory>
 #include "NonCopyable.hpp"
 namespace mi
 {

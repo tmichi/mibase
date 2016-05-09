@@ -5,6 +5,7 @@
 #ifndef MI_PROGRESS_HPP
 #define MI_PROGRESS_HPP 1
 #include <string>
+#include <memory>
 #include "NonCopyable.hpp"
 namespace mi
 {

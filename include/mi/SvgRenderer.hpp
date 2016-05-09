@@ -8,7 +8,7 @@
 #include <string>
 #include <iostream>
 #include <cmath>
-
+#include <memory>
 #include "NonCopyable.hpp"
 namespace mi
 {
