@@ -32,9 +32,8 @@ namespace mi
         };
 
 
-        FileNameConverter::FileNameConverter ( const std::string& filename )
+        FileNameConverter::FileNameConverter ( const std::string& filename ) : NonCopyable(), _impl ( new Impl ( filename) )
         {
-                this->_impl = new Impl ( filename );
                 return;
         }
 
@@ -43,7 +42,6 @@ namespace mi
          */
         FileNameConverter::~FileNameConverter ( void )
         {
-                delete this->_impl;
                 return;
         }
 

@@ -7,19 +7,18 @@
 
 namespace mi
 {
-        class Timer::Impl
+        class Timer::Impl : public NonCopyable
         {
-        private:
-                Impl ( const Impl& that );
-                void operator = ( const Impl& that );
         public:
-                Impl ( void )
+                explicit Impl ( void )
                 {
                         this->init();
+			return;
                 }
 
                 ~Impl ( void )
                 {
+			return;
                 }
                 int size ( void ) const
                 {
@@ -72,7 +71,7 @@ namespace mi
         };
 
 
-        Timer::Timer ( void ) : _impl  ( new Timer::Impl() )
+        Timer::Timer ( void ) : NonCopyable(), _impl  ( new Timer::Impl() )
         {
                 return;
         }

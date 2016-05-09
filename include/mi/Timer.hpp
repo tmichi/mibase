@@ -12,6 +12,7 @@
 #include <iomanip>
 #include <chrono>
 
+#include "NonCopyable.hpp"
 namespace mi
 {
         typedef std::chrono::high_resolution_clock::time_point clock_time_t;
@@ -46,11 +47,8 @@ namespace mi
          * @endcode
          *
          */
-        class Timer
+        class Timer : public NonCopyable
         {
-        private:
-                Timer ( const Timer& that ) ;
-                void operator = ( const Timer& that ) ;
         public:
                 /**
                  * @brief Constructor.
@@ -130,7 +128,7 @@ namespace mi
                 const static int TIMER_DAY    = 24;//hours
 
                 class Impl;
-                Impl* _impl;
+		std::unique_ptr<Impl> _impl;
         };
 };
 #endif //MI_TIME_HPP

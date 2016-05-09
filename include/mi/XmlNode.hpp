@@ -1,5 +1,7 @@
 #ifndef MI_XML_NODE_HPP
 #define MI_XML_NODE_HPP 1
+#include "NonCopyable.hpp"
+#include <memory>
 namespace mi
 {
         enum XmlNodeType {
@@ -8,19 +10,25 @@ namespace mi
                 TextNode
         };
 
-        class XmlNode
+        class XmlNode : public NonCopyable
         {
-        private:
-                void operator = ( const XmlNode& node );
-                XmlNode ( const XmlNode& node );
         protected:
+                /**
+                 * @brief Constructor
+                 */
                 XmlNode ( void );
         public:
                 /**
                  * @brief Destructor
                  */
                 virtual ~XmlNode ( void );
+		/**
+		 * @brief Get type of the node.
+		 */
                 virtual XmlNodeType getType ( void ) const = 0;
+		/**
+		 * @brief Return the node is leaf or not.
+		 */
                 virtual bool isLeaf ( void ) const = 0;
         };
 }

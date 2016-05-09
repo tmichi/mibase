@@ -147,11 +147,6 @@ namespace mi
         template<typename T>
         NumericAttribute<T>::~NumericAttribute ( void )
         {
-                if ( this->_impln != NULL ) {
-                        delete this->_impln;
-                        this->_impln = NULL;
-                }
-
                 return;
         }
 

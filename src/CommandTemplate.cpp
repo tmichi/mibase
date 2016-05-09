@@ -60,7 +60,7 @@ namespace mi
                 bool         _isTimingModeOn; ///< Flag for timing mode.
                 bool         _isDebugModeOn;///< Flag for debug mode.
         };
-        CommandTemplate::CommandTemplate ( const std::string& cmdStr ) : NonCopyable(), _impl ( new CommandTemplate::Impl ( cmdStr ) )
+        CommandTemplate::CommandTemplate ( const std::string& cmdStr ) : NonCopyable(), _impl ( new Impl ( cmdStr ) )
         {
                 return;
         }
@@ -73,14 +73,7 @@ namespace mi
                         this->getTimer().end ( "total" );
                         this->getTimer().printAll ( 4, mi::TIME_SECOND, out );
                 }
-
                 out << "peakMemory : " << SystemInfo::getPeakMemorySize() << "[mb]" << std::endl;
-
-                if ( this->_impl != NULL ) {
-                        delete this->_impl;
-                        this->_impl = NULL;
-                }
-
                 return;
         }
 

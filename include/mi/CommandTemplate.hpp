@@ -7,6 +7,7 @@
 #define MI_COMMAND_TEMPLATE_HPP 1
 
 #include <cstdlib>
+#include <memory>
 
 #include "Argument.hpp"
 #include "AttributeSet.hpp"
@@ -103,7 +104,7 @@ namespace mi
                 static int execute ( CommandTemplate& cmd, Argument& arg );
         private:
                 class Impl;
-                Impl* _impl;
+		std::unique_ptr<Impl> _impl;
         };//class CommandTemplate
 }//namespace mi
 #endif // MI_COMMAND_TEMPLATE_HPP

@@ -9,6 +9,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <memory>
 
 #include "NonCopyable.hpp"
 namespace mi
@@ -63,8 +64,7 @@ namespace mi
                 bool read ( const std::string& filename  );
         private:
                 class Impl;
-                Impl* _impl;
-//                const bool _isBinary; ///<Binary mode.
+		std::unique_ptr<Impl> _impl;
         };
 };
 #endif//MI_IMPORTER_HPP

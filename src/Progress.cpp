@@ -11,13 +11,10 @@
 
 namespace mi
 {
-        class Progress::Impl
+        class Progress::Impl : public NonCopyable
         {
-        private:
-                Impl ( const Impl& that ) ;
-                void operator = ( const Impl& that ) ;
         public:
-                Impl ( const int maxStep, const int width ) : _maxStep ( maxStep ), _width ( width ), _current ( 0 ), _isReturned ( false )
+                Impl ( const int maxStep, const int width ) : NonCopyable(), _maxStep ( maxStep ), _width ( width ), _current ( 0 ), _isReturned ( false )
                 {
                         return;
                 }
@@ -68,7 +65,7 @@ namespace mi
 
 
 
-        Progress::Progress ( const int maxSteps, const int width ) : _impl ( new Progress::Impl ( maxSteps, width ) )
+        Progress::Progress ( const int maxSteps, const int width ) : _impl ( new Impl ( maxSteps, width ) )
         {
                 std::cerr << std::endl;
                 std::cerr << "Progress : " << this->to_string();
@@ -77,7 +74,6 @@ namespace mi
 
         Progress::~Progress ( void )
         {
-                delete this->_impl;
                 return ;
         }
 

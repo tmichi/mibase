@@ -22,10 +22,10 @@ namespace mi
         typedef pthread_mutex_t CriticalSectionHandle;///< Critical section handle.
 #endif
 
-        class Thread::Impl
+        class Thread::Impl : public NonCopyable
         {
         public:
-                Impl ( void )
+                Impl ( void ) : NonCopyable()
                 {
                         this->resetSequence();
                         return;
@@ -86,7 +86,7 @@ namespace mi
                 CriticalSectionHandle	_cs;
         };
 
-        Thread::Thread ( void ) : _impl ( new Thread::Impl() )
+        Thread::Thread ( void ) : NonCopyable(), _impl ( new Thread::Impl() )
         {
                 CriticalSectionHandle& cs = this->_impl->getCSHandle();
 #ifdef OS_WINDOWS
@@ -105,7 +105,6 @@ namespace mi
 #else //pthread
                 pthread_mutex_destroy ( &cs );
 #endif
-                delete this->_impl;
                 return;
         }
 
@@ -236,10 +235,10 @@ namespace mi
                 this->endCriticalSection();
                 return result;
         }
+
         /**
          * @brief Reset the sequence.
          */
-
         void
         Thread::resetSequence ( void )
         {

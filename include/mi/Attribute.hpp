@@ -9,7 +9,7 @@
 
 #include <string>
 #include <iostream>
-
+#include <memory>
 #include "NonCopyable.hpp"
 #include "Argument.hpp"
 
@@ -138,13 +138,7 @@ namespace mi
                 void setErrorCode ( const AttributeErrorCode code );
         private:
                 class Impl;
-                Impl* _impl;
-                /*std::string        _key;        ///< Key string.
-                std::string        _message;    ///< Message for the attribute.
-                bool               _isMandatory;///< Flag this is mandatory attribute.
-                bool               _isHidden;   ///< This is a hidden attribute.
-                AttributeErrorCode _errorCode;  ///< Error code
-                */
+		std::unique_ptr<Impl> _impl;
         };
 }
 #endif //MI_ATTRIBUTE_HPP

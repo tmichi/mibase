@@ -26,14 +26,13 @@ namespace mi
                         return ;
                 }
         };
-        XmlText::XmlText ( void ) : XmlNode(), _impl ( new Impl )
+        XmlText::XmlText ( void ) : XmlNode(), _impl ( new Impl() )
         {
                 return;
         }
 
         XmlText::~XmlText ( void )
         {
-                delete this->_impl;
                 return;
         }
 

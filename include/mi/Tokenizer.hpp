@@ -6,6 +6,8 @@
 #define MI_TOKENIZER_HPP 1
 #include <string>
 #include <iostream>
+#include <memory>
+#include "NonCopyable.hpp"
 
 namespace mi
 {
@@ -13,11 +15,8 @@ namespace mi
          * @class Tokenizer Tokenizer.hpp "mi/Tokenizer.hpp"
          * @brief Tokenize the string.
          */
-        class Tokenizer
+        class Tokenizer : public NonCopyable
         {
-        private:
-                Tokenizer ( const Tokenizer& that ) ;
-                void operator = ( const Tokenizer& that ) ;
         public:
                 /**
                  * @brief Constructor.
@@ -47,7 +46,7 @@ namespace mi
                 void printAll ( std::ostream& out = std::cerr );
         private:
                 class Impl;
-                Tokenizer::Impl* _impl;
+		std::unique_ptr<Tokenizer::Impl> _impl;
         };
 };
 #endif//MI_TOKENIZER_HPP

@@ -1,6 +1,7 @@
 #ifndef MI_XML_DOCUMENT_HPP
 #define MI_XML_DOCUMENT_HPP 1
 #include <memory>
+#include "NonCopyable.hpp"
 #include "XmlElement.hpp"
 namespace mi
 {
@@ -8,11 +9,8 @@ namespace mi
          * @class XmlDocument XmlDocument.hpp mi/XmlDocument.hpp
          * @breif XML document
          */
-        class XmlDocument
+        class XmlDocument : public NonCopyable
         {
-        private:
-                XmlDocument ( const XmlDocument& that );
-                void operator = ( const XmlDocument& that );
         public:
                 /**
                  * @brief Constructor
@@ -34,9 +32,10 @@ namespace mi
                 std::shared_ptr<XmlElement> getRoot ( void );
         private:
                 class Impl;
-                Impl* _impl;
+		std::unique_ptr<Impl> _impl;
         };
 }
 #endif// MI_XML_DOCUMENT_HPP
+
 
 

@@ -32,11 +32,6 @@ namespace mi
 
         Exporter::~Exporter ( void )
         {
-                if ( this->_impl != NULL ) {
-                        delete this->_impl;
-                        this->_impl = nullptr;
-                }
-
                 return;
         }
 

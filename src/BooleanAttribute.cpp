@@ -34,11 +34,6 @@ namespace mi
 
         BooleanAttribute::~BooleanAttribute ( void )
         {
-                if ( this->_implb != NULL ) {
-                        delete this->_implb;
-                        this->_implb = NULL;
-                }
-
                 return;
         }
 

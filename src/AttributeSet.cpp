@@ -61,11 +61,6 @@ namespace mi
 
         AttributeSet::~AttributeSet ( void )
         {
-                if ( this->_impls != NULL ) {
-                        delete this->_impls;
-                        this->_impls = NULL;
-                }
-
                 return ;
         }
 

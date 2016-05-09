@@ -5,6 +5,8 @@
 #ifndef MI_TEST_SUITE_HPP
 #define MI_TEST_SUITE_HPP 1
 #include <string>
+#include <memory>
+#include "NonCopyable.hpp"
 namespace mi
 {
         class TestCase;
@@ -13,11 +15,9 @@ namespace mi
          * @brief Test suite class.
          * @sa TestCase
          */
-        class TestSuite
+        class TestSuite : public NonCopyable
         {
         private:
-                TestSuite ( const TestSuite& that );
-                void operator = ( const TestSuite& that );
                 TestSuite ( void );
                 ~TestSuite ( void );
         public:
@@ -40,7 +40,7 @@ namespace mi
                 static std::string replace_str ( const std::string& inStr );
         private:
                 class Impl;
-                Impl* _impl;
+		std::unique_ptr<Impl> _impl;
         };
 }
 #endif //MI_TEST_SUITE_HPP

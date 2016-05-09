@@ -6,11 +6,8 @@
 #include <vector>
 namespace mi
 {
-        class Tokenizer::Impl
+        class Tokenizer::Impl : public NonCopyable
         {
-        private:
-                Impl ( const Impl& that );
-                void operator = ( const Impl& that );
         public:
                 Impl ( void )
                 {
@@ -44,7 +41,7 @@ namespace mi
                 std::vector<std::string> _token; ///<Tokens
         };
 
-        Tokenizer::Tokenizer ( const std::string& str, const std::string delimiter ) : _impl ( new Tokenizer::Impl() )
+        Tokenizer::Tokenizer ( const std::string& str, const std::string delimiter ) : NonCopyable(), _impl ( new Tokenizer::Impl() )
         {
                 std::string::size_type end = 0;
                 std::string line = str;
@@ -62,11 +59,6 @@ namespace mi
         };
         Tokenizer::~Tokenizer ( void )
         {
-                if ( this->_impl != NULL ) {
-                        delete this->_impl;
-                        this->_impl = NULL;
-                }
-
                 return;
         }
 

@@ -8,7 +8,8 @@
 #define MI_TEST_CASE_HPP 1
 #include <list>
 #include <iostream>
-
+#include <memory>
+#include "NonCopyable.hpp"
 namespace mi
 {
         /**
@@ -16,11 +17,8 @@ namespace mi
          * @brief Basic class for writing test cases.
          * @sa TestSuite
          */
-        class TestCase
+        class TestCase : public NonCopyable
         {
-        private:
-                TestCase ( const TestCase& that );
-                void operator = ( const TestCase& that );
         protected:
                 /**
                  * @brief Constructor
@@ -104,7 +102,7 @@ namespace mi
                 static std::list<std::string>& get_message ( void );
         private:
                 class Impl;
-                Impl* _impl;
+		std::unique_ptr<TestCase::Impl> _impl;
         };
 #define INIT_TEST(TYPE) static TYPE test
 }

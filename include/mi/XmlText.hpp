@@ -35,7 +35,7 @@ namespace mi
                 const std::string& getText ( void ) const;
         private:
                 class Impl;
-                Impl* _impl;
+		std::unique_ptr<Impl> _impl;
         };
 }
 #endif// MI_XML_TEXT_HPP

@@ -8,6 +8,7 @@
 
 #include <string>
 #include <fstream>
+#include <memory>
 
 #include "NonCopyable.hpp"
 namespace mi
@@ -64,7 +65,7 @@ namespace mi
                 bool write ( const std::string& filename );
         private:
                 class Impl;
-                Impl* _impl;
+		std::unique_ptr<Impl> _impl;
 //                const bool _isBinary; ///< Binary mode.
         };
 }

@@ -11,7 +11,7 @@
 
 namespace mi
 {
-        class TestCase::Impl
+        class TestCase::Impl : public NonCopyable
         {
         public:
                 Impl ( void )

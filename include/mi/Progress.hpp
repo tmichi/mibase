@@ -5,7 +5,7 @@
 #ifndef MI_PROGRESS_HPP
 #define MI_PROGRESS_HPP 1
 #include <string>
-
+#include "NonCopyable.hpp"
 namespace mi
 {
         /**
@@ -13,12 +13,8 @@ namespace mi
          * @brief Display progress.
 	 *
          */
-        class Progress
+        class Progress : public NonCopyable
         {
-        private:
-                class Impl;
-                Progress ( const Progress& that );
-                void operator = ( const Progress& that );
         public:
                 /**
                  * @brief Constructor.
@@ -57,7 +53,8 @@ namespace mi
                  */
                 inline std::string to_string ( void ) const;
         private:
-                Impl* _impl;
+                class Impl;
+		std::unique_ptr<Impl> _impl;
         };
 }
 #endif// MI_PROGRESS_HPP

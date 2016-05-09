@@ -38,17 +38,12 @@ namespace mi
         };
 
         ColorMapper::ColorMapper ( const double lower, const double upper ) : _impl ( new Impl ( lower , upper ) )
-
         {
                 return;
         }
 
         ColorMapper::~ColorMapper ( void )
         {
-                if ( this->_impl != NULL ) {
-                        delete this->_impl;
-                        this->_impl = NULL;
-                }
                 return;
         }
 

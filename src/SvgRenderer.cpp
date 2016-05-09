@@ -6,7 +6,7 @@
 #include <mi/xml.hpp>
 namespace mi
 {
-        class SvgRenderer::Impl
+        class SvgRenderer::Impl : public NonCopyable
         {
         public:
                 class Vector2d
@@ -161,7 +161,7 @@ namespace mi
         // Definition of SvgRenderer
 
         SvgRenderer::SvgRenderer ( const int width, const int height, const std::string& filename )
-                : _impl ( new SvgRenderer::Impl ( width, height, filename ) )
+                : NonCopyable(), _impl ( new SvgRenderer::Impl ( width, height, filename ) )
         {
                 std::shared_ptr<mi::XmlElement> elem ( new mi::XmlElement ( "svg" ) ) ;
                 elem->addAttribute ( "xmlns", "http://www.w3.org/2000/svg" );
@@ -177,12 +177,6 @@ namespace mi
                 if ( !mi::XmlDocumentExporter ( this->_impl->getXml() ).write ( this->_impl->getFileName() ) ) {
                         std::cerr << "Saving failed." << std::endl;
                 };
-
-                if ( this->_impl != NULL ) {
-                        delete this->_impl;
-                        this->_impl = NULL;
-                }
-
                 return;
         }
 

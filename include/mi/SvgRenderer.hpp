@@ -8,6 +8,8 @@
 #include <string>
 #include <iostream>
 #include <cmath>
+
+#include "NonCopyable.hpp"
 namespace mi
 {
         /**
@@ -15,12 +17,8 @@ namespace mi
          * @brief Light-weight drawing tools of vector graphics as SVG files.
          * @note Current implementation supports drawing lines, circles and rectangles.
          */
-        class SvgRenderer
+        class SvgRenderer : public NonCopyable
         {
-        public:
-                class Impl;
-        private:
-                Impl* _impl;
         public:
                 SvgRenderer ( const int width, const int height, const std::string& filename = std::string ( "draw.svg" ) );
                 ~SvgRenderer ( void );
@@ -41,6 +39,9 @@ namespace mi
                 void drawCircle ( const double cx, const double cy, const double r );
                 void drawRect ( const double x0, const double y0, const double w, const double h );
                 void drawText ( const double bx, const double by, const std::string& text, const std::string& algin = std::string ( "start" ) ); // start, end, middle
+        private:
+                class Impl;
+		std::unique_ptr<Impl>  _impl;
         };
 }
 #endif// MI_SVG_DRAWER_HPP

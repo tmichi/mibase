@@ -28,6 +28,7 @@ namespace mi
         {
         protected:
                 typedef std::list<Attribute*>::iterator Iterator;
+
         public:
                 /**
                  * @brief Constructor.
@@ -111,7 +112,7 @@ namespace mi
 
         private:
                 class Impl;
-                Impl* _impls;
+		std::unique_ptr<Impl> _impls;
         };
 }
 #endif //MI_ATTRIBUTE_SET_HPP

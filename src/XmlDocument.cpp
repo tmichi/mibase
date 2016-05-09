@@ -33,7 +33,6 @@ namespace mi
         }
         XmlDocument::~XmlDocument ( void )
         {
-                delete this->_impl;
                 return;
         }
         void

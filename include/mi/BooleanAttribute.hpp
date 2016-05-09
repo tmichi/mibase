@@ -45,7 +45,7 @@ namespace mi
                 BooleanAttribute& setMessage ( const std::string& message );
         private:
                 class Impl;
-                Impl* _implb;
+		std::unique_ptr<Impl> _implb;
         }; //class BooleanAttribute
 }//namespace mi
 #endif // MI_BOOLEAN_ATTRIBUTE_HPP

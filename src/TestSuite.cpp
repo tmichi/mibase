@@ -10,10 +10,10 @@
 #include <iostream>
 namespace mi
 {
-        class TestSuite::Impl
+        class TestSuite::Impl : public NonCopyable
         {
         public:
-                Impl ( void )
+                Impl ( void ) : NonCopyable()
                 {
                         return;
                 }
@@ -49,11 +49,6 @@ namespace mi
 
         TestSuite::~TestSuite ( void )
         {
-                if ( this->_impl != NULL ) {
-                        delete this->_impl;
-                        this->_impl = NULL;
-                }
-
                 return;
         }
 

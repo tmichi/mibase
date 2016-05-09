@@ -8,19 +8,15 @@
 #include <cctype>
 #include <sstream>
 #include <iomanip>
-
+#include "NonCopyable.hpp"
 namespace mi
 {
         /**
          * @class FileNameConverter FileNameConverter.hpp <mi/FileNameConverter.hpp>
          * @brief Converter for changing filename.
          */
-        class FileNameConverter
+        class FileNameConverter : public NonCopyable
         {
-        private:
-                class Impl;
-                FileNameConverter ( const FileNameConverter& that );
-                void operator = ( const FileNameConverter& that );
         public:
                 /**
                  * @brief Contrucor.
@@ -79,7 +75,8 @@ namespace mi
                  */
                 std::string to_upper ( const  std::string str ) const;
         private:
-                Impl* _impl;
+                class Impl;
+		std::unique_ptr<Impl> _impl;
         };
 };
 #endif// MI_FILE_NAME_CONVERTER_HPP

@@ -5,6 +5,8 @@
 //C4530
 #ifndef MI_THREAD_HPP
 #define MI_THREAD_HPP 1
+#include <memory>
+#include "NonCopyable.hpp"
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)// Win32 API
 #define ThreadResult unsigned __stdcall
@@ -19,16 +21,13 @@ namespace mi
          * @class Thread Thread.hpp "mi/Thread.hpp"
          * @brief Thread object.
          */
-        class Thread
+        class Thread : public NonCopyable
         {
-        private:
-                Thread ( const Thread& that ) ;
-                void operator = ( const Thread& that ) ;
         public:
                 /**
                  * @brief Constructor.
                  */
-                Thread ( void );
+                explicit Thread ( void );
                 /**
                  * @brief Destructor.
                  */
@@ -99,7 +98,7 @@ namespace mi
                 void resetSequence ( void );
         private:
                 class Impl;
-                Impl* _impl;
+		std::unique_ptr<Impl> _impl;
         };
 }
 #endif // MI_THREAD_HPP

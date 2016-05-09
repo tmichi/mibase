@@ -3,23 +3,18 @@
 #include <string>
 #include <memory>
 #include <iomanip>
-
-#include <mi/Exporter.hpp>
+#include "Exporter.hpp"
 #include "XmlDocument.hpp"
 namespace mi
 {
         class XmlDocument;
         class XmlDocumentExporter : public mi::Exporter
         {
-        private:
-                class Impl;
-                Impl* _impl;
-
         public:
                 /**
                  * @brief Constructor
                  * @param [in] xmlDocument XML document object
-                 * @param [in] encoding Encoding of the document
+                 * @param [in] encoding Encoding of the document, however this is no-meaning.
                  */
                 XmlDocumentExporter ( std::shared_ptr<XmlDocument> xmlDocument, const std::string encoding = "UTF-8" );
                 /**
@@ -32,6 +27,9 @@ namespace mi
                 std::string toString ( void ) const;
                 bool write_node ( std::ostream& out, const std::shared_ptr<XmlNode>& node, const int indent );
                 void add_indent ( std::ostream& out, const int indent );
+        private:
+                class Impl;
+		std::unique_ptr<Impl> _impl;
         };
 }
 #endif// MI_XML_DOCUMENT_EXPOLORER_HPP
