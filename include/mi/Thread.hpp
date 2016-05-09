@@ -8,6 +8,7 @@
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)// Win32 API
 #define ThreadResult unsigned __stdcall
+#define OS_WINDOWS 1
 #else // POSIX supporing system.
 #define ThreadResult void*  ///<Thread result.
 #define stdcall  ///< Ignorable macro.

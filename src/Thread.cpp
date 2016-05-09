@@ -5,8 +5,7 @@
 #include <mi/Thread.hpp>
 #include <vector>
 
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)// Win32 API
-#define OS_WINDOWS 1
+#if OS_WINDOWS
 #include <windows.h>
 #include <process.h>
 #else // POSIX supporing system.
