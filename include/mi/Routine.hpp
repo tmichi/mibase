@@ -12,21 +12,21 @@ namespace mi
         {
         private:
                 class Impl;
-		std::unique_ptr<Impl> _impl;
+                std::unique_ptr<Impl> _impl;
         protected:
-		/**
-		 * @brief Constructor
-		 * @param [in] name Routine name
-		 */
+                /**
+                 * @brief Constructor
+                 * @param [in] name Routine name
+                 */
                 explicit Routine ( const std::string& name );
         public:
-		/**
-		 * @brief Destructor
-		 */
+                /**
+                 * @brief Destructor
+                 */
                 virtual ~Routine ( void );
-		/**
-		 * @brief Get Instance.
-		 */
+                /**
+                 * @brief Get Instance.
+                 */
                 Routine* getInstance ( void );
                 static bool run ( Routine* routine );
                 static void setDebugModeOn ( void );

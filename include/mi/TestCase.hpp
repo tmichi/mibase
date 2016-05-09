@@ -102,7 +102,7 @@ namespace mi
                 static std::list<std::string>& get_message ( void );
         private:
                 class Impl;
-		std::unique_ptr<TestCase::Impl> _impl;
+                std::unique_ptr<TestCase::Impl> _impl;
         };
 #define INIT_TEST(TYPE) static TYPE test
 }

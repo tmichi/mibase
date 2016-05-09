@@ -65,7 +65,7 @@ namespace mi
                 bool write ( const std::string& filename );
         private:
                 class Impl;
-		std::unique_ptr<Impl> _impl;
+                std::unique_ptr<Impl> _impl;
 //                const bool _isBinary; ///< Binary mode.
         };
 }

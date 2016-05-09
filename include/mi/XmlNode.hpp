@@ -22,13 +22,13 @@ namespace mi
                  * @brief Destructor
                  */
                 virtual ~XmlNode ( void );
-		/**
-		 * @brief Get type of the node.
-		 */
+                /**
+                 * @brief Get type of the node.
+                 */
                 virtual XmlNodeType getType ( void ) const = 0;
-		/**
-		 * @brief Return the node is leaf or not.
-		 */
+                /**
+                 * @brief Return the node is leaf or not.
+                 */
                 virtual bool isLeaf ( void ) const = 0;
         };
 }

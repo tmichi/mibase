@@ -138,7 +138,7 @@ namespace mi
                 void setErrorCode ( const AttributeErrorCode code );
         private:
                 class Impl;
-		std::unique_ptr<Impl> _impl;
+                std::unique_ptr<Impl> _impl;
         };
 }
 #endif //MI_ATTRIBUTE_HPP

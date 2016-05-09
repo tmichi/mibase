@@ -12,7 +12,7 @@ namespace mi
         /**
          * @class Progress Progress.hpp <mi/Progress.hpp>
          * @brief Display progress.
-	 *
+         *
          */
         class Progress : public NonCopyable
         {
@@ -47,7 +47,7 @@ namespace mi
                  */
 
                 bool addCounter ( void );
-	private:
+        private:
                 /**
                  * @brief Get string
                  * @return String representation of progress.
@@ -55,7 +55,7 @@ namespace mi
                 inline std::string to_string ( void ) const;
         private:
                 class Impl;
-		std::unique_ptr<Impl> _impl;
+                std::unique_ptr<Impl> _impl;
         };
 }
 #endif// MI_PROGRESS_HPP

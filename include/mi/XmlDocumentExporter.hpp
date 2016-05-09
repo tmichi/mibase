@@ -29,7 +29,7 @@ namespace mi
                 void add_indent ( std::ostream& out, const int indent );
         private:
                 class Impl;
-		std::unique_ptr<Impl> _impl;
+                std::unique_ptr<Impl> _impl;
         };
 }
 #endif// MI_XML_DOCUMENT_EXPOLORER_HPP

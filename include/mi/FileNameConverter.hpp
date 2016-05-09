@@ -77,7 +77,7 @@ namespace mi
                 std::string to_upper ( const  std::string str ) const;
         private:
                 class Impl;
-		std::unique_ptr<Impl> _impl;
+                std::unique_ptr<Impl> _impl;
         };
 };
 #endif// MI_FILE_NAME_CONVERTER_HPP

@@ -40,7 +40,7 @@ namespace mi
                 static std::string replace_str ( const std::string& inStr );
         private:
                 class Impl;
-		std::unique_ptr<Impl> _impl;
+                std::unique_ptr<Impl> _impl;
         };
 }
 #endif //MI_TEST_SUITE_HPP

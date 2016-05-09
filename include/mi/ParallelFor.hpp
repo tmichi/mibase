@@ -43,7 +43,7 @@ namespace mi
                                 std::vector<packed_data* > params;
 
                                 while ( start != end ) {
-                                        for ( int i = 0 ; (i < grainSize && iter != end ); ++i ) {
+                                        for ( int i = 0 ; ( i < grainSize && iter != end ); ++i ) {
                                                 ++iter; // += operator cannot be used .
                                         }
 

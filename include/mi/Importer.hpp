@@ -64,7 +64,7 @@ namespace mi
                 bool read ( const std::string& filename  );
         private:
                 class Impl;
-		std::unique_ptr<Impl> _impl;
+                std::unique_ptr<Impl> _impl;
         };
 };
 #endif//MI_IMPORTER_HPP

@@ -104,7 +104,7 @@ namespace mi
                 static int execute ( CommandTemplate& cmd, Argument& arg );
         private:
                 class Impl;
-		std::unique_ptr<Impl> _impl;
+                std::unique_ptr<Impl> _impl;
         };//class CommandTemplate
 }//namespace mi
 #endif // MI_COMMAND_TEMPLATE_HPP

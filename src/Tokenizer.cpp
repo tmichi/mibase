@@ -36,8 +36,8 @@ namespace mi
                         } else {
                                 return std::string();
                         }
-                } 
-	private:
+                }
+        private:
                 std::vector<std::string> _token; ///<Tokens
         };
 
@@ -46,7 +46,7 @@ namespace mi
                 std::string::size_type end = 0;
                 std::string line = str;
 
-		while ( end != std::string::npos ) {
+                while ( end != std::string::npos ) {
                         end = line.find_first_of ( delimiter );
 
                         if ( line.substr ( 0, end ).length() > 0 ) {

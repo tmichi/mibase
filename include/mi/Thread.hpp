@@ -98,7 +98,7 @@ namespace mi
                 void resetSequence ( void );
         private:
                 class Impl;
-		std::unique_ptr<Impl> _impl;
+                std::unique_ptr<Impl> _impl;
         };
 }
 #endif // MI_THREAD_HPP

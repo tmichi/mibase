@@ -32,7 +32,7 @@ namespace mi
                 std::shared_ptr<XmlElement> getRoot ( void );
         private:
                 class Impl;
-		std::unique_ptr<Impl> _impl;
+                std::unique_ptr<Impl> _impl;
         };
 }
 #endif// MI_XML_DOCUMENT_HPP

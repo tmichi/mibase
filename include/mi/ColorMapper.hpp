@@ -17,7 +17,7 @@ namespace mi
                 void convert ( const double value, unsigned char& r,  unsigned char& g, unsigned char& b );
         private:
                 class Impl;
-		std::unique_ptr<Impl> _impl;
+                std::unique_ptr<Impl> _impl;
         };
 }
 #endif

@@ -41,7 +41,7 @@ namespace mi
                 void drawText ( const double bx, const double by, const std::string& text, const std::string& algin = std::string ( "start" ) ); // start, end, middle
         private:
                 class Impl;
-		std::unique_ptr<Impl>  _impl;
+                std::unique_ptr<Impl>  _impl;
         };
 }
 #endif// MI_SVG_DRAWER_HPP

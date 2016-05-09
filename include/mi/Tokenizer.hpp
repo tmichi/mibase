@@ -46,7 +46,7 @@ namespace mi
                 void printAll ( std::ostream& out = std::cerr );
         private:
                 class Impl;
-		std::unique_ptr<Tokenizer::Impl> _impl;
+                std::unique_ptr<Tokenizer::Impl> _impl;
         };
 };
 #endif//MI_TOKENIZER_HPP

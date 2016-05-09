@@ -88,7 +88,7 @@ namespace mi
                 void print ( std::ostream& out );
         private:
                 class Impl;
-		std::unique_ptr<Impl> _impl;
+                std::unique_ptr<Impl> _impl;
         };
 } //namespace mi
 #endif //MI_ARGUMENT_HPP

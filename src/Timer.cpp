@@ -13,12 +13,12 @@ namespace mi
                 explicit Impl ( void )
                 {
                         this->init();
-			return;
+                        return;
                 }
 
                 ~Impl ( void )
                 {
-			return;
+                        return;
                 }
                 int size ( void ) const
                 {
@@ -61,9 +61,10 @@ namespace mi
                         this->_keys.clear();
                 }
 
-		clock_time_t getElapsedTime ( void ) const {
-			return std::chrono::high_resolution_clock::now();
-		}
+                clock_time_t getElapsedTime ( void ) const
+                {
+                        return std::chrono::high_resolution_clock::now();
+                }
         private:
                 std::map<std::string, clock_time_t> _startTime;/// Start time.
                 std::map<std::string, double> _time; ///< Measured time
