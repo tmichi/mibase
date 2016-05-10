@@ -63,6 +63,10 @@ namespace mi
                                 return;
                         }
                 private:
+/*			static ThreadResult child_thread_cxx11 ( Iterator begin, Interator end, Function fn) {
+				std::for_each ( begin, end, fn );
+
+				}*/
                         static ThreadResult child_thread ( void* arg )
                         {
                                 packed_data* p = reinterpret_cast<packed_data*> ( arg );

@@ -4,13 +4,10 @@
 
 namespace mi
 {
-        class Argument::Impl
+        class Argument::Impl : public NonCopyable
         {
-        private:
-                Impl ( const Argument::Impl& that );
-                void operator = ( const Argument::Impl& that );
         public:
-                Impl ( void )
+                Impl ( void ) : NonCopyable()
                 {
                         return;
                 }

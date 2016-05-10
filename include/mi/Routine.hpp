@@ -34,6 +34,7 @@ namespace mi
                 std::stringstream& stream ();
 
                 virtual bool run_main_routine ( void );
+		
                 bool check ( void ) const ;
                 void set_failed ( void ) ;
                 /**
