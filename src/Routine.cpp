@@ -106,9 +106,10 @@ namespace mi
                 return;
         }
 
-	void 
+	Routine&
 	Routine::setTempFileNameHeader ( const std::string& fileName ) {
 		this->_impl->tempFile() = fileName;
+		return *this;
 	}
 
 	std::string

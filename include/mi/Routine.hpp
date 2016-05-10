@@ -31,7 +31,7 @@ namespace mi
                 static bool run ( Routine* routine );
                 static void setDebugModeOn ( void );
 		
-		void setTempFileNameHeader ( const std::string& fileName ) ;
+		Routine& setTempFileNameHeader ( const std::string& fileName ) ;
         protected:
                 std::stringstream& stream ();
 		std::string get_temp_file_name_header ( void ) const;
