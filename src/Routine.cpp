@@ -8,13 +8,14 @@ namespace mi
         {
         private:
                 const std::string _name;
-                std::stringstream _ss;
+		std::string _tempFile;
                 bool _status;
+                std::stringstream _ss;
         private:
                 Impl ( const Impl& that );
                 void operator = ( const Impl& that );
         public:
-                Impl ( const std::string& name ) : _name ( name ), _status ( true )
+                Impl ( const std::string& name ) : _name ( name ), _tempFile("routine"), _status ( true )
                 {
                         return;
                 }
@@ -38,6 +39,10 @@ namespace mi
                 {
                         this->_status = false;
                 }
+
+		std::string& tempFile(void) {
+			return this->_tempFile;
+		}
 
                 static Timer& getTimer ( void )
                 {
@@ -101,6 +106,16 @@ namespace mi
                 return;
         }
 
+	void 
+	Routine::setTempFileNameHeader ( const std::string& fileName ) {
+		this->_impl->tempFile() = fileName;
+	}
+
+	std::string
+	Routine::get_temp_file_name_header ( void ) const {
+		return this->_impl->tempFile();
+	}
+
         std::stringstream&
         Routine::stream ( void )
         {
@@ -128,4 +143,5 @@ namespace mi
         }
 
 }
+
 

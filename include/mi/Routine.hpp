@@ -30,9 +30,11 @@ namespace mi
                 Routine* getInstance ( void );
                 static bool run ( Routine* routine );
                 static void setDebugModeOn ( void );
+		
+		void setTempFileNameHeader ( const std::string& fileName ) ;
         protected:
                 std::stringstream& stream ();
-
+		std::string get_temp_file_name_header ( void ) const;
                 virtual bool run_main_routine ( void );
 		
                 bool check ( void ) const ;
