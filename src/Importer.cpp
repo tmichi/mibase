@@ -3,7 +3,8 @@
  * @author Takashi Michikawa <michikawa@acm.org>
  */
 #include <mi/Importer.hpp>
-
+#include <iostream>
+#include <sstream>
 namespace mi
 {
         class Importer::Impl
@@ -63,19 +64,19 @@ namespace mi
                         return false;
                 }
 
-                std::cerr << "reading data from " << filename << " as " << this->toString() << " format ... ";
+                 std::stringstream ss;
+		 ss<< "reading data from " << filename << " as " << this->toString() << " format ";
 
                 if ( !this->readHeader ( fin ) ) {
-                        std::cerr << "failed. invalid header." << std::endl;
+                        std::cerr << ss.str()<<"failed. invalid header." << std::endl;
                         return false;
                 }
 
                 if ( !this->readBody ( fin ) ) {
-                        std::cerr << "failed." << std::endl;
+                        std::cerr << ss.str() << "failed." << std::endl;
                         return false;
                 }
 
-                std::cerr << "done." << std::endl;
                 return true;
         }
 };

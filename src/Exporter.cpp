@@ -1,5 +1,6 @@
 #include <mi/Exporter.hpp>
 #include <iostream>
+#include <sstream>
 namespace mi
 {
         class Exporter::Impl
@@ -62,22 +63,21 @@ namespace mi
                         std::cerr << filename << "is not found." << std::endl;
                         return false;
                 }
+                std::stringstream ss;
+		ss << "writing data to " << filename << " as " << this->toString() << " format ";
 
-                std::cerr << "writing data to " << filename << " as " << this->toString() << " format ... ";
 
                 if ( !this->writeHeader ( fout ) ) {
-                        std::cerr << "failed." << std::endl
+                        std::cerr << ss.str()<<" failed." << std::endl
                                   << "file header was not written." << std::endl;
                         return false;
                 }
 
                 if ( !this->writeBody ( fout ) ) {
-                        std::cerr << "failed." << std::endl
+                        std::cerr << ss.str() <<" failed." << std::endl
                                   << "file body was not written." << std::endl;
                         return false;
                 }
-
-                std::cerr << "done." << std::endl;
                 return true;
         }
 }
