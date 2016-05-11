@@ -112,9 +112,12 @@ namespace mi
 		return *this;
 	}
 
-	std::string
-	Routine::get_temp_file_name_header ( void ) const {
-		return this->_impl->tempFile();
+
+	std::string 
+	Routine::create_temp_file_name ( const std::string& footer ) const {
+		std::stringstream ss;
+		ss << this->_impl->tempFile()<<footer;
+		return ss.str();
 	}
 
         std::stringstream&

@@ -1,5 +1,6 @@
 #include <mi/Routine.hpp>
 #include <iostream>
+#include <sstream>
 /*
   The result will be : 
   $ ./samples/routine1 

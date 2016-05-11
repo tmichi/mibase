@@ -1,6 +1,6 @@
 #ifndef MI_ROUTINE_HPP
 #define MI_ROUTINE_HPP 1
-#include <sstream>
+#include <string>
 #include <memory>
 #include "NonCopyable.hpp"
 namespace mi
@@ -34,7 +34,8 @@ namespace mi
 		Routine& setTempFileNameHeader ( const std::string& fileName ) ;
         protected:
                 std::stringstream& stream ();
-		std::string get_temp_file_name_header ( void ) const;
+		std::string create_temp_file_name ( const std::string& footer ) const;
+
                 virtual bool run_main_routine ( void );
 		
                 bool check ( void ) const ;
